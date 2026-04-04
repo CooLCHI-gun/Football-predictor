@@ -524,8 +524,17 @@ def optimize(
         "--refresh-prediction-cache",
         help="Force refresh of cached fold predictions before strategy replay.",
     ),
-    max_runs: int | None = typer.Option(None, help="Optional cap on number of parameter runs executed."),
-    dry_run: bool = typer.Option(False, help="Validate grid and print run count without executing backtests."),
+    max_runs: int | None = typer.Option(
+        None,
+        "--max-runs",
+        min=1,
+        help="Optional cap on number of parameter runs executed.",
+    ),
+    dry_run: bool = typer.Option(
+        False,
+        "--dry-run",
+        help="Validate grid and print run count without executing backtests.",
+    ),
     force: bool = typer.Option(False, help="Overwrite optimizer summary artifacts if they exist."),
 ) -> None:
     """Run walk-forward grid-search optimization on strategy and bankroll parameters."""
@@ -1236,7 +1245,8 @@ def railway_job_once(
     elif retrain_enabled:
         typer.echo("[railway-job-once] skip retrain (not due or already completed today).")
 
-    missing_feature_input = (backtest_due or optimize_due) and not feature_path.exists()
+    is_default_feature_path = feature_path == CLI_DEFAULT_PHASE3_FULL_FEATURES
+    missing_feature_input = (backtest_due or optimize_due) and (not feature_path.exists()) and (not is_default_feature_path)
     if missing_feature_input:
         typer.echo(
             "[railway-job-once] skip backtest/optimize: feature CSV not found at "

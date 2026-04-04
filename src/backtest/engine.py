@@ -381,10 +381,10 @@ def simulate_bets(
     min_confidence_threshold: float,
     max_concurrent_bets: int,
     skip_missing_data: bool,
-    flip_hkjc_side: bool,
     odds_source: str,
     bankroll_policy: BankrollPolicyConfig,
     controls: RiskControlsConfig,
+    flip_hkjc_side: bool = False,
 ) -> list[dict[str, object]]:
     """Simulate eligible bets under strategy thresholds, settlement rules, and bankroll controls."""
     trade_rows: list[dict[str, object]] = []
@@ -442,8 +442,6 @@ def simulate_bets(
             continue
 
         implied_probability_closing = _select_implied_probability_for_suffix(row=row, side=side, suffix="close")
-        if implied_probability_closing is None:
-            implied_probability_closing = _safe_implied_probability(closing_odds)
 
         clv_implied_edge = None
         if entry_implied_probability is not None and implied_probability_closing is not None:
