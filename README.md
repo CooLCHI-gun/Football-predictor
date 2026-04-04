@@ -290,12 +290,175 @@ python -m src.main predict --help
 python -m src.main predict-full --help
 python -m src.main backtest --help
 python -m src.main optimize --help
+python -m src.main daily-maintenance --help
 python -m src.main analyze-hkjc --help
 python -m src.main live-run-once --help
 python -m src.main live-loop --help
 python -m src.main validate-results --help
 python -m src.main alert --help
 ```
+
+---
+
+## 6.1 Railway 單一 command 每日雙時段排程
+
+當 Railway 只能設定一條啟動 command 時，可用 `daily-maintenance` 在同一個程序內分開時間執行 backtest 與 optimizer。
+
+```powershell
+python -m src.main daily-maintenance `
+  --timezone-name Asia/Hong_Kong `
+  --backtest-time 01:30 `
+  --optimize-time 03:30 `
+  --backtest-input-path data\processed\features_phase3_full.csv `
+  --optimize-input-path data\processed\features_phase3_full.csv `
+  --backtest-output-dir artifacts\backtest `
+  --optimize-output-dir artifacts\optimizer `
+  --use-date-run-id `
+  --use-prediction-cache `
+  --max-runs 120 `
+  --force
+```
+
+備註
+- `--backtest-time` 與 `--optimize-time` 使用 `HH:MM`（24 小時制）。
+- 預設時區為 `Asia/Hong_Kong`。
+- 預設會自動加上日期 run-id（例如 `daily_backtest_20260404`）。
+- `--repeat-daily` 可令同一程序每日持續循環。
+- 本機驗證可加 `--skip-wait`，立即執行兩個流程而不等待時間。
+
+快速驗證（立即執行，不等時間）
+
+```powershell
+python -m src.main daily-maintenance `
+  --timezone-name Asia/Hong_Kong `
+  --backtest-time 01:30 `
+  --optimize-time 03:30 `
+  --backtest-input-path data\processed\features_phase3_full.csv `
+  --optimize-input-path data\processed\features_phase3_full.csv `
+  --backtest-output-dir artifacts\backtest `
+  --optimize-output-dir artifacts\optimizer `
+  --use-date-run-id `
+  --use-prediction-cache `
+  --max-runs 30 `
+  --skip-wait `
+  --force
+```
+
+---
+
+## 6.2 每日推薦與分析 command 清單
+
+### A. 每日分析（Backtest + Optimizer + 分析報告）
+
+1) 每日雙時段分析（Railway 單 command）
+
+```powershell
+python -m src.main daily-maintenance `
+  --timezone-name Asia/Hong_Kong `
+  --backtest-time 01:30 `
+  --optimize-time 03:30 `
+  --backtest-input-path data\processed\features_phase3_full.csv `
+  --optimize-input-path data\processed\features_phase3_full.csv `
+  --backtest-output-dir artifacts\backtest `
+  --optimize-output-dir artifacts\optimizer `
+  --use-date-run-id `
+  --use-prediction-cache `
+  --max-runs 120 `
+  --force
+```
+
+2) 針對某日 backtest summary 產生分析建議
+
+```powershell
+python -m src.main analyze-hkjc `
+  --summary-csv-path artifacts\backtest\daily_backtest_20260404\summary.csv
+```
+
+### B. 每日推薦（Prediction + Alert）
+
+1) 產生全量預測
+
+```powershell
+python -m src.main predict-full `
+  --input-path data\processed\features_phase3_full.csv `
+  --model-path artifacts\model_bundle.pkl `
+  --output-path artifacts\predictions_full.csv `
+  --force
+```
+
+2) 輸出每日推薦（Telegram dry-run / live）
+
+```powershell
+# dry-run（建議先用）
+$env:TELEGRAM_DRY_RUN = "true"
+python -m src.main alert `
+  --predictions-path artifacts\predictions_full.csv `
+  --edge-threshold 0.02 `
+  --confidence-threshold 0.56 `
+  --max-alerts 3
+```
+
+```powershell
+# live 發送（確認 token/chat id 後）
+$env:TELEGRAM_DRY_RUN = "false"
+python -m src.main alert `
+  --predictions-path artifacts\predictions_full.csv `
+  --edge-threshold 0.02 `
+  --confidence-threshold 0.56 `
+  --max-alerts 3
+```
+
+### C. 常見錯誤（`daily-maintenance` 退出碼 1）
+
+- 只輸入 `python -m src.main daily-maintenance` 但已有舊檔案，可能被覆蓋保護擋住：加 `--force`。
+- 輸入資料不存在：確認 `data\\processed\\features_phase3_full.csv` 存在。
+- 時間格式錯誤：`--backtest-time` / `--optimize-time` 必須是 `HH:MM`。
+- 想即刻測試流程：加 `--skip-wait`。
+
+### D. Railway 專用最短一行版（每日分析 + 每5分鐘推薦）
+
+```powershell
+python -m src.main railway-job-once
+```
+
+建議 Railway 排程
+- 每 5 分鐘觸發一次同一條 command：`python -m src.main railway-job-once`
+- command 會做一次 `live-run-once` 後退出
+- `backtest` / `optimize` 只會在到達指定時間後每日各執行一次（用 state file 去重）
+
+常用覆寫參數（可選）
+
+```powershell
+python -m src.main railway-job-once `
+  --backtest-time 01:30 `
+  --optimize-time 03:30 `
+  --live-mode dry `
+  --force
+```
+
+如要真實發送 Telegram（非 dry-run）：
+- 在 Railway 變數設 `LIVE_MODE=live`
+- 並設定 `TELEGRAM_DRY_RUN=false`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`
+
+可調整的 Railway 環境變數（選填）
+- `BACKTEST_TIME`（預設 `01:30`）
+- `OPTIMIZE_TIME`（預設 `03:30`）
+- `TIMEZONE_NAME`（預設 `Asia/Hong_Kong`）
+- `FEATURE_PATH`（預設 `data/processed/features_phase3_full.csv`）
+- `OPTIMIZER_MAX_RUNS`（預設 `120`）
+- `LIVE_INTERVAL_SECONDS`（預設 `300`，即每 5 分鐘）
+- `LIVE_PROVIDER`（預設 `hkjc`）
+- `LIVE_MODEL_PATH`（預設 `artifacts/model_bundle.pkl`）
+- `LIVE_EDGE_THRESHOLD`（預設 `0.02`）
+- `LIVE_CONFIDENCE_THRESHOLD`（預設 `0.56`）
+- `LIVE_MAX_ALERTS`（預設 `3`）
+- `LIVE_OUTPUT_DIR`（預設 `artifacts/live`）
+- `--state-path`（預設 `artifacts/railway_job_state.json`）
+
+PowerShell / venv 說明
+- 啟動腳本會強制使用 `.venv\Scripts\python.exe`
+- 啟動前會檢查 Python 版本必須為 `3.11`
+- 或直接使用 `python -m src.main railway-job-once`，不需額外 PowerShell 包裝
 
 ---
 

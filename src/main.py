@@ -1,6 +1,11 @@
 import json
+import subprocess
+import sys
+import time
 from dataclasses import replace
+from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import typer
 
@@ -30,6 +35,55 @@ app = typer.Typer(help="HKJC-oriented football handicap research framework")
 
 CLI_DEFAULT_PHASE3_FEATURES = Path("data/processed/features_phase3.csv")
 CLI_DEFAULT_PHASE3_FULL_FEATURES = Path("data/processed/features_phase3_full.csv")
+
+
+def _parse_hhmm(value: str, option_name: str) -> tuple[int, int]:
+    candidate = value.strip()
+    parts = candidate.split(":")
+    if len(parts) != 2 or not all(part.isdigit() for part in parts):
+        raise typer.BadParameter(f"{option_name} must be HH:MM format, got: {value}")
+    hour = int(parts[0])
+    minute = int(parts[1])
+    if hour < 0 or hour > 23 or minute < 0 or minute > 59:
+        raise typer.BadParameter(f"{option_name} must be within 00:00..23:59, got: {value}")
+    return hour, minute
+
+
+def _wait_until_local_time(target_hour: int, target_minute: int, tz: ZoneInfo, label: str, skip_wait: bool) -> None:
+    now_local = datetime.now(tz)
+    target_local = now_local.replace(hour=target_hour, minute=target_minute, second=0, microsecond=0)
+    if target_local <= now_local:
+        typer.echo(f"[{label}] target time already passed for today ({target_local.strftime('%Y-%m-%d %H:%M %Z')}); run now.")
+        return
+
+    wait_seconds = int((target_local - now_local).total_seconds())
+    typer.echo(f"[{label}] scheduled at {target_local.strftime('%Y-%m-%d %H:%M %Z')} (wait {wait_seconds}s).")
+    if skip_wait:
+        typer.echo(f"[{label}] --skip-wait enabled; run immediately.")
+        return
+
+    while True:
+        remaining = int((target_local - datetime.now(tz)).total_seconds())
+        if remaining <= 0:
+            break
+        time.sleep(min(remaining, 60))
+
+
+def _load_job_state(path: Path) -> dict[str, str]:
+    if not path.exists():
+        return {}
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+    if not isinstance(raw, dict):
+        return {}
+    return {str(key): str(value) for key, value in raw.items()}
+
+
+def _save_job_state(path: Path, state: dict[str, str]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 def _guard_output_file(path: Path, force: bool, label: str) -> None:
@@ -307,6 +361,361 @@ def optimize(
             dry_run=dry_run,
         )
     )
+
+
+@app.command("daily-maintenance")
+def daily_maintenance(
+    backtest_time: str = typer.Option("01:30", help="Daily backtest time in HH:MM."),
+    optimize_time: str = typer.Option("03:30", help="Daily optimizer time in HH:MM."),
+    timezone_name: str = typer.Option("Asia/Hong_Kong", help="IANA timezone name for schedule."),
+    backtest_input_csv_path: Path = typer.Option(
+        CLI_DEFAULT_PHASE3_FULL_FEATURES,
+        "--backtest-input-csv-path",
+        "--backtest-input-path",
+        help="Feature CSV path used by daily backtest.",
+    ),
+    optimize_input_csv_path: Path = typer.Option(
+        CLI_DEFAULT_PHASE3_FULL_FEATURES,
+        "--optimize-input-csv-path",
+        "--optimize-input-path",
+        help="Feature CSV path used by daily optimizer.",
+    ),
+    backtest_output_dir: Path = typer.Option(Path("artifacts/backtest"), help="Backtest base output directory."),
+    optimize_output_dir: Path = typer.Option(Path("artifacts/optimizer"), help="Optimizer base output directory."),
+    use_date_run_id: bool = typer.Option(
+        True,
+        "--use-date-run-id/--no-date-run-id",
+        help="When enabled, auto-write outputs into date-scoped run-id folders.",
+    ),
+    backtest_run_id: str | None = typer.Option(None, help="Override backtest run-id."),
+    optimize_run_id: str | None = typer.Option(None, help="Override optimizer run-id."),
+    use_prediction_cache: bool = typer.Option(
+        True,
+        "--use-prediction-cache/--no-prediction-cache",
+        help="Reuse fold prediction cache during optimizer runs.",
+    ),
+    refresh_prediction_cache: bool = typer.Option(
+        False,
+        "--refresh-prediction-cache",
+        help="Force refresh of cached fold predictions before optimizer replay.",
+    ),
+    max_runs: int | None = typer.Option(None, help="Optional cap on optimizer parameter runs."),
+    dry_run_optimize: bool = typer.Option(False, help="Validate optimizer grid without execution."),
+    repeat_daily: bool = typer.Option(False, "--repeat-daily/--run-once", help="Repeat schedule every day in same process."),
+    force: bool = typer.Option(False, help="Overwrite same-run artifact files when needed."),
+    skip_wait: bool = typer.Option(False, help="Skip waiting and run both tasks immediately (for tests/debug)."),
+) -> None:
+    """Run daily backtest and optimizer in one process at two local times."""
+    try:
+        tz = ZoneInfo(timezone_name)
+    except ZoneInfoNotFoundError as exc:
+        raise typer.BadParameter(f"Invalid timezone: {timezone_name}") from exc
+
+    backtest_hour, backtest_minute = _parse_hhmm(backtest_time, "--backtest-time")
+    optimize_hour, optimize_minute = _parse_hhmm(optimize_time, "--optimize-time")
+    if repeat_daily and skip_wait:
+        raise typer.BadParameter("--repeat-daily cannot be used with --skip-wait.")
+
+    while True:
+        local_date = datetime.now(tz).strftime("%Y%m%d")
+        resolved_backtest_run_id = backtest_run_id
+        resolved_optimize_run_id = optimize_run_id
+        if use_date_run_id:
+            if resolved_backtest_run_id is None:
+                resolved_backtest_run_id = f"daily_backtest_{local_date}"
+            if resolved_optimize_run_id is None:
+                resolved_optimize_run_id = f"daily_optimize_{local_date}"
+
+        typer.echo(
+            "\n".join(
+                [
+                    "Daily maintenance schedule initialized.",
+                    f"timezone={timezone_name}",
+                    f"backtest_time={backtest_time}",
+                    f"optimize_time={optimize_time}",
+                    f"backtest_run_id={resolved_backtest_run_id}",
+                    f"optimize_run_id={resolved_optimize_run_id}",
+                ]
+            )
+        )
+
+        _wait_until_local_time(backtest_hour, backtest_minute, tz, label="backtest", skip_wait=skip_wait)
+
+        resolved_backtest_output_dir = _resolve_output_dir(backtest_output_dir, resolved_backtest_run_id)
+        _guard_output_dir_files(
+            output_dir=resolved_backtest_output_dir,
+            file_names=["predictions.csv", "trade_log.csv", "summary.csv"],
+            force=force,
+            label="Daily backtest",
+        )
+        typer.echo(
+            run_backtest(
+                input_path=backtest_input_csv_path,
+                output_dir=backtest_output_dir,
+                model_name=None,
+                approach=None,
+                include_market_features=None,
+                flip_hkjc_side=None,
+                run_id=resolved_backtest_run_id,
+            )
+        )
+
+        _wait_until_local_time(optimize_hour, optimize_minute, tz, label="optimize", skip_wait=skip_wait)
+
+        resolved_optimize_output_dir = _resolve_output_dir(optimize_output_dir, resolved_optimize_run_id)
+        if not dry_run_optimize:
+            _guard_output_dir_files(
+                output_dir=resolved_optimize_output_dir,
+                file_names=["params_results.csv", "best_params.json"],
+                force=force,
+                label="Daily optimizer",
+            )
+        typer.echo(
+            optimize_strategy(
+                input_path=optimize_input_csv_path,
+                output_dir=optimize_output_dir,
+                prediction_cache_dir=Path("artifacts/cache/backtest_predictions"),
+                use_prediction_cache=use_prediction_cache,
+                force_prediction_cache_refresh=refresh_prediction_cache,
+                run_id=resolved_optimize_run_id,
+                edge_grid=[0.01, 0.02, 0.03, 0.04],
+                confidence_grid=[0.50, 0.53, 0.56, 0.60],
+                max_alerts_grid=[1, 2, 3],
+                policy_grid=["flat", "fractional_kelly", "vol_target"],
+                kelly_grid=[0.15, 0.25, 0.35, 0.50],
+                max_stake_grid=[0.01, 0.02],
+                daily_exposure_grid=[0.03, 0.05],
+                max_runs=max_runs,
+                dry_run=dry_run_optimize,
+            )
+        )
+        typer.echo("Daily maintenance completed.")
+
+        if not repeat_daily:
+            break
+
+        next_cycle_local = (datetime.now(tz) + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+        typer.echo(f"[scheduler] next daily cycle at {next_cycle_local.strftime('%Y-%m-%d %H:%M %Z')}")
+        while True:
+            remaining = int((next_cycle_local - datetime.now(tz)).total_seconds())
+            if remaining <= 0:
+                break
+            time.sleep(min(remaining, 60))
+
+
+@app.command("railway-start")
+def railway_start(
+    backtest_time: str = typer.Option("01:30", help="Daily backtest time in HH:MM."),
+    optimize_time: str = typer.Option("03:30", help="Daily optimizer time in HH:MM."),
+    timezone_name: str = typer.Option("Asia/Hong_Kong", help="IANA timezone name for schedule."),
+    feature_path: Path = typer.Option(CLI_DEFAULT_PHASE3_FULL_FEATURES, help="Shared feature CSV path for backtest/optimizer."),
+    backtest_output_dir: Path = typer.Option(Path("artifacts/backtest"), help="Backtest base output directory."),
+    optimizer_output_dir: Path = typer.Option(Path("artifacts/optimizer"), help="Optimizer base output directory."),
+    optimizer_max_runs: int = typer.Option(120, help="Max optimizer parameter runs."),
+    live_interval_seconds: int = typer.Option(300, help="Live recommendation loop interval in seconds."),
+    live_provider: str = typer.Option("hkjc", help="Live provider name."),
+    live_model_path: Path = typer.Option(Path("artifacts/model_bundle.pkl"), help="Trained model bundle path."),
+    live_edge_threshold: float = typer.Option(0.02, help="Edge threshold for live loop."),
+    live_confidence_threshold: float = typer.Option(0.56, help="Confidence threshold for live loop."),
+    live_max_alerts: int = typer.Option(3, help="Maximum live alerts per cycle."),
+    live_output_dir: Path = typer.Option(Path("artifacts/live"), help="Live artifact output directory."),
+    live_mode: str = typer.Option("dry", help="Live mode: dry or live."),
+    force: bool = typer.Option(True, "--force/--no-force", help="Overwrite managed artifact files when needed."),
+) -> None:
+    """Railway one-command entrypoint: run daily analysis and 5-minute recommendations."""
+    normalized_mode = live_mode.strip().lower()
+    if normalized_mode not in {"dry", "live"}:
+        raise typer.BadParameter("--live-mode must be either 'dry' or 'live'.")
+
+    python_executable = Path(sys.executable)
+    dry_live_flag = "--live" if normalized_mode == "live" else "--dry-run"
+
+    daily_cmd = [
+        str(python_executable),
+        "-m",
+        "src.main",
+        "daily-maintenance",
+        "--timezone-name",
+        timezone_name,
+        "--backtest-time",
+        backtest_time,
+        "--optimize-time",
+        optimize_time,
+        "--backtest-input-path",
+        str(feature_path),
+        "--optimize-input-path",
+        str(feature_path),
+        "--backtest-output-dir",
+        str(backtest_output_dir),
+        "--optimize-output-dir",
+        str(optimizer_output_dir),
+        "--use-date-run-id",
+        "--use-prediction-cache",
+        "--max-runs",
+        str(optimizer_max_runs),
+        "--repeat-daily",
+    ]
+    live_cmd = [
+        str(python_executable),
+        "-m",
+        "src.main",
+        "live-loop",
+        "--provider",
+        live_provider,
+        "--model-path",
+        str(live_model_path),
+        "--interval-seconds",
+        str(live_interval_seconds),
+        "--edge-threshold",
+        str(live_edge_threshold),
+        "--confidence-threshold",
+        str(live_confidence_threshold),
+        "--max-alerts",
+        str(live_max_alerts),
+        "--output-dir",
+        str(live_output_dir),
+        dry_live_flag,
+    ]
+    if force:
+        daily_cmd.append("--force")
+        live_cmd.append("--force")
+
+    typer.echo("Railway entrypoint started: daily-maintenance + live-loop")
+    daily_process = subprocess.Popen(daily_cmd)
+    try:
+        live_result = subprocess.run(live_cmd, check=False)
+    finally:
+        if daily_process.poll() is None:
+            daily_process.terminate()
+            try:
+                daily_process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                daily_process.kill()
+
+    if live_result.returncode != 0:
+        raise typer.Exit(code=live_result.returncode)
+
+
+@app.command("railway-job-once")
+def railway_job_once(
+    timezone_name: str = typer.Option("Asia/Hong_Kong", help="IANA timezone name for schedule."),
+    backtest_time: str = typer.Option("01:30", help="Daily backtest time in HH:MM."),
+    optimize_time: str = typer.Option("03:30", help="Daily optimizer time in HH:MM."),
+    feature_path: Path = typer.Option(CLI_DEFAULT_PHASE3_FULL_FEATURES, help="Shared feature CSV path for backtest/optimizer."),
+    model_path: Path = typer.Option(Path("artifacts/model_bundle.pkl"), help="Trained model bundle path for live-run-once."),
+    backtest_output_dir: Path = typer.Option(Path("artifacts/backtest"), help="Backtest base output directory."),
+    optimizer_output_dir: Path = typer.Option(Path("artifacts/optimizer"), help="Optimizer base output directory."),
+    optimizer_max_runs: int = typer.Option(120, help="Max optimizer parameter runs."),
+    live_provider: str = typer.Option("hkjc", help="Live provider name."),
+    live_edge_threshold: float = typer.Option(0.02, help="Edge threshold for live run-once."),
+    live_confidence_threshold: float = typer.Option(0.56, help="Confidence threshold for live run-once."),
+    live_max_alerts: int = typer.Option(3, help="Maximum alerts in live run-once."),
+    live_output_dir: Path = typer.Option(Path("artifacts/live"), help="Live artifact output directory."),
+    live_mode: str = typer.Option("dry", help="Live mode: dry or live."),
+    state_path: Path = typer.Option(Path("artifacts/railway_job_state.json"), help="State file tracking daily analysis completion."),
+    force: bool = typer.Option(True, "--force/--no-force", help="Overwrite managed artifact files when needed."),
+) -> None:
+    """Run one Railway cron cycle and exit: one recommendation + due daily analysis tasks."""
+    try:
+        tz = ZoneInfo(timezone_name)
+    except ZoneInfoNotFoundError as exc:
+        raise typer.BadParameter(f"Invalid timezone: {timezone_name}") from exc
+
+    normalized_mode = live_mode.strip().lower()
+    if normalized_mode not in {"dry", "live"}:
+        raise typer.BadParameter("--live-mode must be either 'dry' or 'live'.")
+
+    backtest_hour, backtest_minute = _parse_hhmm(backtest_time, "--backtest-time")
+    optimize_hour, optimize_minute = _parse_hhmm(optimize_time, "--optimize-time")
+
+    now_local = datetime.now(tz)
+    today_key = now_local.strftime("%Y%m%d")
+    state = _load_job_state(state_path)
+
+    python_executable = str(Path(sys.executable))
+    common_force = ["--force"] if force else []
+
+    def _run_subprocess(args: list[str], label: str) -> int:
+        typer.echo(f"[railway-job-once] start {label}: {' '.join(args)}")
+        result = subprocess.run(args, check=False)
+        typer.echo(f"[railway-job-once] done {label}: exit={result.returncode}")
+        return result.returncode
+
+    backtest_target = now_local.replace(hour=backtest_hour, minute=backtest_minute, second=0, microsecond=0)
+    optimize_target = now_local.replace(hour=optimize_hour, minute=optimize_minute, second=0, microsecond=0)
+
+    backtest_due = now_local >= backtest_target and state.get("last_backtest_date") != today_key
+    optimize_due = now_local >= optimize_target and state.get("last_optimize_date") != today_key
+
+    if backtest_due:
+        backtest_cmd = [
+            python_executable,
+            "-m",
+            "src.main",
+            "backtest",
+            "--input-csv-path",
+            str(feature_path),
+            "--output-dir",
+            str(backtest_output_dir),
+            "--run-id",
+            f"daily_backtest_{today_key}",
+            *common_force,
+        ]
+        if _run_subprocess(backtest_cmd, "backtest") != 0:
+            raise typer.Exit(code=1)
+        state["last_backtest_date"] = today_key
+    else:
+        typer.echo("[railway-job-once] skip backtest (not due or already completed today).")
+
+    if optimize_due:
+        optimize_cmd = [
+            python_executable,
+            "-m",
+            "src.main",
+            "optimize",
+            "--input-csv-path",
+            str(feature_path),
+            "--output-dir",
+            str(optimizer_output_dir),
+            "--run-id",
+            f"daily_optimize_{today_key}",
+            "--use-prediction-cache",
+            "--max-runs",
+            str(optimizer_max_runs),
+            *common_force,
+        ]
+        if _run_subprocess(optimize_cmd, "optimize") != 0:
+            raise typer.Exit(code=1)
+        state["last_optimize_date"] = today_key
+    else:
+        typer.echo("[railway-job-once] skip optimize (not due or already completed today).")
+
+    dry_live_flag = "--live" if normalized_mode == "live" else "--dry-run"
+    live_cmd = [
+        python_executable,
+        "-m",
+        "src.main",
+        "live-run-once",
+        "--provider",
+        live_provider,
+        "--model-path",
+        str(model_path),
+        dry_live_flag,
+        "--edge-threshold",
+        str(live_edge_threshold),
+        "--confidence-threshold",
+        str(live_confidence_threshold),
+        "--max-alerts",
+        str(live_max_alerts),
+        "--output-dir",
+        str(live_output_dir),
+        *common_force,
+    ]
+    if _run_subprocess(live_cmd, "live-run-once") != 0:
+        raise typer.Exit(code=1)
+
+    _save_job_state(state_path, state)
+    typer.echo(f"[railway-job-once] completed at {now_local.isoformat()}")
 
 
 @app.command("analyze-hkjc")

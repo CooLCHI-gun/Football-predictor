@@ -1,0 +1,94 @@
+{
+  "provider": "mock",
+  "mode": "dry-run",
+  "cycle_id": "20260404T103108Z",
+  "fetched_at_utc": "2026-04-04T10:31:08.651793+00:00",
+  "event_count": 5,
+  "events": [
+    {
+      "provider_name": "mock",
+      "payload": {
+        "provider_match_id": "mock_match_001",
+        "market_id": "ah_ft",
+        "competition": "MOCK_LEAGUE",
+        "kickoff_time_utc": "2026-04-04T11:01:08.651793+00:00",
+        "snapshot_time_utc": "2026-04-04T10:31:08.651793+00:00",
+        "home_team_name": "Mock Home 1",
+        "away_team_name": "Mock Away 1",
+        "handicap_line": -0.5,
+        "odds_home": 1.9,
+        "odds_away": 1.94,
+        "side_semantic": "home",
+        "source_label": "MOCK"
+      }
+    },
+    {
+      "provider_name": "mock",
+      "payload": {
+        "provider_match_id": "mock_match_002",
+        "market_id": "ah_ft",
+        "competition": "MOCK_LEAGUE",
+        "kickoff_time_utc": "2026-04-04T11:31:08.651793+00:00",
+        "snapshot_time_utc": "2026-04-04T10:31:08.651793+00:00",
+        "home_team_name": "Mock Home 2",
+        "away_team_name": "Mock Away 2",
+        "handicap_line": -0.25,
+        "odds_home": 1.92,
+        "odds_away": 1.92,
+        "side_semantic": "home",
+        "source_label": "MOCK"
+      }
+    },
+    {
+      "provider_name": "mock",
+      "payload": {
+        "provider_match_id": "mock_match_003",
+        "market_id": "ah_ft",
+        "competition": "MOCK_LEAGUE",
+        "kickoff_time_utc": "2026-04-04T12:01:08.651793+00:00",
+        "snapshot_time_utc": "2026-04-04T10:31:08.651793+00:00",
+        "home_team_name": "Mock Home 3",
+        "away_team_name": "Mock Away 3",
+        "handicap_line": -0.5,
+        "odds_home": 1.88,
+        "odds_away": 1.93,
+        "side_semantic": "home",
+        "source_label": "MOCK"
+      }
+    },
+    {
+      "provider_name": "mock",
+      "payload": {
+        "provider_match_id": "mock_match_004",
+        "market_id": "ah_ft",
+        "competition": "MOCK_LEAGUE",
+        "kickoff_time_utc": "2026-04-04T12:31:08.651793+00:00",
+        "snapshot_time_utc": "2026-04-04T10:31:08.651793+00:00",
+        "home_team_name": "Mock Home 4",
+        "away_team_name": "Mock Away 4",
+        "handicap_line": -0.25,
+        "odds_home": 1.9,
+        "odds_away": 1.94,
+        "side_semantic": "home",
+        "source_label": "MOCK"
+      }
+    },
+    {
+      "provider_name": "mock",
+      "payload": {
+        "provider_match_id": "mock_match_005",
+        "market_id": "ah_ft",
+        "competition": "MOCK_LEAGUE",
+        "kickoff_time_utc": "2026-04-04T13:01:08.651793+00:00",
+        "snapshot_time_utc": "2026-04-04T10:31:08.651793+00:00",
+        "home_team_name": "Mock Home 5",
+        "away_team_name": "Mock Away 5",
+        "handicap_line": -0.5,
+        "odds_home": 1.92,
+        "odds_away": 1.92,
+        "side_semantic": "home",
+        "source_label": "MOCK"
+      }
+    }
+  ]
+}

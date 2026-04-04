@@ -42,7 +42,7 @@
     <div class='grid'>
       <section class='card'>
         <h2>System Status</h2>
-        <ul><li><strong>phase</strong>: phase6_live_monitoring</li><li><strong>mode</strong>: sandbox</li><li><strong>provider</strong>: hkjc</li><li><strong>run_id</strong>: None</li><li><strong>model_path</strong>: artifacts\model_bundle.pkl</li><li><strong>poll_timeout_seconds</strong>: 15</li><li><strong>interval_seconds</strong>: 60</li><li><strong>raw_snapshot_path</strong>: artifacts\live\raw\latest_raw_hkjc.json</li><li><strong>normalized_snapshot_path</strong>: artifacts\live\live_snapshot.csv</li><li><strong>odds_history_path</strong>: artifacts\live\live_odds_history.csv</li><li><strong>model_outputs_path</strong>: artifacts\live\live_model_outputs.csv</li><li><strong>edge_threshold</strong>: 0.03</li><li><strong>confidence_threshold</strong>: 0.55</li><li><strong>policy</strong>: fractional_kelly</li><li><strong>max_alerts</strong>: 3</li><li><strong>flip_hkjc_side</strong>: False</li><li><strong>alerts_mode</strong>: dry-run</li><li><strong>last_success_time_utc</strong>: 2026-04-04T07:31:31.099519+00:00</li><li><strong>cycle_id</strong>: 20260404T073130Z</li><li><strong>alert_preview_path</strong>: artifacts\live\live_alert_preview.txt</li></ul>
+        <ul><li><strong>phase</strong>: phase6_live_monitoring</li><li><strong>mode</strong>: sandbox</li><li><strong>provider</strong>: hkjc</li><li><strong>run_id</strong>: None</li><li><strong>model_path</strong>: artifacts\model_bundle.pkl</li><li><strong>poll_timeout_seconds</strong>: 15</li><li><strong>interval_seconds</strong>: 300</li><li><strong>raw_snapshot_path</strong>: artifacts\live\raw\latest_raw_hkjc.json</li><li><strong>normalized_snapshot_path</strong>: artifacts\live\live_snapshot.csv</li><li><strong>odds_history_path</strong>: artifacts\live\live_odds_history.csv</li><li><strong>model_outputs_path</strong>: artifacts\live\live_model_outputs.csv</li><li><strong>edge_threshold</strong>: 0.02</li><li><strong>confidence_threshold</strong>: 0.56</li><li><strong>policy</strong>: fractional_kelly</li><li><strong>max_alerts</strong>: 3</li><li><strong>flip_hkjc_side</strong>: False</li><li><strong>alerts_mode</strong>: dry-run</li><li><strong>last_success_time_utc</strong>: 2026-04-04T10:41:16.731191+00:00</li><li><strong>cycle_id</strong>: 20260404T104116Z</li><li><strong>alert_preview_path</strong>: artifacts\live\live_alert_preview.txt</li></ul>
       </section>
       <section class='card'>
         <h2>Mode Separation</h2>
@@ -50,7 +50,7 @@
       </section>
       <section class='card'>
         <h2>Cycle Counters</h2>
-        <ul><li><strong>raw_events</strong>: 71</li><li><strong>normalized_events</strong>: 71</li><li><strong>snapshot_rows</strong>: 71</li><li><strong>model_output_rows</strong>: 71</li><li><strong>candidate_rows</strong>: 0</li><li><strong>alerts_sent</strong>: 0</li></ul>
+        <ul><li><strong>raw_events</strong>: 73</li><li><strong>normalized_events</strong>: 73</li><li><strong>snapshot_rows</strong>: 73</li><li><strong>model_output_rows</strong>: 73</li><li><strong>candidate_rows</strong>: 0</li><li><strong>alerts_sent</strong>: 0</li></ul>
       </section>
     </div>
 
@@ -80,179 +80,89 @@
   </thead>
   <tbody>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
-      <td>50065082_HDC_1</td>
-      <td>2026-04-04 06:00:00+00:00</td>
-      <td>Australian Division 1</td>
-      <td>Central Coast Mariners</td>
-      <td>Perth Glory</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>0.00</td>
-      <td>1.830</td>
-      <td>1.89</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50065082_HDC_2</td>
-      <td>2026-04-04 06:00:00+00:00</td>
-      <td>Australian Division 1</td>
-      <td>Central Coast Mariners</td>
-      <td>Perth Glory</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>0.75</td>
-      <td>2.260</td>
-      <td>1.58</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50065082_HDC_4</td>
-      <td>2026-04-04 06:00:00+00:00</td>
-      <td>Australian Division 1</td>
-      <td>Central Coast Mariners</td>
-      <td>Perth Glory</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>1.00</td>
-      <td>1.001</td>
-      <td>14.50</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50065082_HDC_3</td>
-      <td>2026-04-04 06:00:00+00:00</td>
-      <td>Australian Division 1</td>
-      <td>Central Coast Mariners</td>
-      <td>Perth Glory</td>
+      <td>50066057_HDC_8</td>
+      <td>2026-04-04 09:00:00+00:00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>Bangladesh Women U20</td>
+      <td>China Women U20</td>
       <td>AH</td>
       <td>home</td>
       <td>1.75</td>
-      <td>1.220</td>
-      <td>3.90</td>
+      <td>1.61</td>
+      <td>2.17</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
-      <td>50065442_HDC_5</td>
-      <td>2026-04-04 06:00:00+00:00</td>
-      <td>J1 100Y Vision League</td>
-      <td>Nagoya Grampus</td>
-      <td>Cerezo Osaka</td>
+      <td>50066057_HDC_7</td>
+      <td>2026-04-04 09:00:00+00:00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>Bangladesh Women U20</td>
+      <td>China Women U20</td>
       <td>AH</td>
       <td>home</td>
-      <td>-3.00</td>
-      <td>1.900</td>
-      <td>1.82</td>
+      <td>2.00</td>
+      <td>1.70</td>
+      <td>2.02</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
-      <td>50065442_HDC_4</td>
-      <td>2026-04-04 06:00:00+00:00</td>
-      <td>J1 100Y Vision League</td>
-      <td>Nagoya Grampus</td>
-      <td>Cerezo Osaka</td>
+      <td>50066057_HDC_6</td>
+      <td>2026-04-04 09:00:00+00:00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>Bangladesh Women U20</td>
+      <td>China Women U20</td>
       <td>AH</td>
       <td>home</td>
-      <td>-2.00</td>
-      <td>1.030</td>
-      <td>9.40</td>
+      <td>2.25</td>
+      <td>1.67</td>
+      <td>2.07</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
-      <td>50065442_HDC_3</td>
-      <td>2026-04-04 06:00:00+00:00</td>
-      <td>J1 100Y Vision League</td>
-      <td>Nagoya Grampus</td>
-      <td>Cerezo Osaka</td>
+      <td>50066057_HDC_5</td>
+      <td>2026-04-04 09:00:00+00:00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>Bangladesh Women U20</td>
+      <td>China Women U20</td>
       <td>AH</td>
       <td>home</td>
-      <td>-1.00</td>
-      <td>1.060</td>
-      <td>7.50</td>
+      <td>2.75</td>
+      <td>1.60</td>
+      <td>2.19</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
-      <td>50065442_HDC_2</td>
-      <td>2026-04-04 06:00:00+00:00</td>
-      <td>J1 100Y Vision League</td>
-      <td>Nagoya Grampus</td>
-      <td>Cerezo Osaka</td>
+      <td>50066057_HDC_4</td>
+      <td>2026-04-04 09:00:00+00:00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>Bangladesh Women U20</td>
+      <td>China Women U20</td>
       <td>AH</td>
       <td>home</td>
-      <td>0.00</td>
-      <td>1.060</td>
-      <td>7.50</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50065442_HDC_1</td>
-      <td>2026-04-04 06:00:00+00:00</td>
-      <td>J1 100Y Vision League</td>
-      <td>Nagoya Grampus</td>
-      <td>Cerezo Osaka</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-0.25</td>
-      <td>2.100</td>
-      <td>1.72</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50065444_HDC_2</td>
-      <td>2026-04-04 07:00:00+00:00</td>
-      <td>J1 100Y Vision League</td>
-      <td>Gamba Osaka</td>
-      <td>Kyoto Sanga</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-1.00</td>
-      <td>1.730</td>
+      <td>3.00</td>
+      <td>1.71</td>
       <td>2.01</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -260,97 +170,43 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
-      <td>50065444_HDC_1</td>
-      <td>2026-04-04 07:00:00+00:00</td>
-      <td>J1 100Y Vision League</td>
-      <td>Gamba Osaka</td>
-      <td>Kyoto Sanga</td>
+      <td>50066057_HDC_3</td>
+      <td>2026-04-04 09:00:00+00:00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>Bangladesh Women U20</td>
+      <td>China Women U20</td>
       <td>AH</td>
       <td>home</td>
-      <td>0.00</td>
-      <td>1.160</td>
-      <td>4.65</td>
+      <td>3.25</td>
+      <td>1.74</td>
+      <td>1.97</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
-      <td>50065446_HDC_2</td>
-      <td>2026-04-04 07:30:00+00:00</td>
-      <td>Korean Division 1</td>
-      <td>Pohang Steelers</td>
-      <td>Daejeon Citizen</td>
+      <td>50066057_HDC_2</td>
+      <td>2026-04-04 09:00:00+00:00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>Bangladesh Women U20</td>
+      <td>China Women U20</td>
       <td>AH</td>
       <td>home</td>
-      <td>-0.25</td>
-      <td>2.040</td>
-      <td>1.71</td>
+      <td>3.75</td>
+      <td>1.66</td>
+      <td>2.08</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50065446_HDC_1</td>
-      <td>2026-04-04 07:30:00+00:00</td>
-      <td>Korean Division 1</td>
-      <td>Pohang Steelers</td>
-      <td>Daejeon Citizen</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>0.00</td>
-      <td>1.760</td>
-      <td>2.06</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50066056_HDC_1</td>
-      <td>2026-04-04 08:15:00+00:00</td>
-      <td>Australian NPL - New South Wales</td>
-      <td>St George City</td>
-      <td>Blacktown City</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-0.25</td>
-      <td>1.700</td>
-      <td>2.09</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50065081_HDC_1</td>
-      <td>2026-04-04 08:35:00+00:00</td>
-      <td>Australian Division 1</td>
-      <td>Melbourne City</td>
-      <td>Western Sydney Wanderers</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-0.25</td>
-      <td>1.700</td>
-      <td>2.09</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066057_HDC_1</td>
       <td>2026-04-04 09:00:00+00:00</td>
@@ -360,15 +216,51 @@
       <td>AH</td>
       <td>home</td>
       <td>4.00</td>
-      <td>1.820</td>
-      <td>1.90</td>
+      <td>1.73</td>
+      <td>2.03</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50066266_HDC_3</td>
+      <td>2026-04-04 10:00:00+00:00</td>
+      <td>Finnish Division 1</td>
+      <td>Inter Turku</td>
+      <td>VPS Vaasa</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.75</td>
+      <td>1.89</td>
+      <td>1.83</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50066266_HDC_2</td>
+      <td>2026-04-04 10:00:00+00:00</td>
+      <td>Finnish Division 1</td>
+      <td>Inter Turku</td>
+      <td>VPS Vaasa</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-1.00</td>
+      <td>2.05</td>
+      <td>1.70</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066266_HDC_1</td>
       <td>2026-04-04 10:00:00+00:00</td>
@@ -378,69 +270,15 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.25</td>
-      <td>1.870</td>
-      <td>1.89</td>
+      <td>2.01</td>
+      <td>1.73</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50066130_HDC_1</td>
-      <td>2026-04-04 10:00:00+00:00</td>
-      <td>Russian Premier</td>
-      <td>Akron Tolyatti</td>
-      <td>CSKA Moscow</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>0.75</td>
-      <td>1.830</td>
-      <td>1.97</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50066355_HDC_1</td>
-      <td>2026-04-04 10:00:00+00:00</td>
-      <td>Women Spanish Division 1</td>
-      <td>CF Granada Women</td>
-      <td>Espanyol Women</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-0.25</td>
-      <td>1.660</td>
-      <td>2.08</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50066054_HDC_1</td>
-      <td>2026-04-04 10:30:00+00:00</td>
-      <td>Women Italian Division 1</td>
-      <td>Fiorentina Women</td>
-      <td>Juventus Women</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>0.75</td>
-      <td>1.650</td>
-      <td>2.10</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065606_HDC_1</td>
       <td>2026-04-04 11:00:00+00:00</td>
@@ -450,7 +288,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.25</td>
-      <td>1.970</td>
+      <td>1.97</td>
       <td>1.83</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -458,7 +296,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065609_HDC_1</td>
       <td>2026-04-04 11:00:00+00:00</td>
@@ -468,7 +306,7 @@
       <td>AH</td>
       <td>home</td>
       <td>0.00</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.85</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -476,7 +314,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065605_HDC_1</td>
       <td>2026-04-04 11:00:00+00:00</td>
@@ -486,7 +324,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.25</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.94</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -494,7 +332,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50064780_HDC_1</td>
       <td>2026-04-04 11:45:00+00:00</td>
@@ -504,15 +342,15 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.75</td>
-      <td>1.920</td>
-      <td>1.90</td>
+      <td>1.91</td>
+      <td>1.91</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065107_HDC_1</td>
       <td>2026-04-04 12:00:00+00:00</td>
@@ -522,15 +360,15 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.00</td>
-      <td>2.000</td>
-      <td>1.82</td>
+      <td>1.94</td>
+      <td>1.88</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066024_HDC_1</td>
       <td>2026-04-04 12:00:00+00:00</td>
@@ -540,15 +378,15 @@
       <td>AH</td>
       <td>home</td>
       <td>0.75</td>
-      <td>1.900</td>
-      <td>1.86</td>
+      <td>1.95</td>
+      <td>1.82</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066267_HDC_1</td>
       <td>2026-04-04 12:00:00+00:00</td>
@@ -558,15 +396,15 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.75</td>
-      <td>1.790</td>
-      <td>1.98</td>
+      <td>1.73</td>
+      <td>2.06</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065450_HDC_1</td>
       <td>2026-04-04 12:00:00+00:00</td>
@@ -576,15 +414,15 @@
       <td>AH</td>
       <td>home</td>
       <td>0.00</td>
-      <td>1.930</td>
-      <td>1.83</td>
+      <td>1.96</td>
+      <td>1.84</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066131_HDC_1</td>
       <td>2026-04-04 12:15:00+00:00</td>
@@ -594,7 +432,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.75</td>
-      <td>1.830</td>
+      <td>1.83</td>
       <td>1.97</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -602,7 +440,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066025_HDC_1</td>
       <td>2026-04-04 12:30:00+00:00</td>
@@ -612,7 +450,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.00</td>
-      <td>2.000</td>
+      <td>2.00</td>
       <td>1.77</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -620,7 +458,25 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50065232_HDC_2</td>
+      <td>2026-04-04 13:00:00+00:00</td>
+      <td>Italian Division 1</td>
+      <td>Sassuolo</td>
+      <td>Cagliari</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.25</td>
+      <td>1.73</td>
+      <td>2.13</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065232_HDC_1</td>
       <td>2026-04-04 13:00:00+00:00</td>
@@ -630,7 +486,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.75</td>
-      <td>2.280</td>
+      <td>2.28</td>
       <td>1.64</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -638,7 +494,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066262_HDC_1</td>
       <td>2026-04-04 13:00:00+00:00</td>
@@ -648,15 +504,15 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.25</td>
-      <td>1.730</td>
-      <td>2.06</td>
+      <td>1.75</td>
+      <td>2.07</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066368_HDC_1</td>
       <td>2026-04-04 13:00:00+00:00</td>
@@ -666,7 +522,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.75</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.75</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -674,7 +530,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066368_HDC_2</td>
       <td>2026-04-04 13:00:00+00:00</td>
@@ -684,7 +540,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.25</td>
-      <td>1.650</td>
+      <td>1.65</td>
       <td>2.13</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -692,7 +548,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065124_HDC_1</td>
       <td>2026-04-04 13:30:00+00:00</td>
@@ -702,15 +558,15 @@
       <td>AH</td>
       <td>home</td>
       <td>1.25</td>
-      <td>1.960</td>
-      <td>1.86</td>
+      <td>1.98</td>
+      <td>1.84</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065124_HDC_2</td>
       <td>2026-04-04 13:30:00+00:00</td>
@@ -720,7 +576,7 @@
       <td>AH</td>
       <td>home</td>
       <td>1.75</td>
-      <td>1.690</td>
+      <td>1.69</td>
       <td>2.11</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -728,7 +584,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065126_HDC_1</td>
       <td>2026-04-04 13:30:00+00:00</td>
@@ -738,15 +594,15 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.25</td>
-      <td>1.890</td>
-      <td>1.93</td>
+      <td>1.82</td>
+      <td>2.00</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065125_HDC_2</td>
       <td>2026-04-04 13:30:00+00:00</td>
@@ -756,15 +612,15 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.75</td>
-      <td>1.830</td>
-      <td>1.99</td>
+      <td>1.97</td>
+      <td>1.85</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065123_HDC_1</td>
       <td>2026-04-04 13:30:00+00:00</td>
@@ -774,15 +630,15 @@
       <td>AH</td>
       <td>home</td>
       <td>0.75</td>
-      <td>1.730</td>
-      <td>2.14</td>
+      <td>1.76</td>
+      <td>2.08</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065118_HDC_1</td>
       <td>2026-04-04 13:30:00+00:00</td>
@@ -792,15 +648,15 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.25</td>
-      <td>2.000</td>
-      <td>1.82</td>
+      <td>1.99</td>
+      <td>1.83</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065128_HDC_1</td>
       <td>2026-04-04 13:30:00+00:00</td>
@@ -810,7 +666,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.00</td>
-      <td>1.970</td>
+      <td>1.97</td>
       <td>1.85</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -818,7 +674,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066276_HDC_1</td>
       <td>2026-04-04 13:50:00+00:00</td>
@@ -828,7 +684,7 @@
       <td>AH</td>
       <td>home</td>
       <td>0.25</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.90</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -836,7 +692,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066277_HDC_1</td>
       <td>2026-04-04 14:00:00+00:00</td>
@@ -846,15 +702,15 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.25</td>
-      <td>1.850</td>
-      <td>1.91</td>
+      <td>1.97</td>
+      <td>1.80</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065000_HDC_1</td>
       <td>2026-04-04 14:00:00+00:00</td>
@@ -864,7 +720,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.75</td>
-      <td>1.830</td>
+      <td>1.83</td>
       <td>1.97</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -872,7 +728,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065736_HDC_1</td>
       <td>2026-04-04 14:00:00+00:00</td>
@@ -882,15 +738,15 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.25</td>
-      <td>2.050</td>
-      <td>1.74</td>
+      <td>2.07</td>
+      <td>1.75</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065105_HDC_1</td>
       <td>2026-04-04 14:15:00+00:00</td>
@@ -900,15 +756,15 @@
       <td>AH</td>
       <td>home</td>
       <td>1.00</td>
-      <td>1.930</td>
-      <td>1.89</td>
+      <td>1.98</td>
+      <td>1.84</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066132_HDC_2</td>
       <td>2026-04-04 14:30:00+00:00</td>
@@ -918,7 +774,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.25</td>
-      <td>2.020</td>
+      <td>2.02</td>
       <td>1.79</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -926,7 +782,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065088_HDC_1</td>
       <td>2026-04-04 14:30:00+00:00</td>
@@ -936,7 +792,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.00</td>
-      <td>1.760</td>
+      <td>1.76</td>
       <td>2.06</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -944,7 +800,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065110_HDC_1</td>
       <td>2026-04-04 15:00:00+00:00</td>
@@ -954,7 +810,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.75</td>
-      <td>2.120</td>
+      <td>2.12</td>
       <td>1.74</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -962,7 +818,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066033_HDC_1</td>
       <td>2026-04-04 15:30:00+00:00</td>
@@ -972,7 +828,7 @@
       <td>AH</td>
       <td>home</td>
       <td>0.25</td>
-      <td>1.890</td>
+      <td>1.89</td>
       <td>1.87</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -980,7 +836,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065231_HDC_2</td>
       <td>2026-04-04 16:00:00+00:00</td>
@@ -990,7 +846,7 @@
       <td>AH</td>
       <td>home</td>
       <td>0.25</td>
-      <td>2.140</td>
+      <td>2.14</td>
       <td>1.72</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -998,7 +854,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065231_HDC_1</td>
       <td>2026-04-04 16:00:00+00:00</td>
@@ -1008,7 +864,7 @@
       <td>AH</td>
       <td>home</td>
       <td>0.75</td>
-      <td>1.640</td>
+      <td>1.64</td>
       <td>2.28</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1016,7 +872,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066279_HDC_1</td>
       <td>2026-04-04 16:15:00+00:00</td>
@@ -1026,7 +882,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.75</td>
-      <td>1.840</td>
+      <td>1.84</td>
       <td>1.92</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1034,7 +890,25 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50064778_HDC_3</td>
+      <td>2026-04-04 16:15:00+00:00</td>
+      <td>FA Cup</td>
+      <td>Chelsea</td>
+      <td>Port Vale</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-2.75</td>
+      <td>1.82</td>
+      <td>1.98</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50064778_HDC_1</td>
       <td>2026-04-04 16:15:00+00:00</td>
@@ -1044,7 +918,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-3.00</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.85</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1052,7 +926,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50064778_HDC_2</td>
       <td>2026-04-04 16:15:00+00:00</td>
@@ -1062,7 +936,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-3.25</td>
-      <td>2.200</td>
+      <td>2.20</td>
       <td>1.66</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1070,7 +944,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066297_HDC_1</td>
       <td>2026-04-04 16:30:00+00:00</td>
@@ -1080,15 +954,15 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.75</td>
-      <td>1.980</td>
-      <td>1.84</td>
+      <td>1.93</td>
+      <td>1.89</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065122_HDC_1</td>
       <td>2026-04-04 16:30:00+00:00</td>
@@ -1098,7 +972,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.25</td>
-      <td>1.930</td>
+      <td>1.93</td>
       <td>1.89</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1106,7 +980,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066053_HDC_1</td>
       <td>2026-04-04 16:30:00+00:00</td>
@@ -1116,7 +990,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.75</td>
-      <td>1.780</td>
+      <td>1.78</td>
       <td>1.99</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1124,7 +998,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066246_HDC_1</td>
       <td>2026-04-04 16:45:00+00:00</td>
@@ -1134,7 +1008,7 @@
       <td>AH</td>
       <td>home</td>
       <td>0.75</td>
-      <td>1.710</td>
+      <td>1.71</td>
       <td>2.12</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1142,7 +1016,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065092_HDC_1</td>
       <td>2026-04-04 16:45:00+00:00</td>
@@ -1152,7 +1026,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.25</td>
-      <td>1.680</td>
+      <td>1.68</td>
       <td>2.17</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1160,7 +1034,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065108_HDC_2</td>
       <td>2026-04-04 17:00:00+00:00</td>
@@ -1170,7 +1044,7 @@
       <td>AH</td>
       <td>home</td>
       <td>0.25</td>
-      <td>1.760</td>
+      <td>1.76</td>
       <td>2.08</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1178,7 +1052,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065770_HDC_1</td>
       <td>2026-04-04 17:00:00+00:00</td>
@@ -1188,15 +1062,15 @@
       <td>AH</td>
       <td>home</td>
       <td>1.00</td>
-      <td>1.910</td>
-      <td>1.89</td>
+      <td>1.93</td>
+      <td>1.87</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066280_HDC_1</td>
       <td>2026-04-04 17:30:00+00:00</td>
@@ -1206,7 +1080,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.75</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.90</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1214,7 +1088,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065681_HDC_1</td>
       <td>2026-04-04 18:00:00+00:00</td>
@@ -1224,7 +1098,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-1.75</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.90</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1232,7 +1106,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065482_HDC_1</td>
       <td>2026-04-04 18:00:00+00:00</td>
@@ -1242,15 +1116,15 @@
       <td>AH</td>
       <td>home</td>
       <td>0.25</td>
-      <td>2.090</td>
-      <td>1.70</td>
+      <td>2.12</td>
+      <td>1.71</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065607_HDC_1</td>
       <td>2026-04-04 18:30:00+00:00</td>
@@ -1260,7 +1134,7 @@
       <td>AH</td>
       <td>home</td>
       <td>0.00</td>
-      <td>1.900</td>
+      <td>1.90</td>
       <td>1.90</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1268,7 +1142,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065230_HDC_1</td>
       <td>2026-04-04 18:45:00+00:00</td>
@@ -1278,7 +1152,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.75</td>
-      <td>2.020</td>
+      <td>2.02</td>
       <td>1.81</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1286,7 +1160,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065102_HDC_1</td>
       <td>2026-04-04 19:00:00+00:00</td>
@@ -1296,7 +1170,7 @@
       <td>AH</td>
       <td>home</td>
       <td>0.25</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.87</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1304,7 +1178,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50064779_HDC_1</td>
       <td>2026-04-04 19:00:00+00:00</td>
@@ -1314,15 +1188,15 @@
       <td>AH</td>
       <td>home</td>
       <td>1.25</td>
-      <td>2.040</td>
-      <td>1.79</td>
+      <td>1.96</td>
+      <td>1.86</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065094_HDC_1</td>
       <td>2026-04-04 19:00:00+00:00</td>
@@ -1332,7 +1206,7 @@
       <td>AH</td>
       <td>home</td>
       <td>-0.25</td>
-      <td>1.980</td>
+      <td>1.98</td>
       <td>1.82</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
@@ -1340,7 +1214,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065111_HDC_1</td>
       <td>2026-04-04 19:05:00+00:00</td>
@@ -1350,8 +1224,170 @@
       <td>AH</td>
       <td>home</td>
       <td>0.00</td>
-      <td>2.080</td>
+      <td>2.08</td>
       <td>1.76</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50065774_HDC_1</td>
+      <td>2026-04-04 19:30:00+00:00</td>
+      <td>Portuguese Premier</td>
+      <td>Porto</td>
+      <td>Famalicao</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-1.25</td>
+      <td>2.02</td>
+      <td>1.79</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50066282_HDC_1</td>
+      <td>2026-04-04 20:00:00+00:00</td>
+      <td>USL Championship</td>
+      <td>Louisville City</td>
+      <td>Charleston Battery</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.75</td>
+      <td>2.03</td>
+      <td>1.75</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50063021_HDC_1</td>
+      <td>2026-04-04 20:30:00+00:00</td>
+      <td>US Major League</td>
+      <td>New England Revolution</td>
+      <td>CF Montreal</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.25</td>
+      <td>1.65</td>
+      <td>2.17</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50065420_HDC_1</td>
+      <td>2026-04-04 21:30:00+00:00</td>
+      <td>Brazilian Division 1</td>
+      <td>Sao Paulo</td>
+      <td>Cruzeiro</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.25</td>
+      <td>1.76</td>
+      <td>2.02</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50059934_HDC_1</td>
+      <td>2026-04-04 23:00:00+00:00</td>
+      <td>Mexican Premier</td>
+      <td>Queretaro</td>
+      <td>Toluca</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>1.00</td>
+      <td>1.87</td>
+      <td>1.89</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50064747_HDC_1</td>
+      <td>2026-04-04 23:00:00+00:00</td>
+      <td>Mexican Premier</td>
+      <td>Monterrey</td>
+      <td>Atletico San Luis</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.75</td>
+      <td>1.71</td>
+      <td>2.08</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50063392_HDC_1</td>
+      <td>2026-04-04 23:30:00+00:00</td>
+      <td>US Major League</td>
+      <td>Inter Miami CF</td>
+      <td>Austin FC</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-1.75</td>
+      <td>2.05</td>
+      <td>1.74</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50066288_HDC_1</td>
+      <td>2026-04-04 23:30:00+00:00</td>
+      <td>US Major League</td>
+      <td>New York City</td>
+      <td>St. Louis City SC</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.75</td>
+      <td>1.91</td>
+      <td>1.85</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50062867_HDC_1</td>
+      <td>2026-04-04 23:30:00+00:00</td>
+      <td>US Major League</td>
+      <td>New York Red Bulls</td>
+      <td>FC Cincinnati</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.25</td>
+      <td>1.81</td>
+      <td>1.96</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
@@ -1468,331 +1504,28 @@
   </thead>
   <tbody>
     <tr>
-      <td>50065082_HDC_1</td>
+      <td>50066057_HDC_8</td>
       <td>HKJC_LIKE</td>
       <td>ah_ft</td>
-      <td>Australian Division 1</td>
-      <td>澳洲職業聯賽</td>
-      <td>2026-04-04T06:00:00+00:00</td>
-      <td>Central Coast Mariners</td>
-      <td>中岸水手</td>
-      <td>Perth Glory</td>
-      <td>珀斯光輝</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>1.830</td>
-      <td>1.89</td>
-      <td>1.830</td>
-      <td>1.89</td>
-      <td>0.508065</td>
-      <td>0.491935</td>
-      <td>0.508065</td>
-      <td>0.491935</td>
-      <td>0</td>
-      <td>home</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1500.00000</td>
-      <td>1500.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0.00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.508065</td>
-      <td>0.508065</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0.444721</td>
-      <td>0.555279</td>
-      <td>away</td>
-      <td>0.555279</td>
-      <td>0.110559</td>
-      <td>logistic_regression</td>
-      <td>direct_cover</td>
-      <td>market</td>
-      <td>away</td>
-      <td>away</td>
-      <td>False</td>
-      <td>0.491935</td>
-      <td>0.063344</td>
-      <td>0.049478</td>
-    </tr>
-    <tr>
-      <td>50065082_HDC_2</td>
-      <td>HKJC_LIKE</td>
-      <td>ah_ft</td>
-      <td>Australian Division 1</td>
-      <td>澳洲職業聯賽</td>
-      <td>2026-04-04T06:00:00+00:00</td>
-      <td>Central Coast Mariners</td>
-      <td>中岸水手</td>
-      <td>Perth Glory</td>
-      <td>珀斯光輝</td>
-      <td>0.75</td>
-      <td>0.75</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>2.260</td>
-      <td>1.58</td>
-      <td>2.260</td>
-      <td>1.58</td>
-      <td>0.411458</td>
-      <td>0.588542</td>
-      <td>0.411458</td>
-      <td>0.588542</td>
-      <td>0</td>
-      <td>home</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1500.00000</td>
-      <td>1500.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0.75</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.411458</td>
-      <td>0.411458</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0.419394</td>
-      <td>0.580606</td>
-      <td>away</td>
-      <td>0.580606</td>
-      <td>0.161212</td>
-      <td>logistic_regression</td>
-      <td>direct_cover</td>
-      <td>market</td>
-      <td>away</td>
-      <td>away</td>
-      <td>False</td>
-      <td>0.588542</td>
-      <td>-0.007936</td>
-      <td>-0.082643</td>
-    </tr>
-    <tr>
-      <td>50065082_HDC_4</td>
-      <td>HKJC_LIKE</td>
-      <td>ah_ft</td>
-      <td>Australian Division 1</td>
-      <td>澳洲職業聯賽</td>
-      <td>2026-04-04T06:00:00+00:00</td>
-      <td>Central Coast Mariners</td>
-      <td>中岸水手</td>
-      <td>Perth Glory</td>
-      <td>珀斯光輝</td>
-      <td>1.00</td>
-      <td>1.00</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>1.001</td>
-      <td>14.50</td>
-      <td>1.001</td>
-      <td>14.50</td>
-      <td>0.935424</td>
-      <td>0.064576</td>
-      <td>0.935424</td>
-      <td>0.064576</td>
-      <td>0</td>
-      <td>home</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1500.00000</td>
-      <td>1500.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1.00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.935424</td>
-      <td>0.935424</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0.260064</td>
-      <td>0.739936</td>
-      <td>away</td>
-      <td>0.739936</td>
-      <td>0.479871</td>
-      <td>logistic_regression</td>
-      <td>direct_cover</td>
-      <td>market</td>
-      <td>away</td>
-      <td>away</td>
-      <td>False</td>
-      <td>0.064576</td>
-      <td>0.675359</td>
-      <td>9.729065</td>
-    </tr>
-    <tr>
-      <td>50065082_HDC_3</td>
-      <td>HKJC_LIKE</td>
-      <td>ah_ft</td>
-      <td>Australian Division 1</td>
-      <td>澳洲職業聯賽</td>
-      <td>2026-04-04T06:00:00+00:00</td>
-      <td>Central Coast Mariners</td>
-      <td>中岸水手</td>
-      <td>Perth Glory</td>
-      <td>珀斯光輝</td>
+      <td>U20 Women Asian Cup</td>
+      <td>U20女子亞洲盃</td>
+      <td>2026-04-04T09:00:00+00:00</td>
+      <td>Bangladesh Women U20</td>
+      <td>孟加拉女足U20</td>
+      <td>China Women U20</td>
+      <td>中國女足U20</td>
       <td>1.75</td>
       <td>1.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.220</td>
-      <td>3.90</td>
-      <td>1.220</td>
-      <td>3.90</td>
-      <td>0.761719</td>
-      <td>0.238281</td>
-      <td>0.761719</td>
-      <td>0.238281</td>
+      <td>1.61</td>
+      <td>2.17</td>
+      <td>1.61</td>
+      <td>2.17</td>
+      <td>0.574074</td>
+      <td>0.425926</td>
+      <td>0.574074</td>
+      <td>0.425926</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -1848,52 +1581,52 @@
       <td>1.75</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.761719</td>
-      <td>0.761719</td>
+      <td>0.574074</td>
+      <td>0.574074</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.322787</td>
-      <td>0.677213</td>
+      <td>0.434161</td>
+      <td>0.565839</td>
       <td>away</td>
-      <td>0.677213</td>
-      <td>0.354426</td>
+      <td>0.565839</td>
+      <td>0.131677</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.238281</td>
-      <td>0.438932</td>
-      <td>1.641130</td>
+      <td>0.425926</td>
+      <td>0.139913</td>
+      <td>0.227870</td>
     </tr>
     <tr>
-      <td>50065442_HDC_5</td>
+      <td>50066057_HDC_7</td>
       <td>HKJC_LIKE</td>
       <td>ah_ft</td>
-      <td>J1 100Y Vision League</td>
-      <td>日職百年構想聯賽</td>
-      <td>2026-04-04T06:00:00+00:00</td>
-      <td>Nagoya Grampus</td>
-      <td>名古屋鯨魚</td>
-      <td>Cerezo Osaka</td>
-      <td>大阪櫻花</td>
-      <td>-3.00</td>
-      <td>-3.00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>U20女子亞洲盃</td>
+      <td>2026-04-04T09:00:00+00:00</td>
+      <td>Bangladesh Women U20</td>
+      <td>孟加拉女足U20</td>
+      <td>China Women U20</td>
+      <td>中國女足U20</td>
+      <td>2.00</td>
+      <td>2.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.900</td>
-      <td>1.82</td>
-      <td>1.900</td>
-      <td>1.82</td>
-      <td>0.489247</td>
-      <td>0.510753</td>
-      <td>0.489247</td>
-      <td>0.510753</td>
+      <td>1.70</td>
+      <td>2.02</td>
+      <td>1.70</td>
+      <td>2.02</td>
+      <td>0.543011</td>
+      <td>0.456989</td>
+      <td>0.543011</td>
+      <td>0.456989</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -1946,55 +1679,55 @@
       <td>1</td>
       <td>1</td>
       <td>1</td>
-      <td>-3.00</td>
+      <td>2.00</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.489247</td>
-      <td>0.489247</td>
+      <td>0.543011</td>
+      <td>0.543011</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.456548</td>
-      <td>0.543452</td>
+      <td>0.438380</td>
+      <td>0.561620</td>
       <td>away</td>
-      <td>0.543452</td>
-      <td>0.086903</td>
+      <td>0.561620</td>
+      <td>0.123240</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.510753</td>
-      <td>0.032699</td>
-      <td>-0.010918</td>
+      <td>0.456989</td>
+      <td>0.104631</td>
+      <td>0.134473</td>
     </tr>
     <tr>
-      <td>50065442_HDC_4</td>
+      <td>50066057_HDC_6</td>
       <td>HKJC_LIKE</td>
       <td>ah_ft</td>
-      <td>J1 100Y Vision League</td>
-      <td>日職百年構想聯賽</td>
-      <td>2026-04-04T06:00:00+00:00</td>
-      <td>Nagoya Grampus</td>
-      <td>名古屋鯨魚</td>
-      <td>Cerezo Osaka</td>
-      <td>大阪櫻花</td>
-      <td>-2.00</td>
-      <td>-2.00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>U20女子亞洲盃</td>
+      <td>2026-04-04T09:00:00+00:00</td>
+      <td>Bangladesh Women U20</td>
+      <td>孟加拉女足U20</td>
+      <td>China Women U20</td>
+      <td>中國女足U20</td>
+      <td>2.25</td>
+      <td>2.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.030</td>
-      <td>9.40</td>
-      <td>1.030</td>
-      <td>9.40</td>
-      <td>0.901246</td>
-      <td>0.098754</td>
-      <td>0.901246</td>
-      <td>0.098754</td>
+      <td>1.67</td>
+      <td>2.07</td>
+      <td>1.67</td>
+      <td>2.07</td>
+      <td>0.553476</td>
+      <td>0.446524</td>
+      <td>0.553476</td>
+      <td>0.446524</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -2047,55 +1780,55 @@
       <td>1</td>
       <td>1</td>
       <td>1</td>
-      <td>-2.00</td>
+      <td>2.25</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.901246</td>
-      <td>0.901246</td>
+      <td>0.553476</td>
+      <td>0.553476</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.246937</td>
-      <td>0.753063</td>
+      <td>0.435501</td>
+      <td>0.564499</td>
       <td>away</td>
-      <td>0.753063</td>
-      <td>0.506127</td>
+      <td>0.564499</td>
+      <td>0.128998</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.098754</td>
-      <td>0.654310</td>
-      <td>6.078795</td>
+      <td>0.446524</td>
+      <td>0.117975</td>
+      <td>0.168512</td>
     </tr>
     <tr>
-      <td>50065442_HDC_3</td>
+      <td>50066057_HDC_5</td>
       <td>HKJC_LIKE</td>
       <td>ah_ft</td>
-      <td>J1 100Y Vision League</td>
-      <td>日職百年構想聯賽</td>
-      <td>2026-04-04T06:00:00+00:00</td>
-      <td>Nagoya Grampus</td>
-      <td>名古屋鯨魚</td>
-      <td>Cerezo Osaka</td>
-      <td>大阪櫻花</td>
-      <td>-1.00</td>
-      <td>-1.00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>U20女子亞洲盃</td>
+      <td>2026-04-04T09:00:00+00:00</td>
+      <td>Bangladesh Women U20</td>
+      <td>孟加拉女足U20</td>
+      <td>China Women U20</td>
+      <td>中國女足U20</td>
+      <td>2.75</td>
+      <td>2.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.060</td>
-      <td>7.50</td>
-      <td>1.060</td>
-      <td>7.50</td>
-      <td>0.876168</td>
-      <td>0.123832</td>
-      <td>0.876168</td>
-      <td>0.123832</td>
+      <td>1.60</td>
+      <td>2.19</td>
+      <td>1.60</td>
+      <td>2.19</td>
+      <td>0.577836</td>
+      <td>0.422164</td>
+      <td>0.577836</td>
+      <td>0.422164</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -2148,459 +1881,55 @@
       <td>1</td>
       <td>1</td>
       <td>1</td>
-      <td>-1.00</td>
+      <td>2.75</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.876168</td>
-      <td>0.876168</td>
+      <td>0.577836</td>
+      <td>0.577836</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.247107</td>
-      <td>0.752893</td>
+      <td>0.428831</td>
+      <td>0.571169</td>
       <td>away</td>
-      <td>0.752893</td>
-      <td>0.505786</td>
+      <td>0.571169</td>
+      <td>0.142339</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.123832</td>
-      <td>0.629061</td>
-      <td>4.646696</td>
+      <td>0.422164</td>
+      <td>0.149006</td>
+      <td>0.250861</td>
     </tr>
     <tr>
-      <td>50065442_HDC_2</td>
+      <td>50066057_HDC_4</td>
       <td>HKJC_LIKE</td>
       <td>ah_ft</td>
-      <td>J1 100Y Vision League</td>
-      <td>日職百年構想聯賽</td>
-      <td>2026-04-04T06:00:00+00:00</td>
-      <td>Nagoya Grampus</td>
-      <td>名古屋鯨魚</td>
-      <td>Cerezo Osaka</td>
-      <td>大阪櫻花</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>U20女子亞洲盃</td>
+      <td>2026-04-04T09:00:00+00:00</td>
+      <td>Bangladesh Women U20</td>
+      <td>孟加拉女足U20</td>
+      <td>China Women U20</td>
+      <td>中國女足U20</td>
+      <td>3.00</td>
+      <td>3.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.060</td>
-      <td>7.50</td>
-      <td>1.060</td>
-      <td>7.50</td>
-      <td>0.876168</td>
-      <td>0.123832</td>
-      <td>0.876168</td>
-      <td>0.123832</td>
-      <td>0</td>
-      <td>home</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1500.00000</td>
-      <td>1500.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0.00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.876168</td>
-      <td>0.876168</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0.242976</td>
-      <td>0.757024</td>
-      <td>away</td>
-      <td>0.757024</td>
-      <td>0.514048</td>
-      <td>logistic_regression</td>
-      <td>direct_cover</td>
-      <td>market</td>
-      <td>away</td>
-      <td>away</td>
-      <td>False</td>
-      <td>0.123832</td>
-      <td>0.633192</td>
-      <td>4.677678</td>
-    </tr>
-    <tr>
-      <td>50065442_HDC_1</td>
-      <td>HKJC_LIKE</td>
-      <td>ah_ft</td>
-      <td>J1 100Y Vision League</td>
-      <td>日職百年構想聯賽</td>
-      <td>2026-04-04T06:00:00+00:00</td>
-      <td>Nagoya Grampus</td>
-      <td>名古屋鯨魚</td>
-      <td>Cerezo Osaka</td>
-      <td>大阪櫻花</td>
-      <td>-0.25</td>
-      <td>-0.25</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>2.100</td>
-      <td>1.72</td>
-      <td>2.100</td>
-      <td>1.72</td>
-      <td>0.450262</td>
-      <td>0.549738</td>
-      <td>0.450262</td>
-      <td>0.549738</td>
-      <td>0</td>
-      <td>home</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1500.00000</td>
-      <td>1500.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>-0.25</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.450262</td>
-      <td>0.450262</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0.429050</td>
-      <td>0.570950</td>
-      <td>away</td>
-      <td>0.570950</td>
-      <td>0.141900</td>
-      <td>logistic_regression</td>
-      <td>direct_cover</td>
-      <td>market</td>
-      <td>away</td>
-      <td>away</td>
-      <td>False</td>
-      <td>0.549738</td>
-      <td>0.021212</td>
-      <td>-0.017966</td>
-    </tr>
-    <tr>
-      <td>50065444_HDC_2</td>
-      <td>HKJC_LIKE</td>
-      <td>ah_ft</td>
-      <td>J1 100Y Vision League</td>
-      <td>日職百年構想聯賽</td>
-      <td>2026-04-04T07:00:00+00:00</td>
-      <td>Gamba Osaka</td>
-      <td>大阪飛腳</td>
-      <td>Kyoto Sanga</td>
-      <td>京都不死鳥</td>
-      <td>-1.00</td>
-      <td>-1.00</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>1.730</td>
-      <td>2.01</td>
-      <td>1.730</td>
-      <td>2.01</td>
-      <td>0.537433</td>
-      <td>0.462567</td>
-      <td>0.537433</td>
-      <td>0.462567</td>
-      <td>0</td>
-      <td>home</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1500.00000</td>
-      <td>1500.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>-1.00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.537433</td>
-      <td>0.537433</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0.448593</td>
-      <td>0.551407</td>
-      <td>away</td>
-      <td>0.551407</td>
-      <td>0.102814</td>
-      <td>logistic_regression</td>
-      <td>direct_cover</td>
-      <td>market</td>
-      <td>away</td>
-      <td>away</td>
-      <td>False</td>
-      <td>0.462567</td>
-      <td>0.088840</td>
-      <td>0.108328</td>
-    </tr>
-    <tr>
-      <td>50065444_HDC_1</td>
-      <td>HKJC_LIKE</td>
-      <td>ah_ft</td>
-      <td>J1 100Y Vision League</td>
-      <td>日職百年構想聯賽</td>
-      <td>2026-04-04T07:00:00+00:00</td>
-      <td>Gamba Osaka</td>
-      <td>大阪飛腳</td>
-      <td>Kyoto Sanga</td>
-      <td>京都不死鳥</td>
-      <td>0.00</td>
-      <td>0.00</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>1.160</td>
-      <td>4.65</td>
-      <td>1.160</td>
-      <td>4.65</td>
-      <td>0.800344</td>
-      <td>0.199656</td>
-      <td>0.800344</td>
-      <td>0.199656</td>
-      <td>0</td>
-      <td>home</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1500.00000</td>
-      <td>1500.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0.00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.800344</td>
-      <td>0.800344</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0.296545</td>
-      <td>0.703455</td>
-      <td>away</td>
-      <td>0.703455</td>
-      <td>0.406910</td>
-      <td>logistic_regression</td>
-      <td>direct_cover</td>
-      <td>market</td>
-      <td>away</td>
-      <td>away</td>
-      <td>False</td>
-      <td>0.199656</td>
-      <td>0.503799</td>
-      <td>2.271065</td>
-    </tr>
-    <tr>
-      <td>50065446_HDC_2</td>
-      <td>HKJC_LIKE</td>
-      <td>ah_ft</td>
-      <td>Korean Division 1</td>
-      <td>南韓職業聯賽</td>
-      <td>2026-04-04T07:30:00+00:00</td>
-      <td>Pohang Steelers</td>
-      <td>浦項制鐵</td>
-      <td>Daejeon Citizen</td>
-      <td>大田市民</td>
-      <td>-0.25</td>
-      <td>-0.25</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>2.040</td>
       <td>1.71</td>
-      <td>2.040</td>
+      <td>2.01</td>
       <td>1.71</td>
-      <td>0.456000</td>
-      <td>0.544000</td>
-      <td>0.456000</td>
-      <td>0.544000</td>
+      <td>2.01</td>
+      <td>0.540323</td>
+      <td>0.459677</td>
+      <td>0.540323</td>
+      <td>0.459677</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -2653,55 +1982,55 @@
       <td>1</td>
       <td>1</td>
       <td>1</td>
-      <td>-0.25</td>
+      <td>3.00</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.456000</td>
-      <td>0.456000</td>
+      <td>0.540323</td>
+      <td>0.540323</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.438418</td>
-      <td>0.561582</td>
+      <td>0.433858</td>
+      <td>0.566142</td>
       <td>away</td>
-      <td>0.561582</td>
-      <td>0.123164</td>
+      <td>0.566142</td>
+      <td>0.132284</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.544000</td>
-      <td>0.017582</td>
-      <td>-0.039695</td>
+      <td>0.459677</td>
+      <td>0.106464</td>
+      <td>0.137945</td>
     </tr>
     <tr>
-      <td>50065446_HDC_1</td>
+      <td>50066057_HDC_3</td>
       <td>HKJC_LIKE</td>
       <td>ah_ft</td>
-      <td>Korean Division 1</td>
-      <td>南韓職業聯賽</td>
-      <td>2026-04-04T07:30:00+00:00</td>
-      <td>Pohang Steelers</td>
-      <td>浦項制鐵</td>
-      <td>Daejeon Citizen</td>
-      <td>大田市民</td>
-      <td>0.00</td>
-      <td>0.00</td>
+      <td>U20 Women Asian Cup</td>
+      <td>U20女子亞洲盃</td>
+      <td>2026-04-04T09:00:00+00:00</td>
+      <td>Bangladesh Women U20</td>
+      <td>孟加拉女足U20</td>
+      <td>China Women U20</td>
+      <td>中國女足U20</td>
+      <td>3.25</td>
+      <td>3.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.760</td>
-      <td>2.06</td>
-      <td>1.760</td>
-      <td>2.06</td>
-      <td>0.539267</td>
-      <td>0.460733</td>
-      <td>0.539267</td>
-      <td>0.460733</td>
+      <td>1.74</td>
+      <td>1.97</td>
+      <td>1.74</td>
+      <td>1.97</td>
+      <td>0.530997</td>
+      <td>0.469003</td>
+      <td>0.530997</td>
+      <td>0.469003</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -2754,55 +2083,55 @@
       <td>1</td>
       <td>1</td>
       <td>1</td>
-      <td>0.00</td>
+      <td>3.25</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.539267</td>
-      <td>0.539267</td>
+      <td>0.530997</td>
+      <td>0.530997</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.434387</td>
-      <td>0.565613</td>
+      <td>0.433415</td>
+      <td>0.566585</td>
       <td>away</td>
-      <td>0.565613</td>
-      <td>0.131225</td>
+      <td>0.566585</td>
+      <td>0.133170</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.460733</td>
-      <td>0.104880</td>
-      <td>0.165162</td>
+      <td>0.469003</td>
+      <td>0.097583</td>
+      <td>0.116173</td>
     </tr>
     <tr>
-      <td>50066056_HDC_1</td>
+      <td>50066057_HDC_2</td>
       <td>HKJC_LIKE</td>
       <td>ah_ft</td>
-      <td>Australian NPL - New South Wales</td>
-      <td>澳洲全國聯賽 - 新南威爾斯</td>
-      <td>2026-04-04T08:15:00+00:00</td>
-      <td>St George City</td>
-      <td>聖佐治城</td>
-      <td>Blacktown City</td>
-      <td>黑鎮城</td>
-      <td>-0.25</td>
-      <td>-0.25</td>
+      <td>U20 Women Asian Cup</td>
+      <td>U20女子亞洲盃</td>
+      <td>2026-04-04T09:00:00+00:00</td>
+      <td>Bangladesh Women U20</td>
+      <td>孟加拉女足U20</td>
+      <td>China Women U20</td>
+      <td>中國女足U20</td>
+      <td>3.75</td>
+      <td>3.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.700</td>
-      <td>2.09</td>
-      <td>1.700</td>
-      <td>2.09</td>
-      <td>0.551451</td>
-      <td>0.448549</td>
-      <td>0.551451</td>
-      <td>0.448549</td>
+      <td>1.66</td>
+      <td>2.08</td>
+      <td>1.66</td>
+      <td>2.08</td>
+      <td>0.556150</td>
+      <td>0.443850</td>
+      <td>0.556150</td>
+      <td>0.443850</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -2855,132 +2184,31 @@
       <td>1</td>
       <td>1</td>
       <td>1</td>
-      <td>-0.25</td>
+      <td>3.75</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.551451</td>
-      <td>0.551451</td>
+      <td>0.556150</td>
+      <td>0.556150</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.440075</td>
-      <td>0.559925</td>
+      <td>0.429175</td>
+      <td>0.570825</td>
       <td>away</td>
-      <td>0.559925</td>
-      <td>0.119849</td>
+      <td>0.570825</td>
+      <td>0.141650</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.448549</td>
-      <td>0.111376</td>
-      <td>0.170243</td>
-    </tr>
-    <tr>
-      <td>50065081_HDC_1</td>
-      <td>HKJC_LIKE</td>
-      <td>ah_ft</td>
-      <td>Australian Division 1</td>
-      <td>澳洲職業聯賽</td>
-      <td>2026-04-04T08:35:00+00:00</td>
-      <td>Melbourne City</td>
-      <td>墨爾本城</td>
-      <td>Western Sydney Wanderers</td>
-      <td>西悉尼流浪者</td>
-      <td>-0.25</td>
-      <td>-0.25</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>1.700</td>
-      <td>2.09</td>
-      <td>1.700</td>
-      <td>2.09</td>
-      <td>0.551451</td>
-      <td>0.448549</td>
-      <td>0.551451</td>
-      <td>0.448549</td>
-      <td>0</td>
-      <td>home</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1500.00000</td>
-      <td>1500.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>-0.25</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.551451</td>
-      <td>0.551451</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0.440075</td>
-      <td>0.559925</td>
-      <td>away</td>
-      <td>0.559925</td>
-      <td>0.119849</td>
-      <td>logistic_regression</td>
-      <td>direct_cover</td>
-      <td>market</td>
-      <td>away</td>
-      <td>away</td>
-      <td>False</td>
-      <td>0.448549</td>
-      <td>0.111376</td>
-      <td>0.170243</td>
+      <td>0.443850</td>
+      <td>0.126975</td>
+      <td>0.187316</td>
     </tr>
     <tr>
       <td>50066057_HDC_1</td>
@@ -2997,14 +2225,14 @@
       <td>4.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.820</td>
-      <td>1.90</td>
-      <td>1.820</td>
-      <td>1.90</td>
-      <td>0.510753</td>
-      <td>0.489247</td>
-      <td>0.510753</td>
-      <td>0.489247</td>
+      <td>1.73</td>
+      <td>2.03</td>
+      <td>1.73</td>
+      <td>2.03</td>
+      <td>0.539894</td>
+      <td>0.460106</td>
+      <td>0.539894</td>
+      <td>0.460106</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -3060,28 +2288,230 @@
       <td>4.00</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.510753</td>
-      <td>0.510753</td>
+      <td>0.539894</td>
+      <td>0.539894</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.427580</td>
-      <td>0.572420</td>
+      <td>0.424489</td>
+      <td>0.575511</td>
       <td>away</td>
-      <td>0.572420</td>
-      <td>0.144840</td>
+      <td>0.575511</td>
+      <td>0.151021</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.489247</td>
-      <td>0.083172</td>
-      <td>0.087598</td>
+      <td>0.460106</td>
+      <td>0.115404</td>
+      <td>0.168286</td>
+    </tr>
+    <tr>
+      <td>50066266_HDC_3</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>Finnish Division 1</td>
+      <td>芬蘭超級聯賽</td>
+      <td>2026-04-04T10:00:00+00:00</td>
+      <td>Inter Turku</td>
+      <td>國際杜古</td>
+      <td>VPS Vaasa</td>
+      <td>VPS華沙</td>
+      <td>-0.75</td>
+      <td>-0.75</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>1.89</td>
+      <td>1.83</td>
+      <td>1.89</td>
+      <td>1.83</td>
+      <td>0.491935</td>
+      <td>0.508065</td>
+      <td>0.491935</td>
+      <td>0.508065</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.75</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.491935</td>
+      <td>0.491935</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.446896</td>
+      <td>0.553104</td>
+      <td>away</td>
+      <td>0.553104</td>
+      <td>0.106208</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.508065</td>
+      <td>0.045039</td>
+      <td>0.012180</td>
+    </tr>
+    <tr>
+      <td>50066266_HDC_2</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>Finnish Division 1</td>
+      <td>芬蘭超級聯賽</td>
+      <td>2026-04-04T10:00:00+00:00</td>
+      <td>Inter Turku</td>
+      <td>國際杜古</td>
+      <td>VPS Vaasa</td>
+      <td>VPS華沙</td>
+      <td>-1.00</td>
+      <td>-1.00</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>2.05</td>
+      <td>1.70</td>
+      <td>2.05</td>
+      <td>1.70</td>
+      <td>0.453333</td>
+      <td>0.546667</td>
+      <td>0.453333</td>
+      <td>0.546667</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-1.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.453333</td>
+      <td>0.453333</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.441500</td>
+      <td>0.558500</td>
+      <td>away</td>
+      <td>0.558500</td>
+      <td>0.117000</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.546667</td>
+      <td>0.011833</td>
+      <td>-0.050550</td>
     </tr>
     <tr>
       <td>50066266_HDC_1</td>
@@ -3098,14 +2528,14 @@
       <td>-1.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.870</td>
-      <td>1.89</td>
-      <td>1.870</td>
-      <td>1.89</td>
-      <td>0.502660</td>
-      <td>0.497340</td>
-      <td>0.502660</td>
-      <td>0.497340</td>
+      <td>2.01</td>
+      <td>1.73</td>
+      <td>2.01</td>
+      <td>1.73</td>
+      <td>0.462567</td>
+      <td>0.537433</td>
+      <td>0.462567</td>
+      <td>0.537433</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -3161,331 +2591,28 @@
       <td>-1.25</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.502660</td>
-      <td>0.502660</td>
+      <td>0.462567</td>
+      <td>0.462567</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.444747</td>
-      <td>0.555253</td>
+      <td>0.444511</td>
+      <td>0.555489</td>
       <td>away</td>
-      <td>0.555253</td>
-      <td>0.110506</td>
+      <td>0.555489</td>
+      <td>0.110978</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.497340</td>
-      <td>0.057913</td>
-      <td>0.049428</td>
-    </tr>
-    <tr>
-      <td>50066130_HDC_1</td>
-      <td>HKJC_LIKE</td>
-      <td>ah_ft</td>
-      <td>Russian Premier</td>
-      <td>俄羅斯超級聯賽</td>
-      <td>2026-04-04T10:00:00+00:00</td>
-      <td>Akron Tolyatti</td>
-      <td>阿克隆陶爾亞蒂</td>
-      <td>CSKA Moscow</td>
-      <td>莫斯科中央陸軍</td>
-      <td>0.75</td>
-      <td>0.75</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>1.830</td>
-      <td>1.97</td>
-      <td>1.830</td>
-      <td>1.97</td>
-      <td>0.518421</td>
-      <td>0.481579</td>
-      <td>0.518421</td>
-      <td>0.481579</td>
-      <td>0</td>
-      <td>home</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1500.00000</td>
-      <td>1500.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0.75</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.518421</td>
-      <td>0.518421</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0.432088</td>
-      <td>0.567912</td>
-      <td>away</td>
-      <td>0.567912</td>
-      <td>0.135824</td>
-      <td>logistic_regression</td>
-      <td>direct_cover</td>
-      <td>market</td>
-      <td>away</td>
-      <td>away</td>
-      <td>False</td>
-      <td>0.481579</td>
-      <td>0.086333</td>
-      <td>0.118786</td>
-    </tr>
-    <tr>
-      <td>50066355_HDC_1</td>
-      <td>HKJC_LIKE</td>
-      <td>ah_ft</td>
-      <td>Women Spanish Division 1</td>
-      <td>女子西班牙甲組聯賽</td>
-      <td>2026-04-04T10:00:00+00:00</td>
-      <td>CF Granada Women</td>
-      <td>CF格蘭納達女足</td>
-      <td>Espanyol Women</td>
-      <td>愛斯賓奴女足</td>
-      <td>-0.25</td>
-      <td>-0.25</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>1.660</td>
-      <td>2.08</td>
-      <td>1.660</td>
-      <td>2.08</td>
-      <td>0.556150</td>
-      <td>0.443850</td>
-      <td>0.556150</td>
-      <td>0.443850</td>
-      <td>0</td>
-      <td>home</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1500.00000</td>
-      <td>1500.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>-0.25</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.556150</td>
-      <td>0.556150</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0.446609</td>
-      <td>0.553391</td>
-      <td>away</td>
-      <td>0.553391</td>
-      <td>0.106782</td>
-      <td>logistic_regression</td>
-      <td>direct_cover</td>
-      <td>market</td>
-      <td>away</td>
-      <td>away</td>
-      <td>False</td>
-      <td>0.443850</td>
-      <td>0.109541</td>
-      <td>0.151053</td>
-    </tr>
-    <tr>
-      <td>50066054_HDC_1</td>
-      <td>HKJC_LIKE</td>
-      <td>ah_ft</td>
-      <td>Women Italian Division 1</td>
-      <td>女子意大利甲組聯賽</td>
-      <td>2026-04-04T10:30:00+00:00</td>
-      <td>Fiorentina Women</td>
-      <td>費倫天拿女足</td>
-      <td>Juventus Women</td>
-      <td>祖雲達斯女足</td>
-      <td>0.75</td>
-      <td>0.75</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>1.650</td>
-      <td>2.10</td>
-      <td>1.650</td>
-      <td>2.10</td>
-      <td>0.560000</td>
-      <td>0.440000</td>
-      <td>0.560000</td>
-      <td>0.440000</td>
-      <td>0</td>
-      <td>home</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0000</td>
-      <td>0.0000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1500.00000</td>
-      <td>1500.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0.75</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.560000</td>
-      <td>0.560000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0</td>
-      <td>0.441256</td>
-      <td>0.558744</td>
-      <td>away</td>
-      <td>0.558744</td>
-      <td>0.117489</td>
-      <td>logistic_regression</td>
-      <td>direct_cover</td>
-      <td>market</td>
-      <td>away</td>
-      <td>away</td>
-      <td>False</td>
-      <td>0.440000</td>
-      <td>0.118744</td>
-      <td>0.173363</td>
+      <td>0.537433</td>
+      <td>0.018056</td>
+      <td>-0.039004</td>
     </tr>
     <tr>
       <td>50065606_HDC_1</td>
@@ -3502,9 +2629,9 @@
       <td>-0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.970</td>
+      <td>1.97</td>
       <td>1.83</td>
-      <td>1.970</td>
+      <td>1.97</td>
       <td>1.83</td>
       <td>0.481579</td>
       <td>0.518421</td>
@@ -3603,9 +2730,9 @@
       <td>0.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.85</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.85</td>
       <td>0.486842</td>
       <td>0.513158</td>
@@ -3704,9 +2831,9 @@
       <td>-0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.94</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.94</td>
       <td>0.510526</td>
       <td>0.489474</td>
@@ -3805,14 +2932,14 @@
       <td>-0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.920</td>
-      <td>1.90</td>
-      <td>1.920</td>
-      <td>1.90</td>
-      <td>0.497382</td>
-      <td>0.502618</td>
-      <td>0.497382</td>
-      <td>0.502618</td>
+      <td>1.91</td>
+      <td>1.91</td>
+      <td>1.91</td>
+      <td>1.91</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -3868,28 +2995,28 @@
       <td>-0.75</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.497382</td>
-      <td>0.497382</td>
+      <td>0.500000</td>
+      <td>0.500000</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.428475</td>
-      <td>0.571525</td>
+      <td>0.428662</td>
+      <td>0.571338</td>
       <td>away</td>
-      <td>0.571525</td>
-      <td>0.143050</td>
+      <td>0.571338</td>
+      <td>0.142676</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.502618</td>
-      <td>0.068907</td>
-      <td>0.085898</td>
+      <td>0.500000</td>
+      <td>0.071338</td>
+      <td>0.091256</td>
     </tr>
     <tr>
       <td>50065107_HDC_1</td>
@@ -3906,14 +3033,14 @@
       <td>-1.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.000</td>
-      <td>1.82</td>
-      <td>2.000</td>
-      <td>1.82</td>
-      <td>0.476440</td>
-      <td>0.523560</td>
-      <td>0.476440</td>
-      <td>0.523560</td>
+      <td>1.94</td>
+      <td>1.88</td>
+      <td>1.94</td>
+      <td>1.88</td>
+      <td>0.492147</td>
+      <td>0.507853</td>
+      <td>0.492147</td>
+      <td>0.507853</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -3969,28 +3096,28 @@
       <td>-1.00</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.476440</td>
-      <td>0.476440</td>
+      <td>0.492147</td>
+      <td>0.492147</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.434206</td>
-      <td>0.565794</td>
+      <td>0.435344</td>
+      <td>0.564656</td>
       <td>away</td>
-      <td>0.565794</td>
-      <td>0.131588</td>
+      <td>0.564656</td>
+      <td>0.129313</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.523560</td>
-      <td>0.042234</td>
-      <td>0.029745</td>
+      <td>0.507853</td>
+      <td>0.056803</td>
+      <td>0.061554</td>
     </tr>
     <tr>
       <td>50066024_HDC_1</td>
@@ -4007,14 +3134,14 @@
       <td>0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.900</td>
-      <td>1.86</td>
-      <td>1.900</td>
-      <td>1.86</td>
-      <td>0.494681</td>
-      <td>0.505319</td>
-      <td>0.494681</td>
-      <td>0.505319</td>
+      <td>1.95</td>
+      <td>1.82</td>
+      <td>1.95</td>
+      <td>1.82</td>
+      <td>0.482759</td>
+      <td>0.517241</td>
+      <td>0.482759</td>
+      <td>0.517241</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -4070,28 +3197,28 @@
       <td>0.75</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.494681</td>
-      <td>0.494681</td>
+      <td>0.482759</td>
+      <td>0.482759</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.435458</td>
-      <td>0.564542</td>
+      <td>0.433361</td>
+      <td>0.566639</td>
       <td>away</td>
-      <td>0.564542</td>
-      <td>0.129084</td>
+      <td>0.566639</td>
+      <td>0.133278</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.505319</td>
-      <td>0.059223</td>
-      <td>0.050048</td>
+      <td>0.517241</td>
+      <td>0.049398</td>
+      <td>0.031283</td>
     </tr>
     <tr>
       <td>50066267_HDC_1</td>
@@ -4108,14 +3235,14 @@
       <td>-0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.790</td>
-      <td>1.98</td>
-      <td>1.790</td>
-      <td>1.98</td>
-      <td>0.525199</td>
-      <td>0.474801</td>
-      <td>0.525199</td>
-      <td>0.474801</td>
+      <td>1.73</td>
+      <td>2.06</td>
+      <td>1.73</td>
+      <td>2.06</td>
+      <td>0.543536</td>
+      <td>0.456464</td>
+      <td>0.543536</td>
+      <td>0.456464</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -4171,28 +3298,28 @@
       <td>-0.75</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.525199</td>
-      <td>0.525199</td>
+      <td>0.543536</td>
+      <td>0.543536</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.442886</td>
-      <td>0.557114</td>
+      <td>0.441701</td>
+      <td>0.558299</td>
       <td>away</td>
-      <td>0.557114</td>
-      <td>0.114227</td>
+      <td>0.558299</td>
+      <td>0.116598</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.474801</td>
-      <td>0.082313</td>
-      <td>0.103085</td>
+      <td>0.456464</td>
+      <td>0.101834</td>
+      <td>0.150096</td>
     </tr>
     <tr>
       <td>50065450_HDC_1</td>
@@ -4209,14 +3336,14 @@
       <td>0.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.930</td>
-      <td>1.83</td>
-      <td>1.930</td>
-      <td>1.83</td>
-      <td>0.486702</td>
-      <td>0.513298</td>
-      <td>0.486702</td>
-      <td>0.513298</td>
+      <td>1.96</td>
+      <td>1.84</td>
+      <td>1.96</td>
+      <td>1.84</td>
+      <td>0.484211</td>
+      <td>0.515789</td>
+      <td>0.484211</td>
+      <td>0.515789</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -4272,28 +3399,28 @@
       <td>0.00</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.486702</td>
-      <td>0.486702</td>
+      <td>0.484211</td>
+      <td>0.484211</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.438171</td>
-      <td>0.561829</td>
+      <td>0.432923</td>
+      <td>0.567077</td>
       <td>away</td>
-      <td>0.561829</td>
-      <td>0.123657</td>
+      <td>0.567077</td>
+      <td>0.134153</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.513298</td>
-      <td>0.048531</td>
-      <td>0.028146</td>
+      <td>0.515789</td>
+      <td>0.051287</td>
+      <td>0.043421</td>
     </tr>
     <tr>
       <td>50066131_HDC_1</td>
@@ -4310,9 +3437,9 @@
       <td>-1.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.830</td>
+      <td>1.83</td>
       <td>1.97</td>
-      <td>1.830</td>
+      <td>1.83</td>
       <td>1.97</td>
       <td>0.518421</td>
       <td>0.481579</td>
@@ -4411,9 +3538,9 @@
       <td>-1.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.000</td>
+      <td>2.00</td>
       <td>1.77</td>
-      <td>2.000</td>
+      <td>2.00</td>
       <td>1.77</td>
       <td>0.469496</td>
       <td>0.530504</td>
@@ -4498,6 +3625,107 @@
       <td>-0.008908</td>
     </tr>
     <tr>
+      <td>50065232_HDC_2</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>Italian Division 1</td>
+      <td>意大利甲組聯賽</td>
+      <td>2026-04-04T13:00:00+00:00</td>
+      <td>Sassuolo</td>
+      <td>薩斯索羅</td>
+      <td>Cagliari</td>
+      <td>卡利亞里</td>
+      <td>-0.25</td>
+      <td>-0.25</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>1.73</td>
+      <td>2.13</td>
+      <td>1.73</td>
+      <td>2.13</td>
+      <td>0.551813</td>
+      <td>0.448187</td>
+      <td>0.551813</td>
+      <td>0.448187</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.25</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.551813</td>
+      <td>0.551813</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.431496</td>
+      <td>0.568504</td>
+      <td>away</td>
+      <td>0.568504</td>
+      <td>0.137008</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.448187</td>
+      <td>0.120317</td>
+      <td>0.210913</td>
+    </tr>
+    <tr>
       <td>50065232_HDC_1</td>
       <td>HKJC_LIKE</td>
       <td>ah_ft</td>
@@ -4512,9 +3740,9 @@
       <td>-0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.280</td>
+      <td>2.28</td>
       <td>1.64</td>
-      <td>2.280</td>
+      <td>2.28</td>
       <td>1.64</td>
       <td>0.418367</td>
       <td>0.581633</td>
@@ -4613,14 +3841,14 @@
       <td>-0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.730</td>
-      <td>2.06</td>
-      <td>1.730</td>
-      <td>2.06</td>
-      <td>0.543536</td>
-      <td>0.456464</td>
-      <td>0.543536</td>
-      <td>0.456464</td>
+      <td>1.75</td>
+      <td>2.07</td>
+      <td>1.75</td>
+      <td>2.07</td>
+      <td>0.541885</td>
+      <td>0.458115</td>
+      <td>0.541885</td>
+      <td>0.458115</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -4676,28 +3904,28 @@
       <td>-0.25</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.543536</td>
-      <td>0.543536</td>
+      <td>0.541885</td>
+      <td>0.541885</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.439508</td>
-      <td>0.560492</td>
+      <td>0.435675</td>
+      <td>0.564325</td>
       <td>away</td>
-      <td>0.560492</td>
-      <td>0.120985</td>
+      <td>0.564325</td>
+      <td>0.128649</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.456464</td>
-      <td>0.104028</td>
-      <td>0.154614</td>
+      <td>0.458115</td>
+      <td>0.106209</td>
+      <td>0.168152</td>
     </tr>
     <tr>
       <td>50066368_HDC_1</td>
@@ -4714,9 +3942,9 @@
       <td>-0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.75</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.75</td>
       <td>0.472973</td>
       <td>0.527027</td>
@@ -4815,9 +4043,9 @@
       <td>-0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.650</td>
+      <td>1.65</td>
       <td>2.13</td>
-      <td>1.650</td>
+      <td>1.65</td>
       <td>2.13</td>
       <td>0.563492</td>
       <td>0.436508</td>
@@ -4916,14 +4144,14 @@
       <td>1.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.960</td>
-      <td>1.86</td>
-      <td>1.960</td>
-      <td>1.86</td>
-      <td>0.486911</td>
-      <td>0.513089</td>
-      <td>0.486911</td>
-      <td>0.513089</td>
+      <td>1.98</td>
+      <td>1.84</td>
+      <td>1.98</td>
+      <td>1.84</td>
+      <td>0.481675</td>
+      <td>0.518325</td>
+      <td>0.481675</td>
+      <td>0.518325</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -4979,28 +4207,28 @@
       <td>1.25</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.486911</td>
-      <td>0.486911</td>
+      <td>0.481675</td>
+      <td>0.481675</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.425148</td>
-      <td>0.574852</td>
+      <td>0.424775</td>
+      <td>0.575225</td>
       <td>away</td>
-      <td>0.574852</td>
-      <td>0.149703</td>
+      <td>0.575225</td>
+      <td>0.150450</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.513089</td>
-      <td>0.061763</td>
-      <td>0.069224</td>
+      <td>0.518325</td>
+      <td>0.056900</td>
+      <td>0.058414</td>
     </tr>
     <tr>
       <td>50065124_HDC_2</td>
@@ -5017,9 +4245,9 @@
       <td>1.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.690</td>
+      <td>1.69</td>
       <td>2.11</td>
-      <td>1.690</td>
+      <td>1.69</td>
       <td>2.11</td>
       <td>0.555263</td>
       <td>0.444737</td>
@@ -5118,14 +4346,14 @@
       <td>-1.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.890</td>
-      <td>1.93</td>
-      <td>1.890</td>
-      <td>1.93</td>
-      <td>0.505236</td>
-      <td>0.494764</td>
-      <td>0.505236</td>
-      <td>0.494764</td>
+      <td>1.82</td>
+      <td>2.00</td>
+      <td>1.82</td>
+      <td>2.00</td>
+      <td>0.523560</td>
+      <td>0.476440</td>
+      <td>0.523560</td>
+      <td>0.476440</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -5181,28 +4409,28 @@
       <td>-1.25</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.505236</td>
-      <td>0.505236</td>
+      <td>0.523560</td>
+      <td>0.523560</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.437391</td>
-      <td>0.562609</td>
+      <td>0.438728</td>
+      <td>0.561272</td>
       <td>away</td>
-      <td>0.562609</td>
-      <td>0.125218</td>
+      <td>0.561272</td>
+      <td>0.122545</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.494764</td>
-      <td>0.067845</td>
-      <td>0.085835</td>
+      <td>0.476440</td>
+      <td>0.084833</td>
+      <td>0.122545</td>
     </tr>
     <tr>
       <td>50065125_HDC_2</td>
@@ -5219,14 +4447,14 @@
       <td>-0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.830</td>
-      <td>1.99</td>
-      <td>1.830</td>
-      <td>1.99</td>
-      <td>0.520942</td>
-      <td>0.479058</td>
-      <td>0.520942</td>
-      <td>0.479058</td>
+      <td>1.97</td>
+      <td>1.85</td>
+      <td>1.97</td>
+      <td>1.85</td>
+      <td>0.484293</td>
+      <td>0.515707</td>
+      <td>0.484293</td>
+      <td>0.515707</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -5282,28 +4510,28 @@
       <td>-0.75</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.520942</td>
-      <td>0.520942</td>
+      <td>0.484293</td>
+      <td>0.484293</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.436342</td>
-      <td>0.563658</td>
+      <td>0.433680</td>
+      <td>0.566320</td>
       <td>away</td>
-      <td>0.563658</td>
-      <td>0.127316</td>
+      <td>0.566320</td>
+      <td>0.132640</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.479058</td>
-      <td>0.084601</td>
-      <td>0.121680</td>
+      <td>0.515707</td>
+      <td>0.050613</td>
+      <td>0.047692</td>
     </tr>
     <tr>
       <td>50065123_HDC_1</td>
@@ -5320,14 +4548,14 @@
       <td>0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.730</td>
-      <td>2.14</td>
-      <td>1.730</td>
-      <td>2.14</td>
-      <td>0.552972</td>
-      <td>0.447028</td>
-      <td>0.552972</td>
-      <td>0.447028</td>
+      <td>1.76</td>
+      <td>2.08</td>
+      <td>1.76</td>
+      <td>2.08</td>
+      <td>0.541667</td>
+      <td>0.458333</td>
+      <td>0.541667</td>
+      <td>0.458333</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -5383,28 +4611,28 @@
       <td>0.75</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.552972</td>
-      <td>0.552972</td>
+      <td>0.541667</td>
+      <td>0.541667</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.425967</td>
-      <td>0.574033</td>
+      <td>0.428806</td>
+      <td>0.571194</td>
       <td>away</td>
-      <td>0.574033</td>
-      <td>0.148066</td>
+      <td>0.571194</td>
+      <td>0.142388</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.447028</td>
-      <td>0.127005</td>
-      <td>0.228431</td>
+      <td>0.458333</td>
+      <td>0.112861</td>
+      <td>0.188084</td>
     </tr>
     <tr>
       <td>50065118_HDC_1</td>
@@ -5421,14 +4649,14 @@
       <td>-0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.000</td>
-      <td>1.82</td>
-      <td>2.000</td>
-      <td>1.82</td>
-      <td>0.476440</td>
-      <td>0.523560</td>
-      <td>0.476440</td>
-      <td>0.523560</td>
+      <td>1.99</td>
+      <td>1.83</td>
+      <td>1.99</td>
+      <td>1.83</td>
+      <td>0.479058</td>
+      <td>0.520942</td>
+      <td>0.479058</td>
+      <td>0.520942</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -5484,28 +4712,28 @@
       <td>-0.25</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.476440</td>
-      <td>0.476440</td>
+      <td>0.479058</td>
+      <td>0.479058</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.430928</td>
-      <td>0.569072</td>
+      <td>0.431117</td>
+      <td>0.568883</td>
       <td>away</td>
-      <td>0.569072</td>
-      <td>0.138143</td>
+      <td>0.568883</td>
+      <td>0.137766</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.523560</td>
-      <td>0.045511</td>
-      <td>0.035710</td>
+      <td>0.520942</td>
+      <td>0.047941</td>
+      <td>0.041056</td>
     </tr>
     <tr>
       <td>50065128_HDC_1</td>
@@ -5522,9 +4750,9 @@
       <td>-1.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.970</td>
+      <td>1.97</td>
       <td>1.85</td>
-      <td>1.970</td>
+      <td>1.97</td>
       <td>1.85</td>
       <td>0.484293</td>
       <td>0.515707</td>
@@ -5623,9 +4851,9 @@
       <td>0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.90</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.90</td>
       <td>0.505319</td>
       <td>0.494681</td>
@@ -5724,14 +4952,14 @@
       <td>-0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.850</td>
-      <td>1.91</td>
-      <td>1.850</td>
-      <td>1.91</td>
-      <td>0.507979</td>
-      <td>0.492021</td>
-      <td>0.507979</td>
-      <td>0.492021</td>
+      <td>1.97</td>
+      <td>1.80</td>
+      <td>1.97</td>
+      <td>1.80</td>
+      <td>0.477454</td>
+      <td>0.522546</td>
+      <td>0.477454</td>
+      <td>0.522546</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -5787,28 +5015,28 @@
       <td>-0.25</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.507979</td>
-      <td>0.507979</td>
+      <td>0.477454</td>
+      <td>0.477454</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.440745</td>
-      <td>0.559255</td>
+      <td>0.437345</td>
+      <td>0.562655</td>
       <td>away</td>
-      <td>0.559255</td>
-      <td>0.118510</td>
+      <td>0.562655</td>
+      <td>0.125310</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.492021</td>
-      <td>0.067234</td>
-      <td>0.068177</td>
+      <td>0.522546</td>
+      <td>0.040109</td>
+      <td>0.012779</td>
     </tr>
     <tr>
       <td>50065000_HDC_1</td>
@@ -5825,9 +5053,9 @@
       <td>-1.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.830</td>
+      <td>1.83</td>
       <td>1.97</td>
-      <td>1.830</td>
+      <td>1.83</td>
       <td>1.97</td>
       <td>0.518421</td>
       <td>0.481579</td>
@@ -5926,14 +5154,14 @@
       <td>-0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.050</td>
-      <td>1.74</td>
-      <td>2.050</td>
-      <td>1.74</td>
-      <td>0.459103</td>
-      <td>0.540897</td>
-      <td>0.459103</td>
-      <td>0.540897</td>
+      <td>2.07</td>
+      <td>1.75</td>
+      <td>2.07</td>
+      <td>1.75</td>
+      <td>0.458115</td>
+      <td>0.541885</td>
+      <td>0.458115</td>
+      <td>0.541885</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -5989,28 +5217,28 @@
       <td>-0.25</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.459103</td>
-      <td>0.459103</td>
+      <td>0.458115</td>
+      <td>0.458115</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.433507</td>
-      <td>0.566493</td>
+      <td>0.429612</td>
+      <td>0.570388</td>
       <td>away</td>
-      <td>0.566493</td>
-      <td>0.132985</td>
+      <td>0.570388</td>
+      <td>0.140776</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.540897</td>
-      <td>0.025596</td>
-      <td>-0.014303</td>
+      <td>0.541885</td>
+      <td>0.028503</td>
+      <td>-0.001821</td>
     </tr>
     <tr>
       <td>50065105_HDC_1</td>
@@ -6027,14 +5255,14 @@
       <td>1.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.930</td>
-      <td>1.89</td>
-      <td>1.930</td>
-      <td>1.89</td>
-      <td>0.494764</td>
-      <td>0.505236</td>
-      <td>0.494764</td>
-      <td>0.505236</td>
+      <td>1.98</td>
+      <td>1.84</td>
+      <td>1.98</td>
+      <td>1.84</td>
+      <td>0.481675</td>
+      <td>0.518325</td>
+      <td>0.481675</td>
+      <td>0.518325</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -6090,28 +5318,28 @@
       <td>1.00</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.494764</td>
-      <td>0.494764</td>
+      <td>0.481675</td>
+      <td>0.481675</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.426797</td>
-      <td>0.573203</td>
+      <td>0.425860</td>
+      <td>0.574140</td>
       <td>away</td>
-      <td>0.573203</td>
-      <td>0.146406</td>
+      <td>0.574140</td>
+      <td>0.148279</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.505236</td>
-      <td>0.067967</td>
-      <td>0.083353</td>
+      <td>0.518325</td>
+      <td>0.055815</td>
+      <td>0.056417</td>
     </tr>
     <tr>
       <td>50066132_HDC_2</td>
@@ -6128,9 +5356,9 @@
       <td>-1.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.020</td>
+      <td>2.02</td>
       <td>1.79</td>
-      <td>2.020</td>
+      <td>2.02</td>
       <td>1.79</td>
       <td>0.469816</td>
       <td>0.530184</td>
@@ -6229,9 +5457,9 @@
       <td>-1.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.760</td>
+      <td>1.76</td>
       <td>2.06</td>
-      <td>1.760</td>
+      <td>1.76</td>
       <td>2.06</td>
       <td>0.539267</td>
       <td>0.460733</td>
@@ -6330,9 +5558,9 @@
       <td>-0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.120</td>
+      <td>2.12</td>
       <td>1.74</td>
-      <td>2.120</td>
+      <td>2.12</td>
       <td>1.74</td>
       <td>0.450777</td>
       <td>0.549223</td>
@@ -6431,9 +5659,9 @@
       <td>0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.890</td>
+      <td>1.89</td>
       <td>1.87</td>
-      <td>1.890</td>
+      <td>1.89</td>
       <td>1.87</td>
       <td>0.497340</td>
       <td>0.502660</td>
@@ -6532,9 +5760,9 @@
       <td>0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.140</td>
+      <td>2.14</td>
       <td>1.72</td>
-      <td>2.140</td>
+      <td>2.14</td>
       <td>1.72</td>
       <td>0.445596</td>
       <td>0.554404</td>
@@ -6633,9 +5861,9 @@
       <td>0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.640</td>
+      <td>1.64</td>
       <td>2.28</td>
-      <td>1.640</td>
+      <td>1.64</td>
       <td>2.28</td>
       <td>0.581633</td>
       <td>0.418367</td>
@@ -6734,9 +5962,9 @@
       <td>-1.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.840</td>
+      <td>1.84</td>
       <td>1.92</td>
-      <td>1.840</td>
+      <td>1.84</td>
       <td>1.92</td>
       <td>0.510638</td>
       <td>0.489362</td>
@@ -6821,6 +6049,107 @@
       <td>0.060806</td>
     </tr>
     <tr>
+      <td>50064778_HDC_3</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>FA Cup</td>
+      <td>英格蘭足總盃</td>
+      <td>2026-04-04T16:15:00+00:00</td>
+      <td>Chelsea</td>
+      <td>車路士</td>
+      <td>Port Vale</td>
+      <td>維爾港</td>
+      <td>-2.75</td>
+      <td>-2.75</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>1.82</td>
+      <td>1.98</td>
+      <td>1.82</td>
+      <td>1.98</td>
+      <td>0.521053</td>
+      <td>0.478947</td>
+      <td>0.521053</td>
+      <td>0.478947</td>
+      <td>0</td>
+      <td>home</td>
+      <td>13.0</td>
+      <td>21.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+      <td>0.0</td>
+      <td>14.0</td>
+      <td>5.0</td>
+      <td>9.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.8438</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1555.25457</td>
+      <td>1500.000000</td>
+      <td>55.254570</td>
+      <td>37.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-2.75</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.521053</td>
+      <td>0.521053</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.555013</td>
+      <td>0.444987</td>
+      <td>home</td>
+      <td>0.555013</td>
+      <td>0.110027</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>home</td>
+      <td>home</td>
+      <td>False</td>
+      <td>0.521053</td>
+      <td>0.033961</td>
+      <td>0.010124</td>
+    </tr>
+    <tr>
       <td>50064778_HDC_1</td>
       <td>HKJC_LIKE</td>
       <td>ah_ft</td>
@@ -6835,9 +6164,9 @@
       <td>-3.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.85</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.85</td>
       <td>0.486842</td>
       <td>0.513158</td>
@@ -6936,9 +6265,9 @@
       <td>-3.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.200</td>
+      <td>2.20</td>
       <td>1.66</td>
-      <td>2.200</td>
+      <td>2.20</td>
       <td>1.66</td>
       <td>0.430052</td>
       <td>0.569948</td>
@@ -7037,14 +6366,14 @@
       <td>-0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.980</td>
-      <td>1.84</td>
-      <td>1.980</td>
-      <td>1.84</td>
-      <td>0.481675</td>
-      <td>0.518325</td>
-      <td>0.481675</td>
-      <td>0.518325</td>
+      <td>1.93</td>
+      <td>1.89</td>
+      <td>1.93</td>
+      <td>1.89</td>
+      <td>0.494764</td>
+      <td>0.505236</td>
+      <td>0.494764</td>
+      <td>0.505236</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -7100,28 +6429,28 @@
       <td>-0.75</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.481675</td>
-      <td>0.481675</td>
+      <td>0.494764</td>
+      <td>0.494764</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.433491</td>
-      <td>0.566509</td>
+      <td>0.434439</td>
+      <td>0.565561</td>
       <td>away</td>
-      <td>0.566509</td>
-      <td>0.133018</td>
+      <td>0.565561</td>
+      <td>0.131123</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.518325</td>
-      <td>0.048185</td>
-      <td>0.042377</td>
+      <td>0.505236</td>
+      <td>0.060326</td>
+      <td>0.068911</td>
     </tr>
     <tr>
       <td>50065122_HDC_1</td>
@@ -7138,9 +6467,9 @@
       <td>-0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.930</td>
+      <td>1.93</td>
       <td>1.89</td>
-      <td>1.930</td>
+      <td>1.93</td>
       <td>1.89</td>
       <td>0.494764</td>
       <td>0.505236</td>
@@ -7239,9 +6568,9 @@
       <td>-0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.780</td>
+      <td>1.78</td>
       <td>1.99</td>
-      <td>1.780</td>
+      <td>1.78</td>
       <td>1.99</td>
       <td>0.527851</td>
       <td>0.472149</td>
@@ -7340,9 +6669,9 @@
       <td>0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.710</td>
+      <td>1.71</td>
       <td>2.12</td>
-      <td>1.710</td>
+      <td>1.71</td>
       <td>2.12</td>
       <td>0.553525</td>
       <td>0.446475</td>
@@ -7441,9 +6770,9 @@
       <td>-1.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.680</td>
+      <td>1.68</td>
       <td>2.17</td>
-      <td>1.680</td>
+      <td>1.68</td>
       <td>2.17</td>
       <td>0.563636</td>
       <td>0.436364</td>
@@ -7542,9 +6871,9 @@
       <td>0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.760</td>
+      <td>1.76</td>
       <td>2.08</td>
-      <td>1.760</td>
+      <td>1.76</td>
       <td>2.08</td>
       <td>0.541667</td>
       <td>0.458333</td>
@@ -7643,14 +6972,14 @@
       <td>1.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.910</td>
-      <td>1.89</td>
-      <td>1.910</td>
-      <td>1.89</td>
-      <td>0.497368</td>
-      <td>0.502632</td>
-      <td>0.497368</td>
-      <td>0.502632</td>
+      <td>1.93</td>
+      <td>1.87</td>
+      <td>1.93</td>
+      <td>1.87</td>
+      <td>0.492105</td>
+      <td>0.507895</td>
+      <td>0.492105</td>
+      <td>0.507895</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -7706,28 +7035,28 @@
       <td>1.00</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.497368</td>
-      <td>0.497368</td>
+      <td>0.492105</td>
+      <td>0.492105</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.429501</td>
-      <td>0.570499</td>
+      <td>0.429128</td>
+      <td>0.570872</td>
       <td>away</td>
-      <td>0.570499</td>
-      <td>0.140999</td>
+      <td>0.570872</td>
+      <td>0.141744</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.502632</td>
-      <td>0.067868</td>
-      <td>0.078244</td>
+      <td>0.507895</td>
+      <td>0.062977</td>
+      <td>0.067531</td>
     </tr>
     <tr>
       <td>50066280_HDC_1</td>
@@ -7744,9 +7073,9 @@
       <td>-0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.90</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.90</td>
       <td>0.505319</td>
       <td>0.494681</td>
@@ -7845,9 +7174,9 @@
       <td>-1.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.90</td>
-      <td>1.860</td>
+      <td>1.86</td>
       <td>1.90</td>
       <td>0.505319</td>
       <td>0.494681</td>
@@ -7946,14 +7275,14 @@
       <td>0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.090</td>
-      <td>1.70</td>
-      <td>2.090</td>
-      <td>1.70</td>
-      <td>0.448549</td>
-      <td>0.551451</td>
-      <td>0.448549</td>
-      <td>0.551451</td>
+      <td>2.12</td>
+      <td>1.71</td>
+      <td>2.12</td>
+      <td>1.71</td>
+      <td>0.446475</td>
+      <td>0.553525</td>
+      <td>0.446475</td>
+      <td>0.553525</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -8009,28 +7338,28 @@
       <td>0.25</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.448549</td>
-      <td>0.448549</td>
+      <td>0.446475</td>
+      <td>0.446475</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.430594</td>
-      <td>0.569406</td>
+      <td>0.425331</td>
+      <td>0.574669</td>
       <td>away</td>
-      <td>0.569406</td>
-      <td>0.138813</td>
+      <td>0.574669</td>
+      <td>0.149339</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.551451</td>
-      <td>0.017955</td>
-      <td>-0.032009</td>
+      <td>0.553525</td>
+      <td>0.021145</td>
+      <td>-0.017315</td>
     </tr>
     <tr>
       <td>50065607_HDC_1</td>
@@ -8047,9 +7376,9 @@
       <td>0.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.900</td>
       <td>1.90</td>
-      <td>1.900</td>
+      <td>1.90</td>
+      <td>1.90</td>
       <td>1.90</td>
       <td>0.500000</td>
       <td>0.500000</td>
@@ -8148,9 +7477,9 @@
       <td>-0.75</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.020</td>
+      <td>2.02</td>
       <td>1.81</td>
-      <td>2.020</td>
+      <td>2.02</td>
       <td>1.81</td>
       <td>0.472585</td>
       <td>0.527415</td>
@@ -8249,9 +7578,9 @@
       <td>0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.87</td>
-      <td>1.950</td>
+      <td>1.95</td>
       <td>1.87</td>
       <td>0.489529</td>
       <td>0.510471</td>
@@ -8350,14 +7679,14 @@
       <td>1.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.040</td>
-      <td>1.79</td>
-      <td>2.040</td>
-      <td>1.79</td>
-      <td>0.467363</td>
-      <td>0.532637</td>
-      <td>0.467363</td>
-      <td>0.532637</td>
+      <td>1.96</td>
+      <td>1.86</td>
+      <td>1.96</td>
+      <td>1.86</td>
+      <td>0.486911</td>
+      <td>0.513089</td>
+      <td>0.486911</td>
+      <td>0.513089</td>
       <td>0</td>
       <td>home</td>
       <td>0.0</td>
@@ -8413,28 +7742,28 @@
       <td>1.25</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.467363</td>
-      <td>0.467363</td>
+      <td>0.486911</td>
+      <td>0.486911</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>0</td>
       <td>0.0</td>
       <td>0</td>
-      <td>0.418444</td>
-      <td>0.581556</td>
+      <td>0.421079</td>
+      <td>0.578921</td>
       <td>away</td>
-      <td>0.581556</td>
-      <td>0.163111</td>
+      <td>0.578921</td>
+      <td>0.157843</td>
       <td>logistic_regression</td>
       <td>direct_cover</td>
       <td>market</td>
       <td>away</td>
       <td>away</td>
       <td>False</td>
-      <td>0.532637</td>
-      <td>0.048918</td>
-      <td>0.040984</td>
+      <td>0.513089</td>
+      <td>0.065832</td>
+      <td>0.076794</td>
     </tr>
     <tr>
       <td>50065094_HDC_1</td>
@@ -8451,9 +7780,9 @@
       <td>-0.25</td>
       <td>0.0</td>
       <td>0</td>
-      <td>1.980</td>
+      <td>1.98</td>
       <td>1.82</td>
-      <td>1.980</td>
+      <td>1.98</td>
       <td>1.82</td>
       <td>0.478947</td>
       <td>0.521053</td>
@@ -8552,9 +7881,9 @@
       <td>0.00</td>
       <td>0.0</td>
       <td>0</td>
-      <td>2.080</td>
+      <td>2.08</td>
       <td>1.76</td>
-      <td>2.080</td>
+      <td>2.08</td>
       <td>1.76</td>
       <td>0.458333</td>
       <td>0.541667</td>
@@ -8638,6 +7967,915 @@
       <td>0.032335</td>
       <td>0.010243</td>
     </tr>
+    <tr>
+      <td>50065774_HDC_1</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>Portuguese Premier</td>
+      <td>葡萄牙超級聯賽</td>
+      <td>2026-04-04T19:30:00+00:00</td>
+      <td>Porto</td>
+      <td>波圖</td>
+      <td>Famalicao</td>
+      <td>法馬利卡奧</td>
+      <td>-1.25</td>
+      <td>-1.25</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>2.02</td>
+      <td>1.79</td>
+      <td>2.02</td>
+      <td>1.79</td>
+      <td>0.469816</td>
+      <td>0.530184</td>
+      <td>0.469816</td>
+      <td>0.530184</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-1.25</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.469816</td>
+      <td>0.469816</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.436088</td>
+      <td>0.563912</td>
+      <td>away</td>
+      <td>0.563912</td>
+      <td>0.127824</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.530184</td>
+      <td>0.033728</td>
+      <td>0.009403</td>
+    </tr>
+    <tr>
+      <td>50066282_HDC_1</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>USL Championship</td>
+      <td>美國冠軍聯賽</td>
+      <td>2026-04-04T20:00:00+00:00</td>
+      <td>Louisville City</td>
+      <td>路易斯維爾城</td>
+      <td>Charleston Battery</td>
+      <td>查勒斯頓炮台</td>
+      <td>-0.75</td>
+      <td>-0.75</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>2.03</td>
+      <td>1.75</td>
+      <td>2.03</td>
+      <td>1.75</td>
+      <td>0.462963</td>
+      <td>0.537037</td>
+      <td>0.462963</td>
+      <td>0.537037</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.75</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.462963</td>
+      <td>0.462963</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.437235</td>
+      <td>0.562765</td>
+      <td>away</td>
+      <td>0.562765</td>
+      <td>0.125530</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.537037</td>
+      <td>0.025728</td>
+      <td>-0.015161</td>
+    </tr>
+    <tr>
+      <td>50063021_HDC_1</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>US Major League</td>
+      <td>美國職業聯賽</td>
+      <td>2026-04-04T20:30:00+00:00</td>
+      <td>New England Revolution</td>
+      <td>新英倫革命</td>
+      <td>CF Montreal</td>
+      <td>CF蒙特利爾</td>
+      <td>-0.25</td>
+      <td>-0.25</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>1.65</td>
+      <td>2.17</td>
+      <td>1.65</td>
+      <td>2.17</td>
+      <td>0.568063</td>
+      <td>0.431937</td>
+      <td>0.568063</td>
+      <td>0.431937</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.25</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.568063</td>
+      <td>0.568063</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.437591</td>
+      <td>0.562409</td>
+      <td>away</td>
+      <td>0.562409</td>
+      <td>0.124817</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.431937</td>
+      <td>0.130471</td>
+      <td>0.220427</td>
+    </tr>
+    <tr>
+      <td>50065420_HDC_1</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>Brazilian Division 1</td>
+      <td>巴西甲組聯賽</td>
+      <td>2026-04-04T21:30:00+00:00</td>
+      <td>Sao Paulo</td>
+      <td>聖保羅</td>
+      <td>Cruzeiro</td>
+      <td>高士路</td>
+      <td>-0.25</td>
+      <td>-0.25</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>1.76</td>
+      <td>2.02</td>
+      <td>1.76</td>
+      <td>2.02</td>
+      <td>0.534392</td>
+      <td>0.465608</td>
+      <td>0.534392</td>
+      <td>0.465608</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.25</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.534392</td>
+      <td>0.534392</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.440098</td>
+      <td>0.559902</td>
+      <td>away</td>
+      <td>0.559902</td>
+      <td>0.119803</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.465608</td>
+      <td>0.094293</td>
+      <td>0.131001</td>
+    </tr>
+    <tr>
+      <td>50059934_HDC_1</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>Mexican Premier</td>
+      <td>墨西哥超級聯賽</td>
+      <td>2026-04-04T23:00:00+00:00</td>
+      <td>Queretaro</td>
+      <td>克雷塔羅</td>
+      <td>Toluca</td>
+      <td>托盧卡</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>1.87</td>
+      <td>1.89</td>
+      <td>1.87</td>
+      <td>1.89</td>
+      <td>0.502660</td>
+      <td>0.497340</td>
+      <td>0.502660</td>
+      <td>0.497340</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1.00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.502660</td>
+      <td>0.502660</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.434923</td>
+      <td>0.565077</td>
+      <td>away</td>
+      <td>0.565077</td>
+      <td>0.130154</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.497340</td>
+      <td>0.067737</td>
+      <td>0.067996</td>
+    </tr>
+    <tr>
+      <td>50064747_HDC_1</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>Mexican Premier</td>
+      <td>墨西哥超級聯賽</td>
+      <td>2026-04-04T23:00:00+00:00</td>
+      <td>Monterrey</td>
+      <td>蒙特雷</td>
+      <td>Atletico San Luis</td>
+      <td>聖路易斯體育會</td>
+      <td>-0.75</td>
+      <td>-0.75</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>1.71</td>
+      <td>2.08</td>
+      <td>1.71</td>
+      <td>2.08</td>
+      <td>0.548813</td>
+      <td>0.451187</td>
+      <td>0.548813</td>
+      <td>0.451187</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.75</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.548813</td>
+      <td>0.548813</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.442080</td>
+      <td>0.557920</td>
+      <td>away</td>
+      <td>0.557920</td>
+      <td>0.115840</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.451187</td>
+      <td>0.106733</td>
+      <td>0.160473</td>
+    </tr>
+    <tr>
+      <td>50063392_HDC_1</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>US Major League</td>
+      <td>美國職業聯賽</td>
+      <td>2026-04-04T23:30:00+00:00</td>
+      <td>Inter Miami CF</td>
+      <td>國際邁亞密</td>
+      <td>Austin FC</td>
+      <td>FC奧斯汀</td>
+      <td>-1.75</td>
+      <td>-1.75</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>2.05</td>
+      <td>1.74</td>
+      <td>2.05</td>
+      <td>1.74</td>
+      <td>0.459103</td>
+      <td>0.540897</td>
+      <td>0.459103</td>
+      <td>0.540897</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-1.75</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.459103</td>
+      <td>0.459103</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.440054</td>
+      <td>0.559946</td>
+      <td>away</td>
+      <td>0.559946</td>
+      <td>0.119893</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.540897</td>
+      <td>0.019049</td>
+      <td>-0.025694</td>
+    </tr>
+    <tr>
+      <td>50066288_HDC_1</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>US Major League</td>
+      <td>美國職業聯賽</td>
+      <td>2026-04-04T23:30:00+00:00</td>
+      <td>New York City</td>
+      <td>紐約城</td>
+      <td>St. Louis City SC</td>
+      <td>聖路易城SC</td>
+      <td>-0.75</td>
+      <td>-0.75</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>1.91</td>
+      <td>1.85</td>
+      <td>1.91</td>
+      <td>1.85</td>
+      <td>0.492021</td>
+      <td>0.507979</td>
+      <td>0.492021</td>
+      <td>0.507979</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.75</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.492021</td>
+      <td>0.492021</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.441816</td>
+      <td>0.558184</td>
+      <td>away</td>
+      <td>0.558184</td>
+      <td>0.116368</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.507979</td>
+      <td>0.050205</td>
+      <td>0.032641</td>
+    </tr>
+    <tr>
+      <td>50062867_HDC_1</td>
+      <td>HKJC_LIKE</td>
+      <td>ah_ft</td>
+      <td>US Major League</td>
+      <td>美國職業聯賽</td>
+      <td>2026-04-04T23:30:00+00:00</td>
+      <td>New York Red Bulls</td>
+      <td>紐約紅牛</td>
+      <td>FC Cincinnati</td>
+      <td>FC辛辛那提</td>
+      <td>-0.25</td>
+      <td>-0.25</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>1.81</td>
+      <td>1.96</td>
+      <td>1.81</td>
+      <td>1.96</td>
+      <td>0.519894</td>
+      <td>0.480106</td>
+      <td>0.519894</td>
+      <td>0.480106</td>
+      <td>0</td>
+      <td>home</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1500.00000</td>
+      <td>1500.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.25</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.519894</td>
+      <td>0.519894</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0</td>
+      <td>0.440323</td>
+      <td>0.559677</td>
+      <td>away</td>
+      <td>0.559677</td>
+      <td>0.119355</td>
+      <td>logistic_regression</td>
+      <td>direct_cover</td>
+      <td>market</td>
+      <td>away</td>
+      <td>away</td>
+      <td>False</td>
+      <td>0.480106</td>
+      <td>0.079571</td>
+      <td>0.096968</td>
+    </tr>
   </tbody>
 </table>
             </section>
@@ -8673,169 +8911,7 @@
   </thead>
   <tbody>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50065231_HDC_1</td>
-      <td>2026-04-04 16:00:00+00:00</td>
-      <td>Italian Division 1</td>
-      <td>Verona</td>
-      <td>Fiorentina</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>0.75</td>
-      <td>1.64</td>
-      <td>2.28</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50066279_HDC_1</td>
-      <td>2026-04-04 16:15:00+00:00</td>
-      <td>Saudi Pro League</td>
-      <td>Al Ahli Jeddah</td>
-      <td>Damac FC</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-1.75</td>
-      <td>1.84</td>
-      <td>1.92</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50064778_HDC_1</td>
-      <td>2026-04-04 16:15:00+00:00</td>
-      <td>FA Cup</td>
-      <td>Chelsea</td>
-      <td>Port Vale</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-3.00</td>
-      <td>1.95</td>
-      <td>1.85</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50064778_HDC_2</td>
-      <td>2026-04-04 16:15:00+00:00</td>
-      <td>FA Cup</td>
-      <td>Chelsea</td>
-      <td>Port Vale</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-3.25</td>
-      <td>2.20</td>
-      <td>1.66</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50066297_HDC_1</td>
-      <td>2026-04-04 16:30:00+00:00</td>
-      <td>Spanish Division 1</td>
-      <td>Betis</td>
-      <td>Espanyol</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-0.75</td>
-      <td>1.98</td>
-      <td>1.84</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50065122_HDC_1</td>
-      <td>2026-04-04 16:30:00+00:00</td>
-      <td>German Division 1</td>
-      <td>Stuttgart</td>
-      <td>Dortmund</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-0.25</td>
-      <td>1.93</td>
-      <td>1.89</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50066053_HDC_1</td>
-      <td>2026-04-04 16:30:00+00:00</td>
-      <td>UAE Pro League</td>
-      <td>Shabab Al Ahli</td>
-      <td>Al Jazira</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-0.75</td>
-      <td>1.78</td>
-      <td>1.99</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50066246_HDC_1</td>
-      <td>2026-04-04 16:45:00+00:00</td>
-      <td>Russian Premier</td>
-      <td>Akhmat Grozny</td>
-      <td>FK Krasnodar</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>0.75</td>
-      <td>1.71</td>
-      <td>2.12</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
-      <td>hkjc</td>
-      <td>50065092_HDC_1</td>
-      <td>2026-04-04 16:45:00+00:00</td>
-      <td>Dutch Division 1</td>
-      <td>AZ Alkmaar</td>
-      <td>Fortuna Sittard</td>
-      <td>AH</td>
-      <td>home</td>
-      <td>-1.25</td>
-      <td>1.68</td>
-      <td>2.17</td>
-      <td>HKJC_LIKE</td>
-      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
-      <td>ok</td>
-      <td>ok</td>
-    </tr>
-    <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065108_HDC_2</td>
       <td>2026-04-04 17:00:00+00:00</td>
@@ -8853,7 +8929,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065770_HDC_1</td>
       <td>2026-04-04 17:00:00+00:00</td>
@@ -8863,15 +8939,15 @@
       <td>AH</td>
       <td>home</td>
       <td>1.00</td>
-      <td>1.91</td>
-      <td>1.89</td>
+      <td>1.93</td>
+      <td>1.87</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50066280_HDC_1</td>
       <td>2026-04-04 17:30:00+00:00</td>
@@ -8889,7 +8965,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065681_HDC_1</td>
       <td>2026-04-04 18:00:00+00:00</td>
@@ -8907,7 +8983,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065482_HDC_1</td>
       <td>2026-04-04 18:00:00+00:00</td>
@@ -8917,15 +8993,15 @@
       <td>AH</td>
       <td>home</td>
       <td>0.25</td>
-      <td>2.09</td>
-      <td>1.70</td>
+      <td>2.12</td>
+      <td>1.71</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065607_HDC_1</td>
       <td>2026-04-04 18:30:00+00:00</td>
@@ -8943,7 +9019,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065230_HDC_1</td>
       <td>2026-04-04 18:45:00+00:00</td>
@@ -8961,7 +9037,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065102_HDC_1</td>
       <td>2026-04-04 19:00:00+00:00</td>
@@ -8979,7 +9055,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50064779_HDC_1</td>
       <td>2026-04-04 19:00:00+00:00</td>
@@ -8989,15 +9065,15 @@
       <td>AH</td>
       <td>home</td>
       <td>1.25</td>
-      <td>2.04</td>
-      <td>1.79</td>
+      <td>1.96</td>
+      <td>1.86</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065094_HDC_1</td>
       <td>2026-04-04 19:00:00+00:00</td>
@@ -9015,7 +9091,7 @@
       <td>ok</td>
     </tr>
     <tr>
-      <td>2026-04-04T07:31:30.476371+00:00</td>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
       <td>hkjc</td>
       <td>50065111_HDC_1</td>
       <td>2026-04-04 19:05:00+00:00</td>
@@ -9027,6 +9103,168 @@
       <td>0.00</td>
       <td>2.08</td>
       <td>1.76</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50065774_HDC_1</td>
+      <td>2026-04-04 19:30:00+00:00</td>
+      <td>Portuguese Premier</td>
+      <td>Porto</td>
+      <td>Famalicao</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-1.25</td>
+      <td>2.02</td>
+      <td>1.79</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50066282_HDC_1</td>
+      <td>2026-04-04 20:00:00+00:00</td>
+      <td>USL Championship</td>
+      <td>Louisville City</td>
+      <td>Charleston Battery</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.75</td>
+      <td>2.03</td>
+      <td>1.75</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50063021_HDC_1</td>
+      <td>2026-04-04 20:30:00+00:00</td>
+      <td>US Major League</td>
+      <td>New England Revolution</td>
+      <td>CF Montreal</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.25</td>
+      <td>1.65</td>
+      <td>2.17</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50065420_HDC_1</td>
+      <td>2026-04-04 21:30:00+00:00</td>
+      <td>Brazilian Division 1</td>
+      <td>Sao Paulo</td>
+      <td>Cruzeiro</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.25</td>
+      <td>1.76</td>
+      <td>2.02</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50059934_HDC_1</td>
+      <td>2026-04-04 23:00:00+00:00</td>
+      <td>Mexican Premier</td>
+      <td>Queretaro</td>
+      <td>Toluca</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>1.00</td>
+      <td>1.87</td>
+      <td>1.89</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50064747_HDC_1</td>
+      <td>2026-04-04 23:00:00+00:00</td>
+      <td>Mexican Premier</td>
+      <td>Monterrey</td>
+      <td>Atletico San Luis</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.75</td>
+      <td>1.71</td>
+      <td>2.08</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50063392_HDC_1</td>
+      <td>2026-04-04 23:30:00+00:00</td>
+      <td>US Major League</td>
+      <td>Inter Miami CF</td>
+      <td>Austin FC</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-1.75</td>
+      <td>2.05</td>
+      <td>1.74</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50066288_HDC_1</td>
+      <td>2026-04-04 23:30:00+00:00</td>
+      <td>US Major League</td>
+      <td>New York City</td>
+      <td>St. Louis City SC</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.75</td>
+      <td>1.91</td>
+      <td>1.85</td>
+      <td>HKJC_LIKE</td>
+      <td>artifacts\live\raw\latest_raw_hkjc.json</td>
+      <td>ok</td>
+      <td>ok</td>
+    </tr>
+    <tr>
+      <td>2026-04-04T10:41:16.169657+00:00</td>
+      <td>hkjc</td>
+      <td>50062867_HDC_1</td>
+      <td>2026-04-04 23:30:00+00:00</td>
+      <td>US Major League</td>
+      <td>New York Red Bulls</td>
+      <td>FC Cincinnati</td>
+      <td>AH</td>
+      <td>home</td>
+      <td>-0.25</td>
+      <td>1.81</td>
+      <td>1.96</td>
       <td>HKJC_LIKE</td>
       <td>artifacts\live\raw\latest_raw_hkjc.json</td>
       <td>ok</td>
@@ -9054,8 +9292,17 @@
   </thead>
   <tbody>
     <tr>
-      <td>20260404T073130Z</td>
-      <td>2026-04-04T07:31:31.096974+00:00</td>
+      <td>20260404T103615Z</td>
+      <td>2026-04-04T10:36:16.030429+00:00</td>
+      <td>NaN</td>
+      <td>skipped</td>
+      <td>No candidates passed thresholds.</td>
+      <td>NaN</td>
+      <td>dry-run</td>
+    </tr>
+    <tr>
+      <td>20260404T104116Z</td>
+      <td>2026-04-04T10:41:16.730196+00:00</td>
       <td>NaN</td>
       <td>skipped</td>
       <td>No candidates passed thresholds.</td>
@@ -9079,11 +9326,18 @@
   </thead>
   <tbody>
     <tr>
-      <td>20260404T073130Z</td>
-      <td>2026-04-04T07:31:31.098503+00:00</td>
+      <td>20260404T103615Z</td>
+      <td>2026-04-04T10:36:16.032429+00:00</td>
       <td>INFO</td>
       <td>cycle_summary</td>
-      <td>raw=71 normalized=71 inserted=71 skipped=0 candidates=0</td>
+      <td>raw=72 normalized=72 inserted=72 skipped=0 candidates=0</td>
+    </tr>
+    <tr>
+      <td>20260404T104116Z</td>
+      <td>2026-04-04T10:41:16.731191+00:00</td>
+      <td>INFO</td>
+      <td>cycle_summary</td>
+      <td>raw=73 normalized=73 inserted=73 skipped=0 candidates=0</td>
     </tr>
   </tbody>
 </table>
