@@ -1,0 +1,378 @@
+
+[FILE] artifacts\live\raw\latest_raw_hkjc.json
+[HITS] 0
+
+[FILE] artifacts\debug\latest_hkjc_request_debug_handicap.json
+[HITS] 0
+
+[FETCH] saved artifacts\live\raw\latest_raw_hkjc_probe.json
+[FETCH] match_count=60
+
+[FILE] artifacts\live\raw\latest_raw_hkjc_probe.json
+[HITS] 0
+
+[GRAPHQL] probing match-level candidates
+ - injury_absence_index_home: not_in_schema
+ - injury_absence_index_away: not_in_schema
+ - squad_absence_score_home: not_in_schema
+ - squad_absence_score_away: not_in_schema
+ - homeInjuredCount: not_in_schema
+ - awayInjuredCount: not_in_schema
+
+[GRAPHQL] probing homeTeam candidates
+ - injury_absence_index: not_in_schema
+ - squad_absence_score: not_in_schema
+ - injuryIndex: not_in_schema
+ - absenceScore: not_in_schema
+ - injuredCount: not_in_schema
+ - missingPlayers: not_in_schema
+ - lineupStatus: not_in_schema
+ - suspensionCount: not_in_schema
+
+[GRAPHQL] probing awayTeam candidates
+ - injury_absence_index: not_in_schema
+ - squad_absence_score: not_in_schema
+ - injuryIndex: not_in_schema
+ - absenceScore: not_in_schema
+ - injuredCount: not_in_schema
+ - missingPlayers: not_in_schema
+ - lineupStatus: not_in_schema
+ - suspensionCount: not_in_schema
+
+[DEEP] results match_id=50064780
+
+[STRICT-RESULTS] artifacts\live\raw\latest_raw_hkjc_probe_results.json
+[STRICT-RESULTS] hits=0
+
+[PROXY-RESULTS] artifacts\live\raw\latest_raw_hkjc_probe_results.json
+[PROXY-RESULTS] hits=101
+ - data.matches[0].status
+ - data.matches[1].status
+ - data.matches[2].status
+ - data.matches[3].status
+ - data.matches[4].status
+ - data.matches[5].status
+ - data.matches[6].status
+ - data.matches[7].status
+ - data.matches[8].status
+ - data.matches[9].status
+ - data.matches[10].status
+ - data.matches[11].status
+ - data.matches[12].status
+ - data.matches[13].status
+ - data.matches[14].status
+ - data.matches[15].status
+ - data.matches[16].status
+ - data.matches[17].status
+ - data.matches[18].status
+ - data.matches[19].status
+ - data.matches[20].status
+ - data.matches[21].status
+ - data.matches[22].status
+ - data.matches[23].status
+ - data.matches[24].status
+ - data.matches[25].status
+ - data.matches[26].status
+ - data.matches[27].status
+ - data.matches[28].status
+ - data.matches[29].status
+ - data.matches[30].status
+ - data.matches[31].status
+ - data.matches[32].status
+ - data.matches[33].status
+ - data.matches[34].status
+ - data.matches[35].status
+ - data.matches[36].status
+ - data.matches[37].status
+ - data.matches[38].status
+ - data.matches[39].status
+ - data.matches[40].status
+ - data.matches[41].status
+ - data.matches[42].status
+ - data.matches[43].status
+ - data.matches[44].status
+ - data.matches[45].status
+ - data.matches[46].status
+ - data.matches[47].status
+ - data.matches[48].status
+ - data.matches[49].status
+ - data.matches[50].status
+ - data.matches[51].status
+ - data.matches[52].status
+ - data.matches[53].status
+ - data.matches[54].status
+ - data.matches[55].status
+ - data.matches[56].status
+ - data.matches[57].status
+ - data.matches[58].status
+ - data.matches[59].status
+
+[STRICT-DETAIL-DEFAULT] artifacts\live\raw\latest_raw_hkjc_probe_results_detail_default.json
+[STRICT-DETAIL-DEFAULT] hits=0
+
+[PROXY-DETAIL-DEFAULT] artifacts\live\raw\latest_raw_hkjc_probe_results_detail_default.json
+[PROXY-DETAIL-DEFAULT] hits=107
+ - data.matches[0].foPools[0].status
+ - data.matches[0].foPools[0].lines[0].combinations[0].status
+ - data.matches[0].foPools[0].lines[0].combinations[0].selections
+ - data.matches[0].foPools[0].lines[0].combinations[1].status
+ - data.matches[0].foPools[0].lines[0].combinations[1].selections
+ - data.matches[0].foPools[0].lines[1].combinations[0].status
+ - data.matches[0].foPools[0].lines[1].combinations[0].selections
+ - data.matches[0].foPools[0].lines[1].combinations[1].status
+ - data.matches[0].foPools[0].lines[1].combinations[1].selections
+ - data.matches[0].foPools[0].lines[2].combinations[0].status
+ - data.matches[0].foPools[0].lines[2].combinations[0].selections
+ - data.matches[0].foPools[0].lines[2].combinations[1].status
+ - data.matches[0].foPools[0].lines[2].combinations[1].selections
+ - data.matches[0].foPools[0].lines[3].combinations[0].status
+ - data.matches[0].foPools[0].lines[3].combinations[0].selections
+ - data.matches[0].foPools[0].lines[3].combinations[1].status
+ - data.matches[0].foPools[0].lines[3].combinations[1].selections
+ - data.matches[0].foPools[0].lines[4].combinations[0].status
+ - data.matches[0].foPools[0].lines[4].combinations[0].selections
+ - data.matches[0].foPools[0].lines[4].combinations[1].status
+ - data.matches[0].foPools[0].lines[4].combinations[1].selections
+ - data.matches[0].foPools[0].lines[5].combinations[0].status
+ - data.matches[0].foPools[0].lines[5].combinations[0].selections
+ - data.matches[0].foPools[0].lines[5].combinations[1].status
+ - data.matches[0].foPools[0].lines[5].combinations[1].selections
+ - data.matches[0].foPools[0].lines[6].combinations[0].status
+ - data.matches[0].foPools[0].lines[6].combinations[0].selections
+ - data.matches[0].foPools[0].lines[6].combinations[1].status
+ - data.matches[0].foPools[0].lines[6].combinations[1].selections
+ - data.matches[0].foPools[0].lines[7].combinations[0].status
+ - data.matches[0].foPools[0].lines[7].combinations[0].selections
+ - data.matches[0].foPools[0].lines[7].combinations[1].status
+ - data.matches[0].foPools[0].lines[7].combinations[1].selections
+ - data.matches[0].foPools[1].status
+ - data.matches[0].foPools[1].lines[0].combinations[0].status
+ - data.matches[0].foPools[1].lines[0].combinations[0].selections
+ - data.matches[0].foPools[1].lines[0].combinations[1].status
+ - data.matches[0].foPools[1].lines[0].combinations[1].selections
+ - data.matches[0].foPools[1].lines[1].combinations[0].status
+ - data.matches[0].foPools[1].lines[1].combinations[0].selections
+ - data.matches[0].foPools[1].lines[1].combinations[1].status
+ - data.matches[0].foPools[1].lines[1].combinations[1].selections
+ - data.matches[0].foPools[1].lines[2].combinations[0].status
+ - data.matches[0].foPools[1].lines[2].combinations[0].selections
+ - data.matches[0].foPools[1].lines[2].combinations[1].status
+ - data.matches[0].foPools[1].lines[2].combinations[1].selections
+ - data.matches[0].foPools[1].lines[3].combinations[0].status
+ - data.matches[0].foPools[1].lines[3].combinations[0].selections
+ - data.matches[0].foPools[1].lines[3].combinations[1].status
+ - data.matches[0].foPools[1].lines[3].combinations[1].selections
+ - data.matches[0].foPools[1].lines[4].combinations[0].status
+ - data.matches[0].foPools[1].lines[4].combinations[0].selections
+ - data.matches[0].foPools[1].lines[4].combinations[1].status
+ - data.matches[0].foPools[1].lines[4].combinations[1].selections
+ - data.matches[0].foPools[2].status
+ - data.matches[0].foPools[2].lines[0].combinations[0].status
+ - data.matches[0].foPools[2].lines[0].combinations[0].selections
+ - data.matches[0].foPools[2].lines[0].combinations[1].status
+ - data.matches[0].foPools[2].lines[0].combinations[1].selections
+ - data.matches[0].foPools[2].lines[1].combinations[0].status
+
+[DEEP] player-set-1 types=['FGS', 'NGS'] errors=0
+
+[STRICT-DETAIL-PLAYER-1] artifacts\live\raw\latest_raw_hkjc_probe_results_detail_player_1.json
+[STRICT-DETAIL-PLAYER-1] hits=0
+
+[PROXY-DETAIL-PLAYER-1] artifacts\live\raw\latest_raw_hkjc_probe_results_detail_player_1.json
+[PROXY-DETAIL-PLAYER-1] hits=328
+ - data.matches[0].foPools[0].status
+ - data.matches[0].foPools[0].lines[0].combinations[0].status
+ - data.matches[0].foPools[0].lines[0].combinations[0].selections
+ - data.matches[0].foPools[0].lines[0].combinations[1].status
+ - data.matches[0].foPools[0].lines[0].combinations[1].selections
+ - data.matches[0].foPools[0].lines[0].combinations[2].status
+ - data.matches[0].foPools[0].lines[0].combinations[2].selections
+ - data.matches[0].foPools[0].lines[0].combinations[3].status
+ - data.matches[0].foPools[0].lines[0].combinations[3].selections
+ - data.matches[0].foPools[0].lines[0].combinations[4].status
+ - data.matches[0].foPools[0].lines[0].combinations[4].selections
+ - data.matches[0].foPools[0].lines[0].combinations[5].status
+ - data.matches[0].foPools[0].lines[0].combinations[5].selections
+ - data.matches[0].foPools[0].lines[0].combinations[6].status
+ - data.matches[0].foPools[0].lines[0].combinations[6].selections
+ - data.matches[0].foPools[0].lines[0].combinations[7].status
+ - data.matches[0].foPools[0].lines[0].combinations[7].selections
+ - data.matches[0].foPools[0].lines[0].combinations[8].status
+ - data.matches[0].foPools[0].lines[0].combinations[8].selections
+ - data.matches[0].foPools[0].lines[0].combinations[9].status
+ - data.matches[0].foPools[0].lines[0].combinations[9].selections
+ - data.matches[0].foPools[0].lines[0].combinations[10].status
+ - data.matches[0].foPools[0].lines[0].combinations[10].selections
+ - data.matches[0].foPools[0].lines[0].combinations[11].status
+ - data.matches[0].foPools[0].lines[0].combinations[11].selections
+ - data.matches[0].foPools[0].lines[0].combinations[12].status
+ - data.matches[0].foPools[0].lines[0].combinations[12].selections
+ - data.matches[0].foPools[0].lines[0].combinations[13].status
+ - data.matches[0].foPools[0].lines[0].combinations[13].selections
+ - data.matches[0].foPools[0].lines[0].combinations[14].status
+ - data.matches[0].foPools[0].lines[0].combinations[14].selections
+ - data.matches[0].foPools[0].lines[0].combinations[15].status
+ - data.matches[0].foPools[0].lines[0].combinations[15].selections
+ - data.matches[0].foPools[0].lines[0].combinations[16].status
+ - data.matches[0].foPools[0].lines[0].combinations[16].selections
+ - data.matches[0].foPools[0].lines[0].combinations[17].status
+ - data.matches[0].foPools[0].lines[0].combinations[17].selections
+ - data.matches[0].foPools[0].lines[0].combinations[18].status
+ - data.matches[0].foPools[0].lines[0].combinations[18].selections
+ - data.matches[0].foPools[0].lines[0].combinations[19].status
+ - data.matches[0].foPools[0].lines[0].combinations[19].selections
+ - data.matches[0].foPools[0].lines[0].combinations[20].status
+ - data.matches[0].foPools[0].lines[0].combinations[20].selections
+ - data.matches[0].foPools[0].lines[0].combinations[21].status
+ - data.matches[0].foPools[0].lines[0].combinations[21].selections
+ - data.matches[0].foPools[0].lines[0].combinations[22].status
+ - data.matches[0].foPools[0].lines[0].combinations[22].selections
+ - data.matches[0].foPools[0].lines[0].combinations[23].status
+ - data.matches[0].foPools[0].lines[0].combinations[23].selections
+ - data.matches[0].foPools[0].lines[0].combinations[24].status
+ - data.matches[0].foPools[0].lines[0].combinations[24].selections
+ - data.matches[0].foPools[0].lines[0].combinations[25].status
+ - data.matches[0].foPools[0].lines[0].combinations[25].selections
+ - data.matches[0].foPools[0].lines[0].combinations[26].status
+ - data.matches[0].foPools[0].lines[0].combinations[26].selections
+ - data.matches[0].foPools[0].lines[0].combinations[27].status
+ - data.matches[0].foPools[0].lines[0].combinations[27].selections
+ - data.matches[0].foPools[0].lines[0].combinations[28].status
+ - data.matches[0].foPools[0].lines[0].combinations[28].selections
+ - data.matches[0].foPools[0].lines[0].combinations[29].status
+
+[DEEP] player-set-2 types=['NGS', 'NTS'] errors=0
+
+[STRICT-DETAIL-PLAYER-2] artifacts\live\raw\latest_raw_hkjc_probe_results_detail_player_2.json
+[STRICT-DETAIL-PLAYER-2] hits=0
+
+[PROXY-DETAIL-PLAYER-2] artifacts\live\raw\latest_raw_hkjc_probe_results_detail_player_2.json
+[PROXY-DETAIL-PLAYER-2] hits=270
+ - data.matches[0].foPools[0].status
+ - data.matches[0].foPools[0].lines[0].combinations[0].status
+ - data.matches[0].foPools[0].lines[0].combinations[0].selections
+ - data.matches[0].foPools[0].lines[0].combinations[1].status
+ - data.matches[0].foPools[0].lines[0].combinations[1].selections
+ - data.matches[0].foPools[0].lines[0].combinations[2].status
+ - data.matches[0].foPools[0].lines[0].combinations[2].selections
+ - data.matches[0].foPools[0].lines[0].combinations[3].status
+ - data.matches[0].foPools[0].lines[0].combinations[3].selections
+ - data.matches[0].foPools[0].lines[0].combinations[4].status
+ - data.matches[0].foPools[0].lines[0].combinations[4].selections
+ - data.matches[0].foPools[0].lines[0].combinations[5].status
+ - data.matches[0].foPools[0].lines[0].combinations[5].selections
+ - data.matches[0].foPools[0].lines[0].combinations[6].status
+ - data.matches[0].foPools[0].lines[0].combinations[6].selections
+ - data.matches[0].foPools[0].lines[0].combinations[7].status
+ - data.matches[0].foPools[0].lines[0].combinations[7].selections
+ - data.matches[0].foPools[0].lines[0].combinations[8].status
+ - data.matches[0].foPools[0].lines[0].combinations[8].selections
+ - data.matches[0].foPools[0].lines[0].combinations[9].status
+ - data.matches[0].foPools[0].lines[0].combinations[9].selections
+ - data.matches[0].foPools[0].lines[0].combinations[10].status
+ - data.matches[0].foPools[0].lines[0].combinations[10].selections
+ - data.matches[0].foPools[0].lines[0].combinations[11].status
+ - data.matches[0].foPools[0].lines[0].combinations[11].selections
+ - data.matches[0].foPools[0].lines[0].combinations[12].status
+ - data.matches[0].foPools[0].lines[0].combinations[12].selections
+ - data.matches[0].foPools[0].lines[0].combinations[13].status
+ - data.matches[0].foPools[0].lines[0].combinations[13].selections
+ - data.matches[0].foPools[0].lines[0].combinations[14].status
+ - data.matches[0].foPools[0].lines[0].combinations[14].selections
+ - data.matches[0].foPools[0].lines[0].combinations[15].status
+ - data.matches[0].foPools[0].lines[0].combinations[15].selections
+ - data.matches[0].foPools[0].lines[0].combinations[16].status
+ - data.matches[0].foPools[0].lines[0].combinations[16].selections
+ - data.matches[0].foPools[0].lines[0].combinations[17].status
+ - data.matches[0].foPools[0].lines[0].combinations[17].selections
+ - data.matches[0].foPools[0].lines[0].combinations[18].status
+ - data.matches[0].foPools[0].lines[0].combinations[18].selections
+ - data.matches[0].foPools[0].lines[0].combinations[19].status
+ - data.matches[0].foPools[0].lines[0].combinations[19].selections
+ - data.matches[0].foPools[0].lines[0].combinations[20].status
+ - data.matches[0].foPools[0].lines[0].combinations[20].selections
+ - data.matches[0].foPools[1].status
+ - data.matches[0].foPools[1].lines[0].combinations[0].status
+ - data.matches[0].foPools[1].lines[0].combinations[0].selections
+ - data.matches[0].foPools[1].lines[0].combinations[1].status
+ - data.matches[0].foPools[1].lines[0].combinations[1].selections
+ - data.matches[0].foPools[1].lines[0].combinations[2].status
+ - data.matches[0].foPools[1].lines[0].combinations[2].selections
+ - data.matches[0].foPools[2].status
+ - data.matches[0].foPools[2].lines[0].combinations[0].status
+ - data.matches[0].foPools[2].lines[0].combinations[0].selections
+ - data.matches[0].foPools[2].lines[0].combinations[1].status
+ - data.matches[0].foPools[2].lines[0].combinations[1].selections
+ - data.matches[0].foPools[2].lines[0].combinations[2].status
+ - data.matches[0].foPools[2].lines[0].combinations[2].selections
+ - data.matches[0].foPools[2].lines[0].combinations[3].status
+ - data.matches[0].foPools[2].lines[0].combinations[3].selections
+ - data.matches[0].foPools[2].lines[0].combinations[4].status
+
+[DEEP] player-set-3 types=['FGS'] errors=0
+
+[STRICT-DETAIL-PLAYER-3] artifacts\live\raw\latest_raw_hkjc_probe_results_detail_player_3.json
+[STRICT-DETAIL-PLAYER-3] hits=0
+
+[PROXY-DETAIL-PLAYER-3] artifacts\live\raw\latest_raw_hkjc_probe_results_detail_player_3.json
+[PROXY-DETAIL-PLAYER-3] hits=93
+ - data.matches[0].foPools[0].status
+ - data.matches[0].foPools[0].lines[0].combinations[0].status
+ - data.matches[0].foPools[0].lines[0].combinations[0].selections
+ - data.matches[0].foPools[0].lines[0].combinations[1].status
+ - data.matches[0].foPools[0].lines[0].combinations[1].selections
+ - data.matches[0].foPools[0].lines[0].combinations[2].status
+ - data.matches[0].foPools[0].lines[0].combinations[2].selections
+ - data.matches[0].foPools[0].lines[0].combinations[3].status
+ - data.matches[0].foPools[0].lines[0].combinations[3].selections
+ - data.matches[0].foPools[0].lines[0].combinations[4].status
+ - data.matches[0].foPools[0].lines[0].combinations[4].selections
+ - data.matches[0].foPools[0].lines[0].combinations[5].status
+ - data.matches[0].foPools[0].lines[0].combinations[5].selections
+ - data.matches[0].foPools[0].lines[0].combinations[6].status
+ - data.matches[0].foPools[0].lines[0].combinations[6].selections
+ - data.matches[0].foPools[0].lines[0].combinations[7].status
+ - data.matches[0].foPools[0].lines[0].combinations[7].selections
+ - data.matches[0].foPools[0].lines[0].combinations[8].status
+ - data.matches[0].foPools[0].lines[0].combinations[8].selections
+ - data.matches[0].foPools[0].lines[0].combinations[9].status
+ - data.matches[0].foPools[0].lines[0].combinations[9].selections
+ - data.matches[0].foPools[0].lines[0].combinations[10].status
+ - data.matches[0].foPools[0].lines[0].combinations[10].selections
+ - data.matches[0].foPools[0].lines[0].combinations[11].status
+ - data.matches[0].foPools[0].lines[0].combinations[11].selections
+ - data.matches[0].foPools[0].lines[0].combinations[12].status
+ - data.matches[0].foPools[0].lines[0].combinations[12].selections
+ - data.matches[0].foPools[0].lines[0].combinations[13].status
+ - data.matches[0].foPools[0].lines[0].combinations[13].selections
+ - data.matches[0].foPools[0].lines[0].combinations[14].status
+ - data.matches[0].foPools[0].lines[0].combinations[14].selections
+ - data.matches[0].foPools[0].lines[0].combinations[15].status
+ - data.matches[0].foPools[0].lines[0].combinations[15].selections
+ - data.matches[0].foPools[0].lines[0].combinations[16].status
+ - data.matches[0].foPools[0].lines[0].combinations[16].selections
+ - data.matches[0].foPools[0].lines[0].combinations[17].status
+ - data.matches[0].foPools[0].lines[0].combinations[17].selections
+ - data.matches[0].foPools[0].lines[0].combinations[18].status
+ - data.matches[0].foPools[0].lines[0].combinations[18].selections
+ - data.matches[0].foPools[0].lines[0].combinations[19].status
+ - data.matches[0].foPools[0].lines[0].combinations[19].selections
+ - data.matches[0].foPools[0].lines[0].combinations[20].status
+ - data.matches[0].foPools[0].lines[0].combinations[20].selections
+ - data.matches[0].foPools[0].lines[0].combinations[21].status
+ - data.matches[0].foPools[0].lines[0].combinations[21].selections
+ - data.matches[0].foPools[0].lines[0].combinations[22].status
+ - data.matches[0].foPools[0].lines[0].combinations[22].selections
+ - data.matches[0].foPools[0].lines[0].combinations[23].status
+ - data.matches[0].foPools[0].lines[0].combinations[23].selections
+ - data.matches[0].foPools[0].lines[0].combinations[24].status
+ - data.matches[0].foPools[0].lines[0].combinations[24].selections
+ - data.matches[0].foPools[0].lines[0].combinations[25].status
+ - data.matches[0].foPools[0].lines[0].combinations[25].selections
+ - data.matches[0].foPools[0].lines[0].combinations[26].status
+ - data.matches[0].foPools[0].lines[0].combinations[26].selections
+ - data.matches[0].foPools[0].lines[0].combinations[27].status
+ - data.matches[0].foPools[0].lines[0].combinations[27].selections
+ - data.matches[0].foPools[0].lines[0].combinations[28].status
+ - data.matches[0].foPools[0].lines[0].combinations[28].selections
+ - data.matches[0].foPools[0].lines[0].combinations[29].status
