@@ -1,0 +1,2 @@
+total_matches_evaluated,total_bets_placed,wins,losses,pushes,half_wins,half_losses,win_rate,roi,total_stake,total_return,net_profit,max_drawdown,bankroll_curve_summary,brier_score,log_loss,source_markets,data_source_warning,sample_warning
+368,4,2,1,0,1,0,0.5,0.3275,800.0,1062.0,262.0,0.019116803670426306,"{'initial_bankroll': 10000.0, 'ending_bankroll': 10262.0, 'peak_bankroll': 10462.0, 'min_bankroll': 10092.0}",0.2549435979768702,0.7074484286725536,['NON_HKJC'],Backtest includes non-HKJC historical market data. Results may not match HKJC pricing or execution conditions.,

@@ -1,0 +1,28 @@
+{
+  "phase": "phase6_live_monitoring",
+  "mode": "sandbox",
+  "mode_separation": {
+    "research": "backtest/optimize only",
+    "sandbox": "live feed + alerts in dry-run mode",
+    "live": "explicit opt-in live alerts only; no auto execution"
+  },
+  "provider": "mock",
+  "run_id": "20260403_pm1",
+  "model_path": "artifacts\\model_bundle.pkl",
+  "poll_timeout_seconds": 15,
+  "interval_seconds": 60,
+  "edge_threshold": 0.03,
+  "confidence_threshold": 0.55,
+  "policy": "fractional_kelly",
+  "max_alerts": 3,
+  "alerts_mode": "dry-run",
+  "last_success_time_utc": "2026-04-03T10:54:33.179701+00:00",
+  "cycle_id": "20260403T105433Z",
+  "rows": {
+    "raw_events": 5,
+    "normalized_events": 5,
+    "snapshot_rows": 5,
+    "candidate_rows": 0,
+    "alerts_sent": 0
+  }
+}

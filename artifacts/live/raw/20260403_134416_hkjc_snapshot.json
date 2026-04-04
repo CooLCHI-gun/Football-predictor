@@ -1,0 +1,28 @@
+{
+  "provider": "hkjc",
+  "mode": "dry-run",
+  "cycle_id": "20260403T134412Z",
+  "fetched_at_utc": "2026-04-03T13:44:16.158302+00:00",
+  "event_count": 0,
+  "events": [],
+  "provider_raw": {
+    "provider": "hkjc",
+    "fetched_at_utc": "2026-04-03T13:44:16.157316+00:00",
+    "gql_url": "https://info.cld.hkjc.com/graphql/base/",
+    "gql_error": "query isn't whitelisted",
+    "raw_response": {
+      "errors": [
+        {
+          "message": "query isn't whitelisted",
+          "extensions": {
+            "code": "WHITELIST_ERROR",
+            "serviceName": "football"
+          }
+        }
+      ],
+      "data": {
+        "matches": null
+      }
+    }
+  }
+}

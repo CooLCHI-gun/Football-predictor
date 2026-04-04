@@ -1,0 +1,82 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: src.main --help",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "src.main",
+      "args": ["--help"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Python: Pytest (all)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["-q"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Python: Backtest (phase3_full)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "src.main",
+      "args": [
+        "backtest",
+        "--input-path",
+        "data/processed/features_phase3_full.csv",
+        "--force"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Python: Optimize Small Grid",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "src.main",
+      "args": [
+        "optimize",
+        "--input-path",
+        "data/processed/features_phase3_full.csv",
+        "--edge-grid",
+        "0.03",
+        "--confidence-grid",
+        "0.55",
+        "--policy-grid",
+        "fractional_kelly,vol_target",
+        "--kelly-grid",
+        "0.25",
+        "--max-stake-grid",
+        "0.02",
+        "--daily-exposure-grid",
+        "0.03",
+        "--force"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Python: Alert Dry Run",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "src.main",
+      "args": [
+        "alert",
+        "--predictions-path",
+        "artifacts/predictions_full.csv",
+        "--edge-threshold",
+        "0.02",
+        "--confidence-threshold",
+        "0.55",
+        "--max-alerts",
+        "3"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}

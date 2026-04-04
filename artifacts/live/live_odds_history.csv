@@ -1,0 +1,72 @@
+fetch_time_utc,provider,provider_match_id,kickoff_time_utc,competition,home_team_name,away_team_name,market_type,handicap_side,handicap_line,odds_home,odds_away,source_market,raw_reference,data_status,parse_status
+2026-04-04T07:31:30.476371+00:00,hkjc,50065082_HDC_1,2026-04-04 06:00:00+00:00,Australian Division 1,Central Coast Mariners,Perth Glory,AH,home,0.0,1.83,1.89,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065082_HDC_2,2026-04-04 06:00:00+00:00,Australian Division 1,Central Coast Mariners,Perth Glory,AH,home,0.75,2.26,1.58,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065082_HDC_4,2026-04-04 06:00:00+00:00,Australian Division 1,Central Coast Mariners,Perth Glory,AH,home,1.0,1.001,14.5,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065082_HDC_3,2026-04-04 06:00:00+00:00,Australian Division 1,Central Coast Mariners,Perth Glory,AH,home,1.75,1.22,3.9,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065442_HDC_5,2026-04-04 06:00:00+00:00,J1 100Y Vision League,Nagoya Grampus,Cerezo Osaka,AH,home,-3.0,1.9,1.82,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065442_HDC_4,2026-04-04 06:00:00+00:00,J1 100Y Vision League,Nagoya Grampus,Cerezo Osaka,AH,home,-2.0,1.03,9.4,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065442_HDC_3,2026-04-04 06:00:00+00:00,J1 100Y Vision League,Nagoya Grampus,Cerezo Osaka,AH,home,-1.0,1.06,7.5,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065442_HDC_2,2026-04-04 06:00:00+00:00,J1 100Y Vision League,Nagoya Grampus,Cerezo Osaka,AH,home,0.0,1.06,7.5,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065442_HDC_1,2026-04-04 06:00:00+00:00,J1 100Y Vision League,Nagoya Grampus,Cerezo Osaka,AH,home,-0.25,2.1,1.72,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065444_HDC_2,2026-04-04 07:00:00+00:00,J1 100Y Vision League,Gamba Osaka,Kyoto Sanga,AH,home,-1.0,1.73,2.01,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065444_HDC_1,2026-04-04 07:00:00+00:00,J1 100Y Vision League,Gamba Osaka,Kyoto Sanga,AH,home,0.0,1.16,4.65,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065446_HDC_2,2026-04-04 07:30:00+00:00,Korean Division 1,Pohang Steelers,Daejeon Citizen,AH,home,-0.25,2.04,1.71,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065446_HDC_1,2026-04-04 07:30:00+00:00,Korean Division 1,Pohang Steelers,Daejeon Citizen,AH,home,0.0,1.76,2.06,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066056_HDC_1,2026-04-04 08:15:00+00:00,Australian NPL - New South Wales,St George City,Blacktown City,AH,home,-0.25,1.7,2.09,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065081_HDC_1,2026-04-04 08:35:00+00:00,Australian Division 1,Melbourne City,Western Sydney Wanderers,AH,home,-0.25,1.7,2.09,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066057_HDC_1,2026-04-04 09:00:00+00:00,U20 Women Asian Cup,Bangladesh Women U20,China Women U20,AH,home,4.0,1.82,1.9,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066266_HDC_1,2026-04-04 10:00:00+00:00,Finnish Division 1,Inter Turku,VPS Vaasa,AH,home,-1.25,1.87,1.89,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066130_HDC_1,2026-04-04 10:00:00+00:00,Russian Premier,Akron Tolyatti,CSKA Moscow,AH,home,0.75,1.83,1.97,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066355_HDC_1,2026-04-04 10:00:00+00:00,Women Spanish Division 1,CF Granada Women,Espanyol Women,AH,home,-0.25,1.66,2.08,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066054_HDC_1,2026-04-04 10:30:00+00:00,Women Italian Division 1,Fiorentina Women,Juventus Women,AH,home,0.75,1.65,2.1,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065606_HDC_1,2026-04-04 11:00:00+00:00,German Division 2,Bielefeld,Darmstadt,AH,home,-0.25,1.97,1.83,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065609_HDC_1,2026-04-04 11:00:00+00:00,German Division 2,Kaiserslautern,Dusseldorf,AH,home,0.0,1.95,1.85,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065605_HDC_1,2026-04-04 11:00:00+00:00,German Division 2,Magdeburg,Bochum,AH,home,-0.25,1.86,1.94,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50064780_HDC_1,2026-04-04 11:45:00+00:00,FA Cup,Manchester City,Liverpool,AH,home,-0.75,1.92,1.9,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065107_HDC_1,2026-04-04 12:00:00+00:00,Spanish Division 1,Real Sociedad,Levante,AH,home,-1.0,2.0,1.82,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066024_HDC_1,2026-04-04 12:00:00+00:00,Thai League 1,Ratchaburi,Buriram Utd,AH,home,0.75,1.9,1.86,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066267_HDC_1,2026-04-04 12:00:00+00:00,Finnish Division 1,HJK Helsinki,SJK Seinajoki,AH,home,-0.75,1.79,1.98,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065450_HDC_1,2026-04-04 12:00:00+00:00,French Division 2,Montpellier,Troyes,AH,home,0.0,1.93,1.83,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066131_HDC_1,2026-04-04 12:15:00+00:00,Russian Premier,Zenit St. Petersburg,Krylya Sovetov Samara,AH,home,-1.75,1.83,1.97,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066025_HDC_1,2026-04-04 12:30:00+00:00,Thai League 1,Port FC,Prachuap,AH,home,-1.0,2.0,1.77,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065232_HDC_1,2026-04-04 13:00:00+00:00,Italian Division 1,Sassuolo,Cagliari,AH,home,-0.75,2.28,1.64,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066262_HDC_1,2026-04-04 13:00:00+00:00,Swedish Division 1,Hammarby,Mjallby,AH,home,-0.25,1.73,2.06,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066368_HDC_1,2026-04-04 13:00:00+00:00,U20 Women Asian Cup,Thailand Women U20,Vietnam Women U20,AH,home,-0.75,1.95,1.75,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066368_HDC_2,2026-04-04 13:00:00+00:00,U20 Women Asian Cup,Thailand Women U20,Vietnam Women U20,AH,home,-0.25,1.65,2.13,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065124_HDC_1,2026-04-04 13:30:00+00:00,German Division 1,Freiburg,Bayern Munich,AH,home,1.25,1.96,1.86,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065124_HDC_2,2026-04-04 13:30:00+00:00,German Division 1,Freiburg,Bayern Munich,AH,home,1.75,1.69,2.11,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065126_HDC_1,2026-04-04 13:30:00+00:00,German Division 1,Leverkusen,Wolfsburg,AH,home,-1.25,1.89,1.93,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065125_HDC_2,2026-04-04 13:30:00+00:00,German Division 1,Hoffenheim,Mainz,AH,home,-0.75,1.83,1.99,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065123_HDC_1,2026-04-04 13:30:00+00:00,German Division 1,Werder Bremen,RB Leipzig,AH,home,0.75,1.73,2.14,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065118_HDC_1,2026-04-04 13:30:00+00:00,German Division 1,Hamburg,Augsburg,AH,home,-0.25,2.0,1.82,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065128_HDC_1,2026-04-04 13:30:00+00:00,German Division 1,Monchengladbach,Heidenheim,AH,home,-1.0,1.97,1.85,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066276_HDC_1,2026-04-04 13:50:00+00:00,UAE Pro League,Al Nasr SC,Al Wahda,AH,home,0.25,1.86,1.9,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066277_HDC_1,2026-04-04 14:00:00+00:00,Finnish Division 1,Ilves,KuPS,AH,home,-0.25,1.85,1.91,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065000_HDC_1,2026-04-04 14:00:00+00:00,Scottish Premier,Rangers,Dundee Utd,AH,home,-1.75,1.83,1.97,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065736_HDC_1,2026-04-04 14:00:00+00:00,Belgian Division 1,Zulte Waregem,Cercle Bruges,AH,home,-0.25,2.05,1.74,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065105_HDC_1,2026-04-04 14:15:00+00:00,Spanish Division 1,Mallorca,Real Madrid,AH,home,1.0,1.93,1.89,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066132_HDC_2,2026-04-04 14:30:00+00:00,Russian Premier,Dinamo Moscow,FC Orenburg,AH,home,-1.25,2.02,1.79,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065088_HDC_1,2026-04-04 14:30:00+00:00,Dutch Division 1,PSV Eindhoven,Utrecht,AH,home,-1.0,1.76,2.06,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065110_HDC_1,2026-04-04 15:00:00+00:00,French Division 1,Strasbourg,Nice,AH,home,-0.75,2.12,1.74,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066033_HDC_1,2026-04-04 15:30:00+00:00,Qatar Stars League,Al Rayyan,Al Sadd,AH,home,0.25,1.89,1.87,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065231_HDC_2,2026-04-04 16:00:00+00:00,Italian Division 1,Verona,Fiorentina,AH,home,0.25,2.14,1.72,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065231_HDC_1,2026-04-04 16:00:00+00:00,Italian Division 1,Verona,Fiorentina,AH,home,0.75,1.64,2.28,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066279_HDC_1,2026-04-04 16:15:00+00:00,Saudi Pro League,Al Ahli Jeddah,Damac FC,AH,home,-1.75,1.84,1.92,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50064778_HDC_1,2026-04-04 16:15:00+00:00,FA Cup,Chelsea,Port Vale,AH,home,-3.0,1.95,1.85,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50064778_HDC_2,2026-04-04 16:15:00+00:00,FA Cup,Chelsea,Port Vale,AH,home,-3.25,2.2,1.66,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066297_HDC_1,2026-04-04 16:30:00+00:00,Spanish Division 1,Betis,Espanyol,AH,home,-0.75,1.98,1.84,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065122_HDC_1,2026-04-04 16:30:00+00:00,German Division 1,Stuttgart,Dortmund,AH,home,-0.25,1.93,1.89,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066053_HDC_1,2026-04-04 16:30:00+00:00,UAE Pro League,Shabab Al Ahli,Al Jazira,AH,home,-0.75,1.78,1.99,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066246_HDC_1,2026-04-04 16:45:00+00:00,Russian Premier,Akhmat Grozny,FK Krasnodar,AH,home,0.75,1.71,2.12,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065092_HDC_1,2026-04-04 16:45:00+00:00,Dutch Division 1,AZ Alkmaar,Fortuna Sittard,AH,home,-1.25,1.68,2.17,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065108_HDC_2,2026-04-04 17:00:00+00:00,French Division 1,Brest,Rennes,AH,home,0.25,1.76,2.08,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065770_HDC_1,2026-04-04 17:00:00+00:00,Portuguese Premier,Moreirense,Braga,AH,home,1.0,1.91,1.89,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50066280_HDC_1,2026-04-04 17:30:00+00:00,Qatar Stars League,Al Duhail,Al Gharafa,AH,home,-0.75,1.86,1.9,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065681_HDC_1,2026-04-04 18:00:00+00:00,Saudi Pro League,Al Hilal,Al Taawoun,AH,home,-1.75,1.86,1.9,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065482_HDC_1,2026-04-04 18:00:00+00:00,French Division 2,Nancy,St. Etienne,AH,home,0.25,2.09,1.7,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065607_HDC_1,2026-04-04 18:30:00+00:00,German Division 2,Dresden,Hertha Berlin,AH,home,0.0,1.9,1.9,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065230_HDC_1,2026-04-04 18:45:00+00:00,Italian Division 1,Lazio,Parma,AH,home,-0.75,2.02,1.81,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065102_HDC_1,2026-04-04 19:00:00+00:00,Spanish Division 1,Atletico Madrid,Barcelona,AH,home,0.25,1.95,1.87,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50064779_HDC_1,2026-04-04 19:00:00+00:00,FA Cup,Southampton,Arsenal,AH,home,1.25,2.04,1.79,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065094_HDC_1,2026-04-04 19:00:00+00:00,Dutch Division 1,Ajax,Twente,AH,home,-0.25,1.98,1.82,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok
+2026-04-04T07:31:30.476371+00:00,hkjc,50065111_HDC_1,2026-04-04 19:05:00+00:00,French Division 1,Lille,Lens,AH,home,0.0,2.08,1.76,HKJC_LIKE,artifacts\live\raw\latest_raw_hkjc.json,ok,ok

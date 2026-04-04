@@ -1,0 +1,381 @@
+provider_match_id,source_market,source_url,competition,season,kickoff_time_utc,home_team_name,away_team_name,ft_home_goals,ft_away_goals,handicap_open_line,handicap_close_line,odds_home_open,odds_away_open,odds_home_close,odds_away_close,handicap_side
+E0_2324_0000,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-11 20:00:00+00:00,Burnley,Man City,0,3,1.5,1.5,1.86,2.07,1.86,2.07,home
+E0_2324_0001,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-12 12:30:00+00:00,Arsenal,Nott'm Forest,2,1,-2.0,-2.0,1.88,2.02,1.88,2.02,home
+E0_2324_0002,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-12 15:00:00+00:00,Bournemouth,West Ham,1,1,0.0,0.0,1.95,1.95,1.95,1.95,home
+E0_2324_0003,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-12 15:00:00+00:00,Brighton,Luton,4,1,-1.5,-1.5,1.95,1.95,1.95,1.95,home
+E0_2324_0004,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-12 15:00:00+00:00,Everton,Fulham,0,1,-0.25,-0.25,1.93,1.97,1.93,1.97,home
+E0_2324_0005,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-12 15:00:00+00:00,Sheffield United,Crystal Palace,0,1,0.25,0.25,1.84,2.06,1.84,2.06,home
+E0_2324_0006,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-12 17:30:00+00:00,Newcastle,Aston Villa,5,1,-0.75,-0.75,2.01,1.89,2.01,1.89,home
+E0_2324_0007,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-13 14:00:00+00:00,Brentford,Tottenham,2,2,0.0,0.0,2.03,1.87,2.03,1.87,home
+E0_2324_0008,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-13 16:30:00+00:00,Chelsea,Liverpool,1,1,0.25,0.25,1.81,2.09,1.81,2.09,home
+E0_2324_0009,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-14 20:00:00+00:00,Man United,Wolves,1,0,-1.5,-1.5,1.99,1.91,1.99,1.91,home
+E0_2324_0010,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-18 19:45:00+00:00,Nott'm Forest,Sheffield United,2,1,-0.5,-0.5,1.98,1.95,1.98,1.95,home
+E0_2324_0011,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-19 15:00:00+00:00,Fulham,Brentford,0,3,0.0,0.0,1.98,1.92,1.98,1.92,home
+E0_2324_0012,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-19 15:00:00+00:00,Liverpool,Bournemouth,3,1,-2.0,-2.0,2.04,1.86,2.04,1.86,home
+E0_2324_0013,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-19 15:00:00+00:00,Wolves,Brighton,1,4,0.5,0.5,2.03,1.87,2.03,1.87,home
+E0_2324_0014,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-19 17:30:00+00:00,Tottenham,Man United,2,0,0.25,0.25,1.82,2.08,1.82,2.08,home
+E0_2324_0015,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-19 20:00:00+00:00,Man City,Newcastle,1,0,-0.75,-0.75,1.92,1.98,1.92,1.98,home
+E0_2324_0016,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-20 14:00:00+00:00,Aston Villa,Everton,4,0,-0.75,-0.75,1.91,1.99,1.91,1.99,home
+E0_2324_0017,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-20 16:30:00+00:00,West Ham,Chelsea,3,1,0.5,0.5,1.82,2.08,1.82,2.08,home
+E0_2324_0018,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-21 20:00:00+00:00,Crystal Palace,Arsenal,0,1,1.0,1.0,1.84,2.06,1.84,2.06,home
+E0_2324_0019,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-25 20:00:00+00:00,Chelsea,Luton,3,0,-1.5,-1.5,1.95,1.98,1.95,1.98,home
+E0_2324_0020,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-26 12:30:00+00:00,Bournemouth,Tottenham,0,2,0.5,0.5,1.96,1.94,1.96,1.94,home
+E0_2324_0021,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-26 15:00:00+00:00,Arsenal,Fulham,2,2,-1.75,-1.75,1.85,2.05,1.85,2.05,home
+E0_2324_0022,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-26 15:00:00+00:00,Brentford,Crystal Palace,1,1,-0.25,-0.25,1.87,2.03,1.87,2.03,home
+E0_2324_0023,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-26 15:00:00+00:00,Everton,Wolves,0,1,-0.25,-0.25,2.02,1.88,2.02,1.88,home
+E0_2324_0024,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-26 15:00:00+00:00,Man United,Nott'm Forest,3,2,-1.5,-1.5,1.89,2.01,1.89,2.01,home
+E0_2324_0025,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-26 17:30:00+00:00,Brighton,West Ham,1,3,-1.0,-1.0,1.86,2.04,1.86,2.04,home
+E0_2324_0026,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-27 14:00:00+00:00,Burnley,Aston Villa,1,3,0.25,0.25,2.02,1.88,2.02,1.88,home
+E0_2324_0027,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-27 14:00:00+00:00,Sheffield United,Man City,1,2,2.0,2.0,1.94,1.96,1.94,1.96,home
+E0_2324_0028,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-08-27 16:30:00+00:00,Newcastle,Liverpool,1,2,-0.25,-0.25,1.94,1.96,1.94,1.96,home
+E0_2324_0029,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-01 20:00:00+00:00,Luton,West Ham,1,2,0.75,0.75,1.94,1.99,1.94,1.99,home
+E0_2324_0030,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-02 12:30:00+00:00,Sheffield United,Everton,2,2,0.0,0.0,2.13,1.81,2.13,1.81,home
+E0_2324_0031,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-02 15:00:00+00:00,Brentford,Bournemouth,2,2,-0.75,-0.75,1.95,1.98,1.95,1.98,home
+E0_2324_0032,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-02 15:00:00+00:00,Burnley,Tottenham,2,5,0.5,0.5,2.03,1.9,2.03,1.9,home
+E0_2324_0033,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-02 15:00:00+00:00,Chelsea,Nott'm Forest,0,1,-1.25,-1.25,1.86,2.07,1.86,2.07,home
+E0_2324_0034,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-02 15:00:00+00:00,Man City,Fulham,5,1,-2.25,-2.25,2.03,1.9,2.03,1.9,home
+E0_2324_0035,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-02 17:30:00+00:00,Brighton,Newcastle,3,1,0.0,0.0,1.94,1.99,1.94,1.99,home
+E0_2324_0036,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-03 14:00:00+00:00,Crystal Palace,Wolves,3,2,-0.5,-0.5,1.98,1.95,1.98,1.95,home
+E0_2324_0037,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-03 14:00:00+00:00,Liverpool,Aston Villa,3,0,-1.0,-1.0,2.05,1.75,2.05,1.75,home
+E0_2324_0038,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-03 16:30:00+00:00,Arsenal,Man United,3,1,-0.75,-0.75,2.01,1.92,2.01,1.92,home
+E0_2324_0039,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-16 12:30:00+00:00,Wolves,Liverpool,1,3,1.25,1.25,1.92,1.98,1.92,1.98,home
+E0_2324_0040,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-16 15:00:00+00:00,Aston Villa,Crystal Palace,3,1,-0.5,-0.5,1.91,1.99,1.91,1.99,home
+E0_2324_0041,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-16 15:00:00+00:00,Fulham,Luton,1,0,-0.75,-0.75,1.87,2.03,1.87,2.03,home
+E0_2324_0042,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-16 15:00:00+00:00,Man United,Brighton,1,3,-0.25,-0.25,1.97,1.93,1.97,1.93,home
+E0_2324_0043,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-16 15:00:00+00:00,Tottenham,Sheffield United,2,1,-1.75,-1.75,2.03,1.87,2.03,1.87,home
+E0_2324_0044,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-16 15:00:00+00:00,West Ham,Man City,1,3,1.25,1.25,1.83,2.07,1.83,2.07,home
+E0_2324_0045,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-16 17:30:00+00:00,Newcastle,Brentford,1,0,-1.0,-1.0,1.89,2.01,1.89,2.01,home
+E0_2324_0046,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-17 14:00:00+00:00,Bournemouth,Chelsea,0,0,0.75,0.75,1.89,2.01,1.89,2.01,home
+E0_2324_0047,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-17 16:30:00+00:00,Everton,Arsenal,0,1,1.0,1.0,2.05,1.85,2.05,1.85,home
+E0_2324_0048,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-18 19:45:00+00:00,Nott'm Forest,Burnley,1,1,-0.25,-0.25,1.9,2.0,1.9,2.0,home
+E0_2324_0049,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-23 15:00:00+00:00,Crystal Palace,Fulham,0,0,-0.5,-0.5,1.98,1.92,1.98,1.92,home
+E0_2324_0050,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-23 15:00:00+00:00,Luton,Wolves,1,1,0.25,0.25,1.96,1.94,1.96,1.94,home
+E0_2324_0051,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-23 15:00:00+00:00,Man City,Nott'm Forest,2,0,-2.25,-2.25,2.02,1.88,2.02,1.88,home
+E0_2324_0052,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-23 17:30:00+00:00,Brentford,Everton,1,3,-0.75,-0.75,2.06,1.84,2.06,1.84,home
+E0_2324_0053,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-23 20:00:00+00:00,Burnley,Man United,0,1,0.75,0.75,1.95,1.95,1.95,1.95,home
+E0_2324_0054,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-24 14:00:00+00:00,Arsenal,Tottenham,2,2,-0.75,-0.75,1.87,2.03,1.87,2.03,home
+E0_2324_0055,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-24 14:00:00+00:00,Brighton,Bournemouth,3,1,-1.5,-1.5,2.01,1.89,2.01,1.89,home
+E0_2324_0056,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-24 14:00:00+00:00,Chelsea,Aston Villa,0,1,-0.5,-0.5,1.91,1.99,1.91,1.99,home
+E0_2324_0057,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-24 14:00:00+00:00,Liverpool,West Ham,3,1,-1.5,-1.5,2.03,1.87,2.03,1.87,home
+E0_2324_0058,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-24 16:30:00+00:00,Sheffield United,Newcastle,0,8,1.25,1.25,1.92,1.98,1.92,1.98,home
+E0_2324_0059,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-30 12:30:00+00:00,Aston Villa,Brighton,6,1,0.0,0.0,1.97,1.96,1.97,1.96,home
+E0_2324_0060,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-30 15:00:00+00:00,Bournemouth,Arsenal,0,4,1.0,1.0,2.0,1.93,2.0,1.93,home
+E0_2324_0061,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-30 15:00:00+00:00,Everton,Luton,1,2,-1.0,-1.0,2.09,1.84,2.09,1.84,home
+E0_2324_0062,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-30 15:00:00+00:00,Man United,Crystal Palace,0,1,-1.0,-1.0,2.0,1.93,2.0,1.93,home
+E0_2324_0063,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-30 15:00:00+00:00,Newcastle,Burnley,2,0,-1.5,-1.5,1.96,1.97,1.96,1.97,home
+E0_2324_0064,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-30 15:00:00+00:00,West Ham,Sheffield United,2,0,-1.25,-1.25,2.02,1.91,2.02,1.91,home
+E0_2324_0065,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-30 15:00:00+00:00,Wolves,Man City,2,1,1.5,1.5,1.97,1.96,1.97,1.96,home
+E0_2324_0066,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-09-30 17:30:00+00:00,Tottenham,Liverpool,2,1,0.25,0.25,1.97,1.96,1.97,1.96,home
+E0_2324_0067,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-01 14:00:00+00:00,Nott'm Forest,Brentford,1,1,0.0,0.0,2.01,1.89,2.01,1.89,home
+E0_2324_0068,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-02 20:00:00+00:00,Fulham,Chelsea,0,2,0.5,0.5,1.85,2.05,1.85,2.05,home
+E0_2324_0069,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-03 19:30:00+00:00,Luton,Burnley,1,2,0.0,0.0,2.08,1.85,2.08,1.85,home
+E0_2324_0070,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-07 12:30:00+00:00,Luton,Tottenham,0,1,1.25,1.25,1.88,2.02,1.88,2.02,home
+E0_2324_0071,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-07 15:00:00+00:00,Burnley,Chelsea,1,4,0.75,0.75,1.91,1.99,1.91,1.99,home
+E0_2324_0072,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-07 15:00:00+00:00,Everton,Bournemouth,3,0,-0.5,-0.5,1.98,1.92,1.98,1.92,home
+E0_2324_0073,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-07 15:00:00+00:00,Fulham,Sheffield United,3,1,-1.0,-1.0,2.08,1.73,2.08,1.73,home
+E0_2324_0074,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-07 15:00:00+00:00,Man United,Brentford,2,1,-0.75,-0.75,1.88,2.02,1.88,2.02,home
+E0_2324_0075,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-07 17:30:00+00:00,Crystal Palace,Nott'm Forest,0,0,-0.25,-0.25,1.91,1.99,1.91,1.99,home
+E0_2324_0076,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-08 14:00:00+00:00,Brighton,Liverpool,2,2,0.25,0.25,2.0,1.9,2.0,1.9,home
+E0_2324_0077,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-08 14:00:00+00:00,West Ham,Newcastle,2,2,0.25,0.25,2.06,1.84,2.06,1.84,home
+E0_2324_0078,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-08 14:00:00+00:00,Wolves,Aston Villa,1,1,0.25,0.25,2.04,1.86,2.04,1.86,home
+E0_2324_0079,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-08 16:30:00+00:00,Arsenal,Man City,1,0,0.25,0.25,1.79,2.11,1.79,2.11,home
+E0_2324_0080,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-21 12:30:00+00:00,Liverpool,Everton,2,0,-1.5,-1.5,2.0,1.93,2.0,1.93,home
+E0_2324_0081,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-21 15:00:00+00:00,Bournemouth,Wolves,1,2,-0.25,-0.25,2.1,1.83,2.1,1.83,home
+E0_2324_0082,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-21 15:00:00+00:00,Brentford,Burnley,3,0,-0.5,-0.5,1.86,2.07,1.86,2.07,home
+E0_2324_0083,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-21 15:00:00+00:00,Man City,Brighton,2,1,-1.25,-1.25,1.87,2.06,1.87,2.06,home
+E0_2324_0084,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-21 15:00:00+00:00,Newcastle,Crystal Palace,4,0,-1.25,-1.25,2.06,1.87,2.06,1.87,home
+E0_2324_0085,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-21 15:00:00+00:00,Nott'm Forest,Luton,2,2,-0.75,-0.75,1.94,1.99,1.94,1.99,home
+E0_2324_0086,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-21 17:30:00+00:00,Chelsea,Arsenal,2,2,0.25,0.25,1.96,1.97,1.96,1.97,home
+E0_2324_0087,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-21 20:00:00+00:00,Sheffield United,Man United,1,2,1.25,1.25,2.02,1.91,2.02,1.91,home
+E0_2324_0088,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-22 16:30:00+00:00,Aston Villa,West Ham,4,1,-0.5,-0.5,1.91,2.02,1.91,2.02,home
+E0_2324_0089,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-23 20:00:00+00:00,Tottenham,Fulham,2,0,-1.0,-1.0,1.83,2.1,1.83,2.1,home
+E0_2324_0090,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-27 20:00:00+00:00,Crystal Palace,Tottenham,1,2,0.75,0.75,1.89,2.04,1.89,2.04,home
+E0_2324_0091,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-28 12:30:00+00:00,Chelsea,Brentford,0,2,-0.75,-0.75,1.86,2.07,1.86,2.07,home
+E0_2324_0092,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-28 15:00:00+00:00,Arsenal,Sheffield United,5,0,-2.5,-2.5,2.03,1.78,2.03,1.78,home
+E0_2324_0093,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-28 15:00:00+00:00,Bournemouth,Burnley,2,1,-0.25,-0.25,1.87,2.06,1.87,2.06,home
+E0_2324_0094,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-28 17:30:00+00:00,Wolves,Newcastle,2,2,0.75,0.75,1.87,2.06,1.87,2.06,home
+E0_2324_0095,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-29 13:00:00+00:00,West Ham,Everton,0,1,-0.25,-0.25,1.9,2.03,1.9,2.03,home
+E0_2324_0096,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-29 14:00:00+00:00,Aston Villa,Luton,3,1,-1.75,-1.75,2.0,1.93,2.0,1.93,home
+E0_2324_0097,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-29 14:00:00+00:00,Brighton,Fulham,1,1,-1.0,-1.0,1.95,1.98,1.95,1.98,home
+E0_2324_0098,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-29 14:00:00+00:00,Liverpool,Nott'm Forest,3,0,-1.75,-1.75,1.97,1.96,1.97,1.96,home
+E0_2324_0099,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-10-29 15:30:00+00:00,Man United,Man City,0,3,0.75,0.75,2.06,1.87,2.06,1.87,home
+E0_2324_0100,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-04 12:30:00+00:00,Fulham,Man United,0,1,0.25,0.25,1.99,1.94,1.99,1.94,home
+E0_2324_0101,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-04 15:00:00+00:00,Brentford,West Ham,3,2,-0.25,-0.25,1.75,2.05,1.75,2.05,home
+E0_2324_0102,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-04 15:00:00+00:00,Burnley,Crystal Palace,0,2,0.0,0.0,2.05,1.88,2.05,1.88,home
+E0_2324_0103,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-04 15:00:00+00:00,Everton,Brighton,1,1,0.25,0.25,1.96,1.97,1.96,1.97,home
+E0_2324_0104,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-04 15:00:00+00:00,Man City,Bournemouth,6,1,-2.5,-2.5,1.89,2.04,1.89,2.04,home
+E0_2324_0105,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-04 15:00:00+00:00,Sheffield United,Wolves,2,1,0.5,0.5,1.93,2.0,1.93,2.0,home
+E0_2324_0106,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-04 17:30:00+00:00,Newcastle,Arsenal,1,0,0.0,0.0,2.06,1.87,2.06,1.87,home
+E0_2324_0107,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-05 14:00:00+00:00,Nott'm Forest,Aston Villa,2,0,0.5,0.5,2.04,1.89,2.04,1.89,home
+E0_2324_0108,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-05 16:30:00+00:00,Luton,Liverpool,1,1,1.75,1.75,2.08,1.85,2.08,1.85,home
+E0_2324_0109,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-06 20:00:00+00:00,Tottenham,Chelsea,1,4,-0.25,-0.25,1.88,2.05,1.88,2.05,home
+E0_2324_0110,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-11 12:30:00+00:00,Wolves,Tottenham,2,1,0.25,0.25,1.94,1.96,1.94,1.96,home
+E0_2324_0111,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-11 15:00:00+00:00,Arsenal,Burnley,3,1,-2.0,-2.0,1.99,1.91,1.99,1.91,home
+E0_2324_0112,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-11 15:00:00+00:00,Crystal Palace,Everton,2,3,-0.25,-0.25,2.1,1.8,2.1,1.8,home
+E0_2324_0113,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-11 15:00:00+00:00,Man United,Luton,1,0,-1.5,-1.5,1.93,1.97,1.93,1.97,home
+E0_2324_0114,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-11 17:30:00+00:00,Bournemouth,Newcastle,2,0,0.75,0.75,1.94,1.96,1.94,1.96,home
+E0_2324_0115,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-12 14:00:00+00:00,Aston Villa,Fulham,3,1,-1.0,-1.0,2.02,1.88,2.02,1.88,home
+E0_2324_0116,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-12 14:00:00+00:00,Brighton,Sheffield United,1,1,-1.75,-1.75,1.88,2.02,1.88,2.02,home
+E0_2324_0117,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-12 14:00:00+00:00,Liverpool,Brentford,3,0,-1.25,-1.25,1.89,2.01,1.89,2.01,home
+E0_2324_0118,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-12 14:00:00+00:00,West Ham,Nott'm Forest,3,2,-0.5,-0.5,1.89,2.01,1.89,2.01,home
+E0_2324_0119,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-12 16:30:00+00:00,Chelsea,Man City,4,4,0.75,0.75,1.94,1.96,1.94,1.96,home
+E0_2324_0120,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-25 12:30:00+00:00,Man City,Liverpool,1,1,-0.75,-0.75,1.97,1.96,1.97,1.96,home
+E0_2324_0121,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-25 15:00:00+00:00,Burnley,West Ham,1,2,0.25,0.25,2.08,1.85,2.08,1.85,home
+E0_2324_0122,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-25 15:00:00+00:00,Luton,Crystal Palace,2,1,0.25,0.25,2.1,1.83,2.1,1.83,home
+E0_2324_0123,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-25 15:00:00+00:00,Newcastle,Chelsea,4,1,0.0,0.0,1.93,2.0,1.93,2.0,home
+E0_2324_0124,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-25 15:00:00+00:00,Nott'm Forest,Brighton,2,3,0.25,0.25,2.0,1.93,2.0,1.93,home
+E0_2324_0125,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-25 15:00:00+00:00,Sheffield United,Bournemouth,1,3,0.25,0.25,1.99,1.94,1.99,1.94,home
+E0_2324_0126,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-25 17:30:00+00:00,Brentford,Arsenal,0,1,0.75,0.75,1.91,2.02,1.91,2.02,home
+E0_2324_0127,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-26 14:00:00+00:00,Tottenham,Aston Villa,1,2,-0.25,-0.25,2.09,1.84,2.09,1.84,home
+E0_2324_0128,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-26 16:30:00+00:00,Everton,Man United,0,3,0.0,0.0,2.03,1.9,2.03,1.9,home
+E0_2324_0129,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-11-27 20:00:00+00:00,Fulham,Wolves,3,2,-0.25,-0.25,2.1,1.83,2.1,1.83,home
+E0_2324_0130,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-02 15:00:00+00:00,Arsenal,Wolves,2,1,-1.5,-1.5,1.83,2.1,1.83,2.1,home
+E0_2324_0131,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-02 15:00:00+00:00,Brentford,Luton,3,1,-1.25,-1.25,2.04,1.89,2.04,1.89,home
+E0_2324_0132,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-02 15:00:00+00:00,Burnley,Sheffield United,5,0,-0.75,-0.75,2.03,1.78,2.03,1.78,home
+E0_2324_0133,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-02 17:30:00+00:00,Nott'm Forest,Everton,0,1,0.0,0.0,2.05,1.88,2.05,1.88,home
+E0_2324_0134,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-02 20:00:00+00:00,Newcastle,Man United,1,0,-0.5,-0.5,1.95,1.98,1.95,1.98,home
+E0_2324_0135,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-03 14:00:00+00:00,Bournemouth,Aston Villa,2,2,0.5,0.5,1.95,1.98,1.95,1.98,home
+E0_2324_0136,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-03 14:00:00+00:00,Chelsea,Brighton,3,2,-0.75,-0.75,1.98,1.95,1.98,1.95,home
+E0_2324_0137,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-03 14:00:00+00:00,Liverpool,Fulham,4,3,-1.75,-1.75,1.95,1.98,1.95,1.98,home
+E0_2324_0138,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-03 14:00:00+00:00,West Ham,Crystal Palace,1,1,-0.5,-0.5,2.04,1.89,2.04,1.89,home
+E0_2324_0139,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-03 16:30:00+00:00,Man City,Tottenham,3,3,-1.75,-1.75,1.99,1.94,1.99,1.94,home
+E0_2324_0140,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-05 19:30:00+00:00,Wolves,Burnley,1,0,-0.5,-0.5,1.9,2.0,1.9,2.0,home
+E0_2324_0141,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-05 20:15:00+00:00,Luton,Arsenal,3,4,1.75,1.75,2.01,1.92,2.01,1.92,home
+E0_2324_0142,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-06 19:30:00+00:00,Brighton,Brentford,2,1,-0.5,-0.5,1.93,1.97,1.93,1.97,home
+E0_2324_0143,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-06 19:30:00+00:00,Crystal Palace,Bournemouth,0,2,-0.25,-0.25,1.98,1.92,1.98,1.92,home
+E0_2324_0144,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-06 19:30:00+00:00,Fulham,Nott'm Forest,5,0,-0.5,-0.5,2.05,1.85,2.05,1.85,home
+E0_2324_0145,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-06 19:30:00+00:00,Sheffield United,Liverpool,0,2,2.0,2.0,2.02,1.88,2.02,1.88,home
+E0_2324_0146,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-06 20:15:00+00:00,Aston Villa,Man City,1,0,0.75,0.75,1.98,1.92,1.98,1.92,home
+E0_2324_0147,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-06 20:15:00+00:00,Man United,Chelsea,2,1,0.25,0.25,1.79,2.11,1.79,2.11,home
+E0_2324_0148,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-07 19:30:00+00:00,Everton,Newcastle,3,0,0.25,0.25,1.9,2.0,1.9,2.0,home
+E0_2324_0149,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-07 20:15:00+00:00,Tottenham,West Ham,1,2,-0.75,-0.75,2.0,1.9,2.0,1.9,home
+E0_2324_0150,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-09 12:30:00+00:00,Crystal Palace,Liverpool,1,2,1.0,1.0,2.06,1.84,2.06,1.84,home
+E0_2324_0151,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-09 15:00:00+00:00,Brighton,Burnley,1,1,-1.0,-1.0,1.75,2.05,1.75,2.05,home
+E0_2324_0152,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-09 15:00:00+00:00,Man United,Bournemouth,0,3,-1.0,-1.0,1.91,1.99,1.91,1.99,home
+E0_2324_0153,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-09 15:00:00+00:00,Sheffield United,Brentford,1,0,0.75,0.75,1.83,2.07,1.83,2.07,home
+E0_2324_0154,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-09 15:00:00+00:00,Wolves,Nott'm Forest,1,1,-0.5,-0.5,1.89,2.01,1.89,2.01,home
+E0_2324_0155,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-09 17:30:00+00:00,Aston Villa,Arsenal,1,0,0.25,0.25,2.05,1.85,2.05,1.85,home
+E0_2324_0156,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-10 14:00:00+00:00,Everton,Chelsea,2,0,0.25,0.25,1.87,2.03,1.87,2.03,home
+E0_2324_0157,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-10 14:00:00+00:00,Fulham,West Ham,5,0,-0.25,-0.25,2.08,1.82,2.08,1.82,home
+E0_2324_0158,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-10 14:00:00+00:00,Luton,Man City,1,2,2.25,2.25,1.95,1.95,1.95,1.95,home
+E0_2324_0159,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-10 16:30:00+00:00,Tottenham,Newcastle,4,1,-0.25,-0.25,1.95,1.95,1.95,1.95,home
+E0_2324_0160,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-15 20:00:00+00:00,Nott'm Forest,Tottenham,0,2,0.75,0.75,1.94,1.99,1.94,1.99,home
+E0_2324_0161,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-16 15:00:00+00:00,Chelsea,Sheffield United,2,0,-1.75,-1.75,1.93,2.0,1.93,2.0,home
+E0_2324_0162,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-16 15:00:00+00:00,Man City,Crystal Palace,2,2,-2.0,-2.0,1.91,2.02,1.91,2.02,home
+E0_2324_0163,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-16 15:00:00+00:00,Newcastle,Fulham,3,0,-0.5,-0.5,1.88,2.05,1.88,2.05,home
+E0_2324_0164,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-16 17:30:00+00:00,Burnley,Everton,0,2,0.25,0.25,2.07,1.86,2.07,1.86,home
+E0_2324_0165,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-17 14:00:00+00:00,Arsenal,Brighton,2,0,-1.25,-1.25,2.08,1.85,2.08,1.85,home
+E0_2324_0166,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-17 14:00:00+00:00,Brentford,Aston Villa,1,2,0.25,0.25,2.0,1.93,2.0,1.93,home
+E0_2324_0167,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-17 14:00:00+00:00,West Ham,Wolves,3,0,-0.25,-0.25,1.88,2.05,1.88,2.05,home
+E0_2324_0168,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-17 16:30:00+00:00,Liverpool,Man United,0,0,-1.5,-1.5,1.8,2.0,1.8,2.0,home
+E0_2324_0169,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-21 20:00:00+00:00,Crystal Palace,Brighton,1,1,0.25,0.25,1.98,1.92,1.98,1.92,home
+E0_2324_0170,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-22 20:00:00+00:00,Aston Villa,Sheffield United,1,1,-1.75,-1.75,1.88,2.02,1.88,2.02,home
+E0_2324_0171,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-23 12:30:00+00:00,West Ham,Man United,2,0,0.0,0.0,1.97,1.93,1.97,1.93,home
+E0_2324_0172,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-23 15:00:00+00:00,Fulham,Burnley,0,2,-0.75,-0.75,1.9,2.0,1.9,2.0,home
+E0_2324_0173,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-23 15:00:00+00:00,Luton,Newcastle,1,0,0.75,0.75,2.07,1.83,2.07,1.83,home
+E0_2324_0174,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-23 15:00:00+00:00,Nott'm Forest,Bournemouth,2,3,0.0,0.0,2.02,1.88,2.02,1.88,home
+E0_2324_0175,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-23 15:00:00+00:00,Tottenham,Everton,2,1,-0.75,-0.75,2.01,1.89,2.01,1.89,home
+E0_2324_0176,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-23 17:30:00+00:00,Liverpool,Arsenal,1,1,-0.25,-0.25,2.1,1.8,2.1,1.8,home
+E0_2324_0177,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-24 13:00:00+00:00,Wolves,Chelsea,2,1,0.5,0.5,1.91,1.99,1.91,1.99,home
+E0_2324_0178,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-26 12:30:00+00:00,Newcastle,Nott'm Forest,1,3,-1.0,-1.0,1.88,2.02,1.88,2.02,home
+E0_2324_0179,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-26 15:00:00+00:00,Bournemouth,Fulham,3,0,-0.25,-0.25,1.95,1.95,1.95,1.95,home
+E0_2324_0180,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-26 15:00:00+00:00,Sheffield United,Luton,2,3,-0.25,-0.25,2.09,1.81,2.09,1.81,home
+E0_2324_0181,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-26 17:30:00+00:00,Burnley,Liverpool,0,2,1.5,1.5,1.78,2.03,1.78,2.03,home
+E0_2324_0182,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-26 20:00:00+00:00,Man United,Aston Villa,3,2,0.0,0.0,1.95,1.95,1.95,1.95,home
+E0_2324_0183,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-27 19:30:00+00:00,Brentford,Wolves,1,4,-0.5,-0.5,1.98,1.92,1.98,1.92,home
+E0_2324_0184,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-27 19:30:00+00:00,Chelsea,Crystal Palace,2,1,-0.75,-0.75,1.86,2.04,1.86,2.04,home
+E0_2324_0185,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-27 20:15:00+00:00,Everton,Man City,1,3,1.0,1.0,1.89,2.01,1.89,2.01,home
+E0_2324_0186,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-28 19:30:00+00:00,Brighton,Tottenham,4,2,0.0,0.0,1.95,1.95,1.95,1.95,home
+E0_2324_0187,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-28 20:15:00+00:00,Arsenal,West Ham,0,2,-1.5,-1.5,2.03,1.87,2.03,1.87,home
+E0_2324_0188,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-30 12:30:00+00:00,Luton,Chelsea,2,3,1.0,1.0,2.03,1.87,2.03,1.87,home
+E0_2324_0189,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-30 15:00:00+00:00,Aston Villa,Burnley,3,2,-1.5,-1.5,2.06,1.84,2.06,1.84,home
+E0_2324_0190,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-30 15:00:00+00:00,Crystal Palace,Brentford,3,1,-0.25,-0.25,1.9,2.0,1.9,2.0,home
+E0_2324_0191,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-30 15:00:00+00:00,Man City,Sheffield United,2,0,-2.75,-2.75,2.01,1.89,2.01,1.89,home
+E0_2324_0192,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-30 15:00:00+00:00,Wolves,Everton,3,0,0.0,0.0,1.91,1.99,1.91,1.99,home
+E0_2324_0193,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-30 17:30:00+00:00,Nott'm Forest,Man United,2,1,0.25,0.25,2.01,1.89,2.01,1.89,home
+E0_2324_0194,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-31 14:00:00+00:00,Fulham,Arsenal,2,1,1.0,1.0,1.91,1.99,1.91,1.99,home
+E0_2324_0195,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2023-12-31 14:00:00+00:00,Tottenham,Bournemouth,3,1,-0.75,-0.75,2.0,1.9,2.0,1.9,home
+E0_2324_0196,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-01 20:00:00+00:00,Liverpool,Newcastle,4,2,-1.25,-1.25,1.99,1.91,1.99,1.91,home
+E0_2324_0197,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-02 19:30:00+00:00,West Ham,Brighton,0,0,0.0,0.0,1.85,2.05,1.85,2.05,home
+E0_2324_0198,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-12 19:45:00+00:00,Burnley,Luton,1,1,-0.5,-0.5,2.06,1.84,2.06,1.84,home
+E0_2324_0199,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-13 12:30:00+00:00,Chelsea,Fulham,1,0,-1.0,-1.0,2.08,1.82,2.08,1.82,home
+E0_2324_0200,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-13 17:30:00+00:00,Newcastle,Man City,2,3,1.0,1.0,1.92,1.98,1.92,1.98,home
+E0_2324_0201,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-14 14:00:00+00:00,Everton,Aston Villa,0,0,0.25,0.25,1.73,2.08,1.73,2.08,home
+E0_2324_0202,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-14 16:30:00+00:00,Man United,Tottenham,2,2,-0.25,-0.25,1.95,1.95,1.95,1.95,home
+E0_2324_0203,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-20 12:30:00+00:00,Arsenal,Crystal Palace,5,0,-1.5,-1.5,1.91,1.99,1.91,1.99,home
+E0_2324_0204,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-20 17:30:00+00:00,Brentford,Nott'm Forest,3,2,-0.5,-0.5,1.89,2.01,1.89,2.01,home
+E0_2324_0205,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-21 14:00:00+00:00,Sheffield United,West Ham,2,2,0.25,0.25,2.02,1.88,2.02,1.88,home
+E0_2324_0206,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-21 16:30:00+00:00,Bournemouth,Liverpool,0,4,0.75,0.75,1.99,1.91,1.99,1.91,home
+E0_2324_0207,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-22 19:45:00+00:00,Brighton,Wolves,0,0,-1.0,-1.0,2.05,1.75,2.05,1.75,home
+E0_2324_0208,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-30 19:30:00+00:00,Nott'm Forest,Arsenal,1,2,1.25,1.25,2.05,1.88,2.05,1.88,home
+E0_2324_0209,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-30 19:45:00+00:00,Fulham,Everton,0,0,-0.25,-0.25,2.1,1.83,2.1,1.83,home
+E0_2324_0210,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-30 19:45:00+00:00,Luton,Brighton,4,0,0.75,0.75,1.91,2.02,1.91,2.02,home
+E0_2324_0211,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-30 20:00:00+00:00,Crystal Palace,Sheffield United,3,2,-0.75,-0.75,1.85,2.08,1.85,2.08,home
+E0_2324_0212,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-30 20:15:00+00:00,Aston Villa,Newcastle,1,3,-0.5,-0.5,1.87,2.06,1.87,2.06,home
+E0_2324_0213,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-31 19:30:00+00:00,Man City,Burnley,3,1,-2.5,-2.5,1.89,2.01,1.89,2.01,home
+E0_2324_0214,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-31 19:30:00+00:00,Tottenham,Brentford,3,2,-0.75,-0.75,1.85,2.05,1.85,2.05,home
+E0_2324_0215,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-01-31 20:15:00+00:00,Liverpool,Chelsea,4,1,-1.0,-1.0,1.95,1.95,1.95,1.95,home
+E0_2324_0216,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-01 19:30:00+00:00,West Ham,Bournemouth,1,1,-0.25,-0.25,2.08,1.73,2.08,1.73,home
+E0_2324_0217,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-01 20:15:00+00:00,Wolves,Man United,3,4,0.0,0.0,2.0,1.9,2.0,1.9,home
+E0_2324_0218,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-03 12:30:00+00:00,Everton,Tottenham,2,2,0.25,0.25,1.89,2.04,1.89,2.04,home
+E0_2324_0219,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-03 15:00:00+00:00,Brighton,Crystal Palace,4,1,-0.75,-0.75,1.94,1.99,1.94,1.99,home
+E0_2324_0220,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-03 15:00:00+00:00,Burnley,Fulham,2,2,0.25,0.25,1.83,2.1,1.83,2.1,home
+E0_2324_0221,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-03 15:00:00+00:00,Newcastle,Luton,4,4,-1.25,-1.25,1.95,1.98,1.95,1.98,home
+E0_2324_0222,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-03 17:30:00+00:00,Sheffield United,Aston Villa,0,5,1.0,1.0,1.83,2.1,1.83,2.1,home
+E0_2324_0223,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-04 14:00:00+00:00,Bournemouth,Nott'm Forest,1,1,-0.75,-0.75,1.92,2.01,1.92,2.01,home
+E0_2324_0224,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-04 14:00:00+00:00,Chelsea,Wolves,2,4,-1.0,-1.0,2.09,1.84,2.09,1.84,home
+E0_2324_0225,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-04 14:00:00+00:00,Man United,West Ham,3,0,-0.75,-0.75,1.82,2.11,1.82,2.11,home
+E0_2324_0226,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-04 16:30:00+00:00,Arsenal,Liverpool,3,1,-0.25,-0.25,1.95,1.98,1.95,1.98,home
+E0_2324_0227,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-05 20:00:00+00:00,Brentford,Man City,1,3,1.25,1.25,1.99,1.94,1.99,1.94,home
+E0_2324_0228,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-10 12:30:00+00:00,Man City,Everton,2,0,-2.0,-2.0,2.1,1.83,2.1,1.83,home
+E0_2324_0229,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-10 15:00:00+00:00,Fulham,Bournemouth,3,1,-0.25,-0.25,2.13,1.81,2.13,1.81,home
+E0_2324_0230,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-10 15:00:00+00:00,Liverpool,Burnley,3,1,-2.25,-2.25,2.03,1.9,2.03,1.9,home
+E0_2324_0231,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-10 15:00:00+00:00,Luton,Sheffield United,1,3,-0.75,-0.75,2.03,1.9,2.03,1.9,home
+E0_2324_0232,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-10 15:00:00+00:00,Tottenham,Brighton,2,1,-0.75,-0.75,2.06,1.87,2.06,1.87,home
+E0_2324_0233,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-10 15:00:00+00:00,Wolves,Brentford,0,2,-0.25,-0.25,1.86,2.07,1.86,2.07,home
+E0_2324_0234,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-10 17:30:00+00:00,Nott'm Forest,Newcastle,2,3,0.25,0.25,2.07,1.86,2.07,1.86,home
+E0_2324_0235,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-11 14:00:00+00:00,West Ham,Arsenal,0,6,1.0,1.0,1.95,1.95,1.95,1.95,home
+E0_2324_0236,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-11 16:30:00+00:00,Aston Villa,Man United,1,2,-0.25,-0.25,1.92,2.01,1.92,2.01,home
+E0_2324_0237,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-12 20:00:00+00:00,Crystal Palace,Chelsea,1,3,0.5,0.5,2.07,1.86,2.07,1.86,home
+E0_2324_0238,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-17 12:30:00+00:00,Brentford,Liverpool,1,4,1.0,1.0,1.91,1.99,1.91,1.99,home
+E0_2324_0239,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-17 15:00:00+00:00,Burnley,Arsenal,0,5,1.5,1.5,1.99,1.91,1.99,1.91,home
+E0_2324_0240,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-17 15:00:00+00:00,Fulham,Aston Villa,1,2,0.25,0.25,1.88,2.02,1.88,2.02,home
+E0_2324_0241,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-17 15:00:00+00:00,Newcastle,Bournemouth,2,2,-0.5,-0.5,1.85,2.05,1.85,2.05,home
+E0_2324_0242,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-17 15:00:00+00:00,Nott'm Forest,West Ham,2,0,-0.25,-0.25,2.09,1.81,2.09,1.81,home
+E0_2324_0243,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-17 15:00:00+00:00,Tottenham,Wolves,1,2,-1.0,-1.0,1.87,2.03,1.87,2.03,home
+E0_2324_0244,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-17 17:30:00+00:00,Man City,Chelsea,1,1,-1.5,-1.5,1.98,1.92,1.98,1.92,home
+E0_2324_0245,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-18 14:00:00+00:00,Sheffield United,Brighton,0,5,1.0,1.0,1.82,2.08,1.82,2.08,home
+E0_2324_0246,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-18 16:30:00+00:00,Luton,Man United,1,2,0.75,0.75,1.85,2.05,1.85,2.05,home
+E0_2324_0247,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-19 20:00:00+00:00,Everton,Crystal Palace,1,1,-0.75,-0.75,1.92,1.98,1.92,1.98,home
+E0_2324_0248,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-20 19:30:00+00:00,Man City,Brentford,1,0,-2.0,-2.0,1.78,2.03,1.78,2.03,home
+E0_2324_0249,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-21 19:30:00+00:00,Liverpool,Luton,4,1,-2.0,-2.0,1.88,2.02,1.88,2.02,home
+E0_2324_0250,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-24 15:00:00+00:00,Aston Villa,Nott'm Forest,4,2,-1.0,-1.0,1.95,1.95,1.95,1.95,home
+E0_2324_0251,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-24 15:00:00+00:00,Brighton,Everton,1,1,-0.5,-0.5,1.84,2.06,1.84,2.06,home
+E0_2324_0252,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-24 15:00:00+00:00,Crystal Palace,Burnley,3,0,-0.5,-0.5,2.02,1.88,2.02,1.88,home
+E0_2324_0253,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-24 15:00:00+00:00,Man United,Fulham,1,2,-1.0,-1.0,2.0,1.9,2.0,1.9,home
+E0_2324_0254,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-24 17:30:00+00:00,Bournemouth,Man City,0,1,1.25,1.25,1.99,1.91,1.99,1.91,home
+E0_2324_0255,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-24 20:00:00+00:00,Arsenal,Newcastle,4,1,-1.5,-1.5,2.06,1.84,2.06,1.84,home
+E0_2324_0256,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-25 13:30:00+00:00,Wolves,Sheffield United,1,0,-1.25,-1.25,2.04,1.86,2.04,1.86,home
+E0_2324_0257,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-02-26 20:00:00+00:00,West Ham,Brentford,4,2,0.0,0.0,1.88,2.02,1.88,2.02,home
+E0_2324_0258,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-02 15:00:00+00:00,Brentford,Chelsea,2,2,0.25,0.25,1.98,1.92,1.98,1.92,home
+E0_2324_0259,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-02 15:00:00+00:00,Everton,West Ham,1,3,-0.25,-0.25,1.82,2.08,1.82,2.08,home
+E0_2324_0260,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-02 15:00:00+00:00,Fulham,Brighton,3,0,0.0,0.0,1.91,1.99,1.91,1.99,home
+E0_2324_0261,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-02 15:00:00+00:00,Newcastle,Wolves,3,0,-0.5,-0.5,1.91,1.99,1.91,1.99,home
+E0_2324_0262,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-02 15:00:00+00:00,Nott'm Forest,Liverpool,0,1,1.0,1.0,2.02,1.88,2.02,1.88,home
+E0_2324_0263,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-02 15:00:00+00:00,Tottenham,Crystal Palace,3,1,-1.25,-1.25,2.05,1.75,2.05,1.75,home
+E0_2324_0264,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-02 17:30:00+00:00,Luton,Aston Villa,2,3,0.75,0.75,1.98,1.92,1.98,1.92,home
+E0_2324_0265,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-03 13:00:00+00:00,Burnley,Bournemouth,0,2,0.5,0.5,1.93,1.97,1.93,1.97,home
+E0_2324_0266,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-03 15:30:00+00:00,Man City,Man United,3,1,-1.75,-1.75,1.92,1.98,1.92,1.98,home
+E0_2324_0267,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-04 20:00:00+00:00,Sheffield United,Arsenal,0,6,2.0,2.0,2.05,1.85,2.05,1.85,home
+E0_2324_0268,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-09 12:30:00+00:00,Man United,Everton,2,0,-0.5,-0.5,1.87,2.06,1.87,2.06,home
+E0_2324_0269,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-09 15:00:00+00:00,Bournemouth,Sheffield United,2,2,-1.5,-1.5,2.01,1.92,2.01,1.92,home
+E0_2324_0270,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-09 15:00:00+00:00,Crystal Palace,Luton,1,1,-0.75,-0.75,2.04,1.89,2.04,1.89,home
+E0_2324_0271,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-09 15:00:00+00:00,Wolves,Fulham,2,1,0.0,0.0,1.82,2.08,1.82,2.08,home
+E0_2324_0272,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-09 17:30:00+00:00,Arsenal,Brentford,2,1,-1.75,-1.75,1.89,2.04,1.89,2.04,home
+E0_2324_0273,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-10 13:00:00+00:00,Aston Villa,Tottenham,0,4,0.0,0.0,1.86,2.07,1.86,2.07,home
+E0_2324_0274,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-10 14:00:00+00:00,Brighton,Nott'm Forest,1,0,-0.75,-0.75,2.06,1.87,2.06,1.87,home
+E0_2324_0275,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-10 14:00:00+00:00,West Ham,Burnley,2,2,-0.75,-0.75,1.89,2.04,1.89,2.04,home
+E0_2324_0276,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-10 15:45:00+00:00,Liverpool,Man City,1,1,0.25,0.25,1.93,2.0,1.93,2.0,home
+E0_2324_0277,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-11 20:00:00+00:00,Chelsea,Newcastle,3,2,-0.5,-0.5,1.98,1.95,1.98,1.95,home
+E0_2324_0278,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-13 19:30:00+00:00,Bournemouth,Luton,4,3,-1.25,-1.25,2.05,1.85,2.05,1.85,home
+E0_2324_0279,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-16 15:00:00+00:00,Burnley,Brentford,2,1,0.25,0.25,1.99,1.91,1.99,1.91,home
+E0_2324_0280,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-16 15:00:00+00:00,Luton,Nott'm Forest,1,1,0.25,0.25,1.81,2.09,1.81,2.09,home
+E0_2324_0281,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-16 17:30:00+00:00,Fulham,Tottenham,3,0,0.5,0.5,1.89,2.01,1.89,2.01,home
+E0_2324_0282,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-17 14:00:00+00:00,West Ham,Aston Villa,1,1,0.0,0.0,2.01,1.89,2.01,1.89,home
+E0_2324_0283,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-30 12:30:00+00:00,Newcastle,West Ham,4,3,-0.75,-0.75,2.03,1.78,2.03,1.78,home
+E0_2324_0284,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-30 15:00:00+00:00,Bournemouth,Everton,2,1,-0.25,-0.25,1.92,1.98,1.92,1.98,home
+E0_2324_0285,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-30 15:00:00+00:00,Chelsea,Burnley,2,2,-1.75,-1.75,2.03,1.78,2.03,1.78,home
+E0_2324_0286,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-30 15:00:00+00:00,Nott'm Forest,Crystal Palace,1,1,-0.25,-0.25,1.95,1.95,1.95,1.95,home
+E0_2324_0287,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-30 15:00:00+00:00,Sheffield United,Fulham,3,3,0.75,0.75,1.98,1.92,1.98,1.92,home
+E0_2324_0288,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-30 15:00:00+00:00,Tottenham,Luton,2,1,-2.0,-2.0,1.92,1.98,1.92,1.98,home
+E0_2324_0289,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-30 17:30:00+00:00,Aston Villa,Wolves,2,0,-1.0,-1.0,2.07,1.83,2.07,1.83,home
+E0_2324_0290,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-30 20:00:00+00:00,Brentford,Man United,1,1,0.25,0.25,1.97,1.93,1.97,1.93,home
+E0_2324_0291,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-31 14:00:00+00:00,Liverpool,Brighton,2,1,-1.5,-1.5,1.99,1.91,1.99,1.91,home
+E0_2324_0292,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-03-31 16:30:00+00:00,Man City,Arsenal,0,0,-0.5,-0.5,1.92,1.98,1.92,1.98,home
+E0_2324_0293,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-02 19:30:00+00:00,Newcastle,Everton,1,1,-0.5,-0.5,2.03,1.9,2.03,1.9,home
+E0_2324_0294,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-02 19:30:00+00:00,Nott'm Forest,Fulham,3,1,0.0,0.0,2.02,1.91,2.02,1.91,home
+E0_2324_0295,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-02 19:45:00+00:00,Bournemouth,Crystal Palace,1,0,-0.5,-0.5,2.01,1.92,2.01,1.92,home
+E0_2324_0296,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-02 19:45:00+00:00,Burnley,Wolves,1,1,0.0,0.0,1.85,2.08,1.85,2.08,home
+E0_2324_0297,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-02 20:15:00+00:00,West Ham,Tottenham,1,1,0.5,0.5,1.89,2.04,1.89,2.04,home
+E0_2324_0298,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-03 19:30:00+00:00,Arsenal,Luton,2,0,-2.5,-2.5,1.86,2.04,1.86,2.04,home
+E0_2324_0299,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-03 19:30:00+00:00,Brentford,Brighton,0,0,0.0,0.0,1.75,2.05,1.75,2.05,home
+E0_2324_0300,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-03 20:15:00+00:00,Man City,Aston Villa,4,1,-1.5,-1.5,1.86,2.04,1.86,2.04,home
+E0_2324_0301,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-04 19:30:00+00:00,Liverpool,Sheffield United,3,1,-2.75,-2.75,1.86,2.04,1.86,2.04,home
+E0_2324_0302,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-04 20:15:00+00:00,Chelsea,Man United,4,3,-0.5,-0.5,2.04,1.86,2.04,1.86,home
+E0_2324_0303,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-06 12:30:00+00:00,Crystal Palace,Man City,2,4,1.5,1.5,1.95,1.95,1.95,1.95,home
+E0_2324_0304,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-06 15:00:00+00:00,Aston Villa,Brentford,3,3,-0.75,-0.75,1.9,2.0,1.9,2.0,home
+E0_2324_0305,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-06 15:00:00+00:00,Everton,Burnley,1,0,-0.75,-0.75,1.84,2.06,1.84,2.06,home
+E0_2324_0306,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-06 15:00:00+00:00,Fulham,Newcastle,0,1,-0.25,-0.25,2.07,1.83,2.07,1.83,home
+E0_2324_0307,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-06 15:00:00+00:00,Luton,Bournemouth,2,1,0.5,0.5,1.99,1.91,1.99,1.91,home
+E0_2324_0308,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-06 15:00:00+00:00,Wolves,West Ham,1,2,0.0,0.0,1.84,2.06,1.84,2.06,home
+E0_2324_0309,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-06 17:30:00+00:00,Brighton,Arsenal,0,3,1.0,1.0,1.84,2.06,1.84,2.06,home
+E0_2324_0310,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-07 15:30:00+00:00,Man United,Liverpool,2,2,1.0,1.0,1.92,1.98,1.92,1.98,home
+E0_2324_0311,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-07 17:30:00+00:00,Sheffield United,Chelsea,2,2,1.25,1.25,2.06,1.84,2.06,1.84,home
+E0_2324_0312,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-07 18:00:00+00:00,Tottenham,Nott'm Forest,3,1,-1.25,-1.25,1.78,2.03,1.78,2.03,home
+E0_2324_0313,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-13 12:30:00+00:00,Newcastle,Tottenham,4,0,0.25,0.25,1.84,2.06,1.84,2.06,home
+E0_2324_0314,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-13 15:00:00+00:00,Brentford,Sheffield United,2,0,-1.25,-1.25,1.92,1.98,1.92,1.98,home
+E0_2324_0315,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-13 15:00:00+00:00,Burnley,Brighton,1,1,0.5,0.5,1.86,2.04,1.86,2.04,home
+E0_2324_0316,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-13 15:00:00+00:00,Man City,Luton,5,1,-2.5,-2.5,1.88,2.02,1.88,2.02,home
+E0_2324_0317,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-13 15:00:00+00:00,Nott'm Forest,Wolves,2,2,-0.25,-0.25,1.85,2.05,1.85,2.05,home
+E0_2324_0318,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-13 17:30:00+00:00,Bournemouth,Man United,2,2,0.0,0.0,1.84,2.06,1.84,2.06,home
+E0_2324_0319,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-14 14:00:00+00:00,Liverpool,Crystal Palace,0,1,-2.0,-2.0,1.99,1.91,1.99,1.91,home
+E0_2324_0320,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-14 14:00:00+00:00,West Ham,Fulham,0,2,-0.25,-0.25,2.07,1.83,2.07,1.83,home
+E0_2324_0321,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-14 16:30:00+00:00,Arsenal,Aston Villa,0,2,-1.75,-1.75,2.04,1.86,2.04,1.86,home
+E0_2324_0322,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-15 20:00:00+00:00,Chelsea,Everton,6,0,-0.75,-0.75,1.92,1.98,1.92,1.98,home
+E0_2324_0323,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-20 15:00:00+00:00,Luton,Brentford,1,5,0.25,0.25,2.0,1.9,2.0,1.9,home
+E0_2324_0324,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-20 15:00:00+00:00,Sheffield United,Burnley,1,4,0.0,0.0,2.05,1.85,2.05,1.85,home
+E0_2324_0325,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-20 19:30:00+00:00,Wolves,Arsenal,0,2,1.25,1.25,2.03,1.87,2.03,1.87,home
+E0_2324_0326,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-21 13:30:00+00:00,Everton,Nott'm Forest,2,0,-0.25,-0.25,1.75,2.05,1.75,2.05,home
+E0_2324_0327,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-21 15:00:00+00:00,Aston Villa,Bournemouth,3,1,-0.5,-0.5,1.87,2.03,1.87,2.03,home
+E0_2324_0328,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-21 15:00:00+00:00,Crystal Palace,West Ham,5,2,-0.25,-0.25,1.85,2.05,1.85,2.05,home
+E0_2324_0329,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-21 16:30:00+00:00,Fulham,Liverpool,1,3,1.0,1.0,1.98,1.92,1.98,1.92,home
+E0_2324_0330,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-23 20:00:00+00:00,Arsenal,Chelsea,5,0,-1.25,-1.25,1.95,1.95,1.95,1.95,home
+E0_2324_0331,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-24 19:45:00+00:00,Wolves,Bournemouth,0,1,0.0,0.0,2.0,1.9,2.0,1.9,home
+E0_2324_0332,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-24 20:00:00+00:00,Crystal Palace,Newcastle,2,0,0.0,0.0,2.07,1.83,2.07,1.83,home
+E0_2324_0333,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-24 20:00:00+00:00,Everton,Liverpool,2,0,1.25,1.25,1.98,1.92,1.98,1.92,home
+E0_2324_0334,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-24 20:00:00+00:00,Man United,Sheffield United,4,2,-1.5,-1.5,1.87,2.03,1.87,2.03,home
+E0_2324_0335,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-25 20:00:00+00:00,Brighton,Man City,0,4,1.25,1.25,1.92,1.98,1.92,1.98,home
+E0_2324_0336,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-27 12:30:00+00:00,West Ham,Liverpool,2,2,1.0,1.0,2.05,1.75,2.05,1.75,home
+E0_2324_0337,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-27 15:00:00+00:00,Fulham,Crystal Palace,1,1,-0.25,-0.25,1.83,2.07,1.83,2.07,home
+E0_2324_0338,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-27 15:00:00+00:00,Man United,Burnley,1,1,-1.25,-1.25,2.07,1.83,2.07,1.83,home
+E0_2324_0339,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-27 15:00:00+00:00,Newcastle,Sheffield United,5,1,-2.0,-2.0,2.04,1.86,2.04,1.86,home
+E0_2324_0340,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-27 15:00:00+00:00,Wolves,Luton,2,1,-0.5,-0.5,2.01,1.89,2.01,1.89,home
+E0_2324_0341,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-27 17:30:00+00:00,Everton,Brentford,1,0,-0.25,-0.25,2.05,1.85,2.05,1.85,home
+E0_2324_0342,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-27 20:00:00+00:00,Aston Villa,Chelsea,2,2,-0.25,-0.25,1.9,2.0,1.9,2.0,home
+E0_2324_0343,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-28 14:00:00+00:00,Bournemouth,Brighton,3,0,-0.25,-0.25,1.99,1.91,1.99,1.91,home
+E0_2324_0344,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-28 14:00:00+00:00,Tottenham,Arsenal,2,3,0.75,0.75,1.89,2.01,1.89,2.01,home
+E0_2324_0345,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-04-28 16:30:00+00:00,Nott'm Forest,Man City,0,2,1.5,1.5,1.99,1.91,1.99,1.91,home
+E0_2324_0346,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-02 19:30:00+00:00,Chelsea,Tottenham,2,0,-0.25,-0.25,1.95,1.95,1.95,1.95,home
+E0_2324_0347,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-03 20:00:00+00:00,Luton,Everton,1,1,0.0,0.0,1.99,1.94,1.99,1.94,home
+E0_2324_0348,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-04 12:30:00+00:00,Arsenal,Bournemouth,3,0,-2.0,-2.0,1.95,1.98,1.95,1.98,home
+E0_2324_0349,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-04 15:00:00+00:00,Brentford,Fulham,0,0,-0.25,-0.25,1.86,2.07,1.86,2.07,home
+E0_2324_0350,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-04 15:00:00+00:00,Burnley,Newcastle,1,4,0.25,0.25,2.08,1.73,2.08,1.73,home
+E0_2324_0351,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-04 15:00:00+00:00,Sheffield United,Nott'm Forest,1,3,0.75,0.75,2.04,1.89,2.04,1.89,home
+E0_2324_0352,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-04 17:30:00+00:00,Man City,Wolves,5,1,-2.5,-2.5,1.88,2.05,1.88,2.05,home
+E0_2324_0353,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-05 14:00:00+00:00,Brighton,Aston Villa,1,0,0.0,0.0,2.08,1.85,2.08,1.85,home
+E0_2324_0354,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-05 14:00:00+00:00,Chelsea,West Ham,5,0,-1.0,-1.0,2.09,1.84,2.09,1.84,home
+E0_2324_0355,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-05 16:30:00+00:00,Liverpool,Tottenham,4,2,-1.25,-1.25,1.98,1.95,1.98,1.95,home
+E0_2324_0356,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-06 20:00:00+00:00,Crystal Palace,Man United,4,0,-0.25,-0.25,2.1,1.83,2.1,1.83,home
+E0_2324_0357,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-11 12:30:00+00:00,Fulham,Man City,0,4,2.0,2.0,1.84,2.06,1.84,2.06,home
+E0_2324_0358,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-11 15:00:00+00:00,Bournemouth,Brentford,1,2,-0.5,-0.5,1.98,1.92,1.98,1.92,home
+E0_2324_0359,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-11 15:00:00+00:00,Everton,Sheffield United,1,0,-1.25,-1.25,1.89,2.01,1.89,2.01,home
+E0_2324_0360,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-11 15:00:00+00:00,Newcastle,Brighton,1,1,-1.0,-1.0,1.92,1.98,1.92,1.98,home
+E0_2324_0361,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-11 15:00:00+00:00,Tottenham,Burnley,2,1,-1.5,-1.5,1.88,2.02,1.88,2.02,home
+E0_2324_0362,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-11 15:00:00+00:00,West Ham,Luton,3,1,-0.75,-0.75,2.03,1.87,2.03,1.87,home
+E0_2324_0363,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-11 15:00:00+00:00,Wolves,Crystal Palace,1,3,0.0,0.0,2.08,1.73,2.08,1.73,home
+E0_2324_0364,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-11 17:30:00+00:00,Nott'm Forest,Chelsea,2,3,0.5,0.5,1.87,2.03,1.87,2.03,home
+E0_2324_0365,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-12 16:30:00+00:00,Man United,Arsenal,0,1,1.5,1.5,1.91,1.99,1.91,1.99,home
+E0_2324_0366,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-13 20:00:00+00:00,Aston Villa,Liverpool,3,3,0.75,0.75,1.99,1.91,1.99,1.91,home
+E0_2324_0367,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-14 20:00:00+00:00,Tottenham,Man City,0,2,1.5,1.5,1.95,1.98,1.95,1.98,home
+E0_2324_0368,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-15 19:45:00+00:00,Brighton,Chelsea,1,2,0.5,0.5,1.89,2.01,1.89,2.01,home
+E0_2324_0369,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-15 20:00:00+00:00,Man United,Newcastle,3,2,0.25,0.25,1.83,2.07,1.83,2.07,home
+E0_2324_0370,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-19 16:00:00+00:00,Arsenal,Everton,2,1,-2.0,-2.0,1.83,2.07,1.83,2.07,home
+E0_2324_0371,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-19 16:00:00+00:00,Brentford,Newcastle,2,4,0.25,0.25,1.95,1.95,1.95,1.95,home
+E0_2324_0372,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-19 16:00:00+00:00,Brighton,Man United,0,2,-0.25,-0.25,1.95,1.95,1.95,1.95,home
+E0_2324_0373,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-19 16:00:00+00:00,Burnley,Nott'm Forest,1,2,0.25,0.25,1.86,2.04,1.86,2.04,home
+E0_2324_0374,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-19 16:00:00+00:00,Chelsea,Bournemouth,2,1,-1.25,-1.25,1.91,1.99,1.91,1.99,home
+E0_2324_0375,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-19 16:00:00+00:00,Crystal Palace,Aston Villa,5,0,-0.5,-0.5,1.87,2.03,1.87,2.03,home
+E0_2324_0376,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-19 16:00:00+00:00,Liverpool,Wolves,2,0,-2.25,-2.25,1.91,1.99,1.91,1.99,home
+E0_2324_0377,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-19 16:00:00+00:00,Luton,Fulham,2,4,0.25,0.25,1.91,1.99,1.91,1.99,home
+E0_2324_0378,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-19 16:00:00+00:00,Man City,West Ham,3,1,-2.75,-2.75,1.97,1.93,1.97,1.93,home
+E0_2324_0379,NON_HKJC,https://www.football-data.co.uk/mmz4281/2324/E0.csv,E0,2324,2024-05-19 16:00:00+00:00,Sheffield United,Tottenham,0,3,1.5,1.5,2.02,1.88,2.02,1.88,home

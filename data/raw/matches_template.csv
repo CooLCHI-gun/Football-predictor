@@ -1,0 +1,2 @@
+provider_match_id,source_market,competition,season,kickoff_time_utc,home_team_name,away_team_name,ft_home_goals,ft_away_goals
+sample_001,NON_HKJC,ENG Premier League,2023-2024,2024-05-01T19:00:00Z,Team A,Team B,2,1

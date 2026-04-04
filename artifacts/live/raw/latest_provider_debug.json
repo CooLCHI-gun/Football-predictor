@@ -1,0 +1,44 @@
+{
+  "provider": "hkjc",
+  "mode": "handicap",
+  "selected_candidate": {
+    "mode": "handicap",
+    "source": "curl:hkjc_request_curl.txt",
+    "endpoint_url": "https://info.cld.hkjc.com/graphql/base/",
+    "method": "POST",
+    "operation_name": null,
+    "request_mode": "fallback-json",
+    "transport_mode": "graphql-request",
+    "sha256_hash": null,
+    "referer": "https://bet.hkjc.com/",
+    "origin": "https://bet.hkjc.com",
+    "variable_keys": [
+      "earlySettlementOnly",
+      "endDate",
+      "endIndex",
+      "fbOddsTypes",
+      "fbOddsTypesM",
+      "featuredMatchesOnly",
+      "frontEndIds",
+      "inplayOnly",
+      "matchIds",
+      "showAllMatch",
+      "startDate",
+      "startIndex",
+      "subType",
+      "tIdList",
+      "tday",
+      "tournId",
+      "tournIds",
+      "tournProfileId"
+    ]
+  },
+  "resolution_meta": {
+    "resolution_source": "debug-report",
+    "debug_report_path": "artifacts\\debug\\latest_hkjc_request_debug_handicap.json"
+  },
+  "status_code": 200,
+  "response_errors": null,
+  "match_count": 60,
+  "event_count": 71
+}

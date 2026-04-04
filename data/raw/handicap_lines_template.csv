@@ -1,0 +1,3 @@
+provider_match_id,snapshot_time_utc,side,line_value,odds,is_closing_line
+sample_001,2024-05-01T12:00:00Z,home,-0.25,1.92,false
+sample_001,2024-05-01T18:30:00Z,home,-0.5,1.88,true

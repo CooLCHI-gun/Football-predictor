@@ -1,0 +1,3 @@
+provider_match_id,snapshot_time_utc,bookmaker,source_market
+sample_001,2024-05-01T12:00:00Z,BookmakerX,NON_HKJC
+sample_001,2024-05-01T18:30:00Z,BookmakerX,NON_HKJC

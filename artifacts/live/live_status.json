@@ -1,0 +1,35 @@
+{
+  "phase": "phase6_live_monitoring",
+  "mode": "sandbox",
+  "mode_separation": {
+    "research": "backtest/optimize only",
+    "sandbox": "live feed + alerts in dry-run mode",
+    "live": "explicit opt-in live alerts only; no auto execution"
+  },
+  "provider": "hkjc",
+  "run_id": null,
+  "model_path": "artifacts\\model_bundle.pkl",
+  "poll_timeout_seconds": 15,
+  "interval_seconds": 60,
+  "raw_snapshot_path": "artifacts\\live\\raw\\latest_raw_hkjc.json",
+  "normalized_snapshot_path": "artifacts\\live\\live_snapshot.csv",
+  "odds_history_path": "artifacts\\live\\live_odds_history.csv",
+  "model_outputs_path": "artifacts\\live\\live_model_outputs.csv",
+  "edge_threshold": 0.03,
+  "confidence_threshold": 0.55,
+  "policy": "fractional_kelly",
+  "max_alerts": 3,
+  "flip_hkjc_side": false,
+  "alerts_mode": "dry-run",
+  "last_success_time_utc": "2026-04-04T07:31:31.099519+00:00",
+  "cycle_id": "20260404T073130Z",
+  "rows": {
+    "raw_events": 71,
+    "normalized_events": 71,
+    "snapshot_rows": 71,
+    "model_output_rows": 71,
+    "candidate_rows": 0,
+    "alerts_sent": 0
+  },
+  "alert_preview_path": "artifacts\\live\\live_alert_preview.txt"
+}
