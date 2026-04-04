@@ -127,7 +127,11 @@ def check_file(file_path: Path) -> None:
     if not file_path.exists():
         print(f"[MISS] {file_path}")
         return
-    data = json.loads(file_path.read_text(encoding="utf-8"))
+    try:
+        data = json.loads(file_path.read_text(encoding="utf-8"))
+    except Exception as exc:  # pragma: no cover - diagnostic path
+        print(f"[ERROR][{_classify_error(exc)}] file={file_path} detail={exc}")
+        return
     hits = find_keyword_key_paths(data)
     print(f"\n[FILE] {file_path}")
     print(f"[HITS] {len(hits)}")
@@ -139,7 +143,11 @@ def check_file_with_keywords(file_path: Path, *, keywords: Tuple[str, ...], labe
     if not file_path.exists():
         print(f"[MISS] {file_path}")
         return
-    data = json.loads(file_path.read_text(encoding="utf-8"))
+    try:
+        data = json.loads(file_path.read_text(encoding="utf-8"))
+    except Exception as exc:  # pragma: no cover - diagnostic path
+        print(f"[ERROR][{_classify_error(exc)}] file={file_path} label={label} detail={exc}")
+        return
     hits = find_keyword_key_paths_custom(data, keywords=keywords)
     print(f"\n[{label}] {file_path}")
     print(f"[{label}] hits={len(hits)}")
