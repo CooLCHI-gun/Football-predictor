@@ -1,0 +1,624 @@
+{
+  "data": {
+    "matches": [
+      {
+        "id": "50064780",
+        "foPools": [
+          {
+            "id": "1536410017",
+            "status": "PAYOUTSTARTED",
+            "oddsType": "FGS",
+            "instNo": 0,
+            "name_ch": "",
+            "name_en": "",
+            "lines": [
+              {
+                "combinations": [
+                  {
+                    "str": "000",
+                    "status": "LOSE",
+                    "winOrd": "46",
+                    "selections": [
+                      {
+                        "selId": "1",
+                        "str": "00",
+                        "name_ch": "無首名入球",
+                        "name_en": "No First Scorer"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "218",
+                    "status": "REFUND",
+                    "winOrd": "42",
+                    "selections": [
+                      {
+                        "selId": "2",
+                        "str": "218",
+                        "name_ch": "安德魯羅拔臣",
+                        "name_en": "Andrew ROBERTSON"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "112",
+                    "status": "LOSE",
+                    "winOrd": "12",
+                    "selections": [
+                      {
+                        "selId": "3",
+                        "str": "112",
+                        "name_ch": "貝拿度施華",
+                        "name_en": "BERNARDO SILVA"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "221",
+                    "status": "LOSE",
+                    "winOrd": "45",
+                    "selections": [
+                      {
+                        "selId": "4",
+                        "str": "221",
+                        "name_ch": "祖高美斯",
+                        "name_en": "Joe GOMEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "119",
+                    "status": "REFUND",
+                    "winOrd": "19",
+                    "selections": [
+                      {
+                        "selId": "5",
+                        "str": "119",
+                        "name_ch": "史東斯",
+                        "name_en": "John STONES"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "109",
+                    "status": "REFUND",
+                    "winOrd": "9",
+                    "selections": [
+                      {
+                        "selId": "6",
+                        "str": "109",
+                        "name_ch": "高華錫",
+                        "name_en": "Mateo KOVACIC"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "204",
+                    "status": "LOSE",
+                    "winOrd": "28",
+                    "selections": [
+                      {
+                        "selId": "7",
+                        "str": "204",
+                        "name_ch": "穆罕默德沙拿",
+                        "name_en": "Mohamed SALAH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "116",
+                    "status": "REFUND",
+                    "winOrd": "16",
+                    "selections": [
+                      {
+                        "selId": "8",
+                        "str": "116",
+                        "name_ch": "尼敦阿基",
+                        "name_en": "Nathan AKE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "104",
+                    "status": "REFUND",
+                    "winOrd": "4",
+                    "selections": [
+                      {
+                        "selId": "9",
+                        "str": "104",
+                        "name_ch": "菲爾科頓",
+                        "name_en": "Phil FODEN"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "102",
+                    "status": "REFUND",
+                    "winOrd": "2",
+                    "selections": [
+                      {
+                        "selId": "34",
+                        "str": "102",
+                        "name_ch": "馬莫殊",
+                        "name_en": "Omar MARMOUSH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "201",
+                    "status": "LOSE",
+                    "winOrd": "25",
+                    "selections": [
+                      {
+                        "selId": "35",
+                        "str": "201",
+                        "name_ch": "艾基迪基",
+                        "name_en": "Hugo EKITIKE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "123",
+                    "status": "LOSE",
+                    "winOrd": "23",
+                    "selections": [
+                      {
+                        "selId": "36",
+                        "str": "123",
+                        "name_ch": "卡胡辛洛夫",
+                        "name_en": "Abdukodir KHUSANOV"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "110",
+                    "status": "LOSE",
+                    "winOrd": "10",
+                    "selections": [
+                      {
+                        "selId": "37",
+                        "str": "110",
+                        "name_ch": "卓基",
+                        "name_en": "Mathis Rayan CHERKI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "113",
+                    "status": "REFUND",
+                    "winOrd": "13",
+                    "selections": [
+                      {
+                        "selId": "38",
+                        "str": "113",
+                        "name_ch": "尼高干沙利斯",
+                        "name_en": "Nico GONZALEZ Iglesias"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "215",
+                    "status": "REFUND",
+                    "winOrd": "39",
+                    "selections": [
+                      {
+                        "selId": "39",
+                        "str": "215",
+                        "name_ch": "迪利尼約尼",
+                        "name_en": "Trey NYONI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "124",
+                    "status": "REFUND",
+                    "winOrd": "24",
+                    "selections": [
+                      {
+                        "selId": "40",
+                        "str": "124",
+                        "name_ch": "麥斯阿利尼",
+                        "name_en": "Max ALLEYNE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "217",
+                    "status": "REFUND",
+                    "winOrd": "41",
+                    "selections": [
+                      {
+                        "selId": "41",
+                        "str": "217",
+                        "name_ch": "阿馬拉拿路",
+                        "name_en": "Amara NALLO"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "206",
+                    "status": "REFUND",
+                    "winOrd": "30",
+                    "selections": [
+                      {
+                        "selId": "42",
+                        "str": "206",
+                        "name_ch": "安古莫夏",
+                        "name_en": "Rio NGUMOHA"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "219",
+                    "status": "REFUND",
+                    "winOrd": "43",
+                    "selections": [
+                      {
+                        "selId": "43",
+                        "str": "219",
+                        "name_ch": "奇雲藍斯",
+                        "name_en": "Calvin RAMSAY"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "209",
+                    "status": "REFUND",
+                    "winOrd": "33",
+                    "selections": [
+                      {
+                        "selId": "44",
+                        "str": "209",
+                        "name_ch": "基蘭摩里遜",
+                        "name_en": "Kieran MORRISON"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "108",
+                    "status": "REFUND",
+                    "winOrd": "8",
+                    "selections": [
+                      {
+                        "selId": "45",
+                        "str": "108",
+                        "name_ch": "賴恩麥艾度",
+                        "name_en": "Ryan McAIDOO"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "122",
+                    "status": "REFUND",
+                    "winOrd": "22",
+                    "selections": [
+                      {
+                        "selId": "46",
+                        "str": "122",
+                        "name_ch": "史提芬麥芬尼",
+                        "name_en": "Stephen MFUNI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "214",
+                    "status": "REFUND",
+                    "winOrd": "38",
+                    "selections": [
+                      {
+                        "selId": "23",
+                        "str": "214",
+                        "name_ch": "謝利美費林邦",
+                        "name_en": "Jeremie FRIMPONG"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "202",
+                    "status": "REFUND",
+                    "winOrd": "26",
+                    "selections": [
+                      {
+                        "selId": "20",
+                        "str": "202",
+                        "name_ch": "阿歷山大伊沙克",
+                        "name_en": "Alexander ISAK"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "203",
+                    "status": "REFUND",
+                    "winOrd": "27",
+                    "selections": [
+                      {
+                        "selId": "21",
+                        "str": "203",
+                        "name_ch": "加普",
+                        "name_en": "Cody GAKPO"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "106",
+                    "status": "LOSE",
+                    "winOrd": "6",
+                    "selections": [
+                      {
+                        "selId": "22",
+                        "str": "106",
+                        "name_ch": "謝利美杜古",
+                        "name_en": "Jeremy DOKU"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "103",
+                    "status": "LOSE",
+                    "winOrd": "3",
+                    "selections": [
+                      {
+                        "selId": "24",
+                        "str": "103",
+                        "name_ch": "安東尼施美安",
+                        "name_en": "Antoine SEMENYO"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "121",
+                    "status": "REFUND",
+                    "winOrd": "21",
+                    "selections": [
+                      {
+                        "selId": "25",
+                        "str": "121",
+                        "name_ch": "歷高利維斯",
+                        "name_en": "Rico LEWIS"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "210",
+                    "status": "LOSE",
+                    "winOrd": "34",
+                    "selections": [
+                      {
+                        "selId": "26",
+                        "str": "210",
+                        "name_ch": "賴恩格雲貝治",
+                        "name_en": "Ryan GRAVENBERCH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "205",
+                    "status": "REFUND",
+                    "winOrd": "29",
+                    "selections": [
+                      {
+                        "selId": "27",
+                        "str": "205",
+                        "name_ch": "費達歷高基艾沙",
+                        "name_en": "Federico CHIESA"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "216",
+                    "status": "LOSE",
+                    "winOrd": "40",
+                    "selections": [
+                      {
+                        "selId": "28",
+                        "str": "216",
+                        "name_ch": "米路斯卻基斯",
+                        "name_en": "Milos KERKEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "207",
+                    "status": "LOSE",
+                    "winOrd": "31",
+                    "selections": [
+                      {
+                        "selId": "29",
+                        "str": "207",
+                        "name_ch": "蘇保斯拉爾",
+                        "name_en": "Dominik SZOBOSZLAI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "208",
+                    "status": "LOSE",
+                    "winOrd": "32",
+                    "selections": [
+                      {
+                        "selId": "30",
+                        "str": "208",
+                        "name_ch": "域斯",
+                        "name_en": "Florian WIRTZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "105",
+                    "status": "REFUND",
+                    "winOrd": "5",
+                    "selections": [
+                      {
+                        "selId": "31",
+                        "str": "105",
+                        "name_ch": "雷恩達斯",
+                        "name_en": "Tijjani REIJNDERS"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "107",
+                    "status": "REFUND",
+                    "winOrd": "7",
+                    "selections": [
+                      {
+                        "selId": "32",
+                        "str": "107",
+                        "name_ch": "沙雲奴",
+                        "name_en": "SAVINHO Moreira de Oliveira"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "111",
+                    "status": "LOSE",
+                    "winOrd": "11",
+                    "selections": [
+                      {
+                        "selId": "33",
+                        "str": "111",
+                        "name_ch": "尼高奧萊利",
+                        "name_en": "Nico O'REILLY"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "114",
+                    "status": "LOSE",
+                    "winOrd": "14",
+                    "selections": [
+                      {
+                        "selId": "11",
+                        "str": "114",
+                        "name_ch": "洛迪卡斯簡迪",
+                        "name_en": "RODRI Cascante"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "213",
+                    "status": "LOSE",
+                    "winOrd": "37",
+                    "selections": [
+                      {
+                        "selId": "10",
+                        "str": "213",
+                        "name_ch": "華基爾雲迪積克",
+                        "name_en": "Virgil VAN DIJK"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "101",
+                    "status": "WIN",
+                    "winOrd": "1",
+                    "selections": [
+                      {
+                        "selId": "12",
+                        "str": "101",
+                        "name_ch": "艾寧夏蘭特",
+                        "name_en": "Erling HAALAND"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "118",
+                    "status": "REFUND",
+                    "winOrd": "18",
+                    "selections": [
+                      {
+                        "selId": "13",
+                        "str": "118",
+                        "name_ch": "魯賓戴亞斯",
+                        "name_en": "RUBEN DIAS"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "212",
+                    "status": "LOSE",
+                    "winOrd": "36",
+                    "selections": [
+                      {
+                        "selId": "14",
+                        "str": "212",
+                        "name_ch": "居迪斯鍾斯",
+                        "name_en": "Curtis JONES"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "220",
+                    "status": "LOSE",
+                    "winOrd": "44",
+                    "selections": [
+                      {
+                        "selId": "15",
+                        "str": "220",
+                        "name_ch": "伊巴希馬干拿迪",
+                        "name_en": "Ibrahima KONATE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "115",
+                    "status": "LOSE",
+                    "winOrd": "15",
+                    "selections": [
+                      {
+                        "selId": "16",
+                        "str": "115",
+                        "name_ch": "馬克古希",
+                        "name_en": "Marc GUEHI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "211",
+                    "status": "REFUND",
+                    "winOrd": "35",
+                    "selections": [
+                      {
+                        "selId": "17",
+                        "str": "211",
+                        "name_ch": "阿歷斯麥亞里士打",
+                        "name_en": "Alexis MAC ALLISTER"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "117",
+                    "status": "REFUND",
+                    "winOrd": "17",
+                    "selections": [
+                      {
+                        "selId": "18",
+                        "str": "117",
+                        "name_ch": "艾洛利",
+                        "name_en": "Rayan AIT-NOURI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "120",
+                    "status": "LOSE",
+                    "winOrd": "20",
+                    "selections": [
+                      {
+                        "selId": "19",
+                        "str": "120",
+                        "name_ch": "馬菲奧斯紐尼斯",
+                        "name_en": "Matheus NUNES"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "additionalResults": []
+      }
+    ]
+  }
+}

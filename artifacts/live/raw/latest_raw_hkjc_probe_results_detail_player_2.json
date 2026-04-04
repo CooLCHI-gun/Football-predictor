@@ -1,0 +1,1842 @@
+{
+  "data": {
+    "matches": [
+      {
+        "id": "50064780",
+        "foPools": [
+          {
+            "id": "1594662051",
+            "status": "PAYOUTSTARTED",
+            "oddsType": "NGS",
+            "instNo": 1,
+            "name_ch": "",
+            "name_en": "",
+            "lines": [
+              {
+                "combinations": [
+                  {
+                    "str": "000",
+                    "status": "LOSE",
+                    "winOrd": "21",
+                    "selections": [
+                      {
+                        "selId": "1",
+                        "str": "00",
+                        "name_ch": "無下一名入球球員",
+                        "name_en": "No Next Scorer"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "112",
+                    "status": "LOSE",
+                    "winOrd": "6",
+                    "selections": [
+                      {
+                        "selId": "3",
+                        "str": "112",
+                        "name_ch": "貝拿度施華",
+                        "name_en": "BERNARDO SILVA"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "221",
+                    "status": "LOSE",
+                    "winOrd": "20",
+                    "selections": [
+                      {
+                        "selId": "4",
+                        "str": "221",
+                        "name_ch": "祖高美斯",
+                        "name_en": "Joe GOMEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "204",
+                    "status": "LOSE",
+                    "winOrd": "12",
+                    "selections": [
+                      {
+                        "selId": "7",
+                        "str": "204",
+                        "name_ch": "穆罕默德沙拿",
+                        "name_en": "Mohamed SALAH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "208",
+                    "status": "LOSE",
+                    "winOrd": "14",
+                    "selections": [
+                      {
+                        "selId": "30",
+                        "str": "208",
+                        "name_ch": "域斯",
+                        "name_en": "Florian WIRTZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "111",
+                    "status": "LOSE",
+                    "winOrd": "5",
+                    "selections": [
+                      {
+                        "selId": "33",
+                        "str": "111",
+                        "name_ch": "尼高奧萊利",
+                        "name_en": "Nico O'REILLY"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "201",
+                    "status": "LOSE",
+                    "winOrd": "11",
+                    "selections": [
+                      {
+                        "selId": "35",
+                        "str": "201",
+                        "name_ch": "艾基迪基",
+                        "name_en": "Hugo EKITIKE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "123",
+                    "status": "LOSE",
+                    "winOrd": "10",
+                    "selections": [
+                      {
+                        "selId": "36",
+                        "str": "123",
+                        "name_ch": "卡胡辛洛夫",
+                        "name_en": "Abdukodir KHUSANOV"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "110",
+                    "status": "LOSE",
+                    "winOrd": "4",
+                    "selections": [
+                      {
+                        "selId": "37",
+                        "str": "110",
+                        "name_ch": "卓基",
+                        "name_en": "Mathis Rayan CHERKI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "106",
+                    "status": "LOSE",
+                    "winOrd": "3",
+                    "selections": [
+                      {
+                        "selId": "22",
+                        "str": "106",
+                        "name_ch": "謝利美杜古",
+                        "name_en": "Jeremy DOKU"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "103",
+                    "status": "LOSE",
+                    "winOrd": "2",
+                    "selections": [
+                      {
+                        "selId": "24",
+                        "str": "103",
+                        "name_ch": "安東尼施美安",
+                        "name_en": "Antoine SEMENYO"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "210",
+                    "status": "LOSE",
+                    "winOrd": "15",
+                    "selections": [
+                      {
+                        "selId": "26",
+                        "str": "210",
+                        "name_ch": "賴恩格雲貝治",
+                        "name_en": "Ryan GRAVENBERCH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "216",
+                    "status": "LOSE",
+                    "winOrd": "18",
+                    "selections": [
+                      {
+                        "selId": "28",
+                        "str": "216",
+                        "name_ch": "米路斯卻基斯",
+                        "name_en": "Milos KERKEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "207",
+                    "status": "LOSE",
+                    "winOrd": "13",
+                    "selections": [
+                      {
+                        "selId": "29",
+                        "str": "207",
+                        "name_ch": "蘇保斯拉爾",
+                        "name_en": "Dominik SZOBOSZLAI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "220",
+                    "status": "LOSE",
+                    "winOrd": "19",
+                    "selections": [
+                      {
+                        "selId": "15",
+                        "str": "220",
+                        "name_ch": "伊巴希馬干拿迪",
+                        "name_en": "Ibrahima KONATE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "115",
+                    "status": "LOSE",
+                    "winOrd": "8",
+                    "selections": [
+                      {
+                        "selId": "16",
+                        "str": "115",
+                        "name_ch": "馬克古希",
+                        "name_en": "Marc GUEHI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "120",
+                    "status": "LOSE",
+                    "winOrd": "9",
+                    "selections": [
+                      {
+                        "selId": "19",
+                        "str": "120",
+                        "name_ch": "馬菲奧斯紐尼斯",
+                        "name_en": "Matheus NUNES"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "213",
+                    "status": "LOSE",
+                    "winOrd": "17",
+                    "selections": [
+                      {
+                        "selId": "10",
+                        "str": "213",
+                        "name_ch": "華基爾雲迪積克",
+                        "name_en": "Virgil VAN DIJK"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "114",
+                    "status": "LOSE",
+                    "winOrd": "7",
+                    "selections": [
+                      {
+                        "selId": "11",
+                        "str": "114",
+                        "name_ch": "洛迪卡斯簡迪",
+                        "name_en": "RODRI Cascante"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "101",
+                    "status": "WIN",
+                    "winOrd": "1",
+                    "selections": [
+                      {
+                        "selId": "12",
+                        "str": "101",
+                        "name_ch": "艾寧夏蘭特",
+                        "name_en": "Erling HAALAND"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "212",
+                    "status": "LOSE",
+                    "winOrd": "16",
+                    "selections": [
+                      {
+                        "selId": "14",
+                        "str": "212",
+                        "name_ch": "居迪斯鍾斯",
+                        "name_en": "Curtis JONES"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "1582916015",
+            "status": "PAYOUTSTARTED",
+            "oddsType": "NTS",
+            "instNo": 1,
+            "name_ch": "",
+            "name_en": "",
+            "lines": [
+              {
+                "combinations": [
+                  {
+                    "str": "H",
+                    "status": "WIN",
+                    "winOrd": "1",
+                    "selections": [
+                      {
+                        "selId": "1",
+                        "str": "H",
+                        "name_ch": "主隊",
+                        "name_en": "Home"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "A",
+                    "status": "LOSE",
+                    "winOrd": "2",
+                    "selections": [
+                      {
+                        "selId": "2",
+                        "str": "A",
+                        "name_ch": "客隊",
+                        "name_en": "Away"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "N",
+                    "status": "LOSE",
+                    "winOrd": "3",
+                    "selections": [
+                      {
+                        "selId": "3",
+                        "str": "N",
+                        "name_ch": "無入球",
+                        "name_en": "No Goals"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "1594733051",
+            "status": "PAYOUTSTARTED",
+            "oddsType": "NGS",
+            "instNo": 2,
+            "name_ch": "",
+            "name_en": "",
+            "lines": [
+              {
+                "combinations": [
+                  {
+                    "str": "000",
+                    "status": "LOSE",
+                    "winOrd": "21",
+                    "selections": [
+                      {
+                        "selId": "1",
+                        "str": "00",
+                        "name_ch": "無下一名入球球員",
+                        "name_en": "No Next Scorer"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "112",
+                    "status": "LOSE",
+                    "winOrd": "6",
+                    "selections": [
+                      {
+                        "selId": "3",
+                        "str": "112",
+                        "name_ch": "貝拿度施華",
+                        "name_en": "BERNARDO SILVA"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "221",
+                    "status": "LOSE",
+                    "winOrd": "20",
+                    "selections": [
+                      {
+                        "selId": "4",
+                        "str": "221",
+                        "name_ch": "祖高美斯",
+                        "name_en": "Joe GOMEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "204",
+                    "status": "LOSE",
+                    "winOrd": "12",
+                    "selections": [
+                      {
+                        "selId": "7",
+                        "str": "204",
+                        "name_ch": "穆罕默德沙拿",
+                        "name_en": "Mohamed SALAH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "208",
+                    "status": "LOSE",
+                    "winOrd": "14",
+                    "selections": [
+                      {
+                        "selId": "30",
+                        "str": "208",
+                        "name_ch": "域斯",
+                        "name_en": "Florian WIRTZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "111",
+                    "status": "LOSE",
+                    "winOrd": "5",
+                    "selections": [
+                      {
+                        "selId": "33",
+                        "str": "111",
+                        "name_ch": "尼高奧萊利",
+                        "name_en": "Nico O'REILLY"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "201",
+                    "status": "LOSE",
+                    "winOrd": "11",
+                    "selections": [
+                      {
+                        "selId": "35",
+                        "str": "201",
+                        "name_ch": "艾基迪基",
+                        "name_en": "Hugo EKITIKE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "123",
+                    "status": "LOSE",
+                    "winOrd": "10",
+                    "selections": [
+                      {
+                        "selId": "36",
+                        "str": "123",
+                        "name_ch": "卡胡辛洛夫",
+                        "name_en": "Abdukodir KHUSANOV"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "110",
+                    "status": "LOSE",
+                    "winOrd": "4",
+                    "selections": [
+                      {
+                        "selId": "37",
+                        "str": "110",
+                        "name_ch": "卓基",
+                        "name_en": "Mathis Rayan CHERKI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "213",
+                    "status": "LOSE",
+                    "winOrd": "17",
+                    "selections": [
+                      {
+                        "selId": "10",
+                        "str": "213",
+                        "name_ch": "華基爾雲迪積克",
+                        "name_en": "Virgil VAN DIJK"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "114",
+                    "status": "LOSE",
+                    "winOrd": "7",
+                    "selections": [
+                      {
+                        "selId": "11",
+                        "str": "114",
+                        "name_ch": "洛迪卡斯簡迪",
+                        "name_en": "RODRI Cascante"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "101",
+                    "status": "WIN",
+                    "winOrd": "1",
+                    "selections": [
+                      {
+                        "selId": "12",
+                        "str": "101",
+                        "name_ch": "艾寧夏蘭特",
+                        "name_en": "Erling HAALAND"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "212",
+                    "status": "LOSE",
+                    "winOrd": "16",
+                    "selections": [
+                      {
+                        "selId": "14",
+                        "str": "212",
+                        "name_ch": "居迪斯鍾斯",
+                        "name_en": "Curtis JONES"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "220",
+                    "status": "LOSE",
+                    "winOrd": "19",
+                    "selections": [
+                      {
+                        "selId": "15",
+                        "str": "220",
+                        "name_ch": "伊巴希馬干拿迪",
+                        "name_en": "Ibrahima KONATE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "115",
+                    "status": "LOSE",
+                    "winOrd": "8",
+                    "selections": [
+                      {
+                        "selId": "16",
+                        "str": "115",
+                        "name_ch": "馬克古希",
+                        "name_en": "Marc GUEHI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "120",
+                    "status": "LOSE",
+                    "winOrd": "9",
+                    "selections": [
+                      {
+                        "selId": "19",
+                        "str": "120",
+                        "name_ch": "馬菲奧斯紐尼斯",
+                        "name_en": "Matheus NUNES"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "106",
+                    "status": "LOSE",
+                    "winOrd": "3",
+                    "selections": [
+                      {
+                        "selId": "22",
+                        "str": "106",
+                        "name_ch": "謝利美杜古",
+                        "name_en": "Jeremy DOKU"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "103",
+                    "status": "LOSE",
+                    "winOrd": "2",
+                    "selections": [
+                      {
+                        "selId": "24",
+                        "str": "103",
+                        "name_ch": "安東尼施美安",
+                        "name_en": "Antoine SEMENYO"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "210",
+                    "status": "LOSE",
+                    "winOrd": "15",
+                    "selections": [
+                      {
+                        "selId": "26",
+                        "str": "210",
+                        "name_ch": "賴恩格雲貝治",
+                        "name_en": "Ryan GRAVENBERCH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "216",
+                    "status": "LOSE",
+                    "winOrd": "18",
+                    "selections": [
+                      {
+                        "selId": "28",
+                        "str": "216",
+                        "name_ch": "米路斯卻基斯",
+                        "name_en": "Milos KERKEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "207",
+                    "status": "LOSE",
+                    "winOrd": "13",
+                    "selections": [
+                      {
+                        "selId": "29",
+                        "str": "207",
+                        "name_ch": "蘇保斯拉爾",
+                        "name_en": "Dominik SZOBOSZLAI"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "1594732015",
+            "status": "PAYOUTSTARTED",
+            "oddsType": "NTS",
+            "instNo": 2,
+            "name_ch": "",
+            "name_en": "",
+            "lines": [
+              {
+                "combinations": [
+                  {
+                    "str": "H",
+                    "status": "WIN",
+                    "winOrd": "1",
+                    "selections": [
+                      {
+                        "selId": "1",
+                        "str": "H",
+                        "name_ch": "主隊",
+                        "name_en": "Home"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "A",
+                    "status": "LOSE",
+                    "winOrd": "2",
+                    "selections": [
+                      {
+                        "selId": "2",
+                        "str": "A",
+                        "name_ch": "客隊",
+                        "name_en": "Away"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "N",
+                    "status": "LOSE",
+                    "winOrd": "3",
+                    "selections": [
+                      {
+                        "selId": "3",
+                        "str": "N",
+                        "name_ch": "無入球",
+                        "name_en": "No Goals"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "1594738015",
+            "status": "PAYOUTSTARTED",
+            "oddsType": "NTS",
+            "instNo": 3,
+            "name_ch": "",
+            "name_en": "",
+            "lines": [
+              {
+                "combinations": [
+                  {
+                    "str": "H",
+                    "status": "WIN",
+                    "winOrd": "1",
+                    "selections": [
+                      {
+                        "selId": "1",
+                        "str": "H",
+                        "name_ch": "主隊",
+                        "name_en": "Home"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "A",
+                    "status": "LOSE",
+                    "winOrd": "2",
+                    "selections": [
+                      {
+                        "selId": "2",
+                        "str": "A",
+                        "name_ch": "客隊",
+                        "name_en": "Away"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "N",
+                    "status": "LOSE",
+                    "winOrd": "3",
+                    "selections": [
+                      {
+                        "selId": "3",
+                        "str": "N",
+                        "name_ch": "無入球",
+                        "name_en": "No Goals"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "1594739051",
+            "status": "PAYOUTSTARTED",
+            "oddsType": "NGS",
+            "instNo": 3,
+            "name_ch": "",
+            "name_en": "",
+            "lines": [
+              {
+                "combinations": [
+                  {
+                    "str": "208",
+                    "status": "LOSE",
+                    "winOrd": "14",
+                    "selections": [
+                      {
+                        "selId": "30",
+                        "str": "208",
+                        "name_ch": "域斯",
+                        "name_en": "Florian WIRTZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "111",
+                    "status": "LOSE",
+                    "winOrd": "5",
+                    "selections": [
+                      {
+                        "selId": "33",
+                        "str": "111",
+                        "name_ch": "尼高奧萊利",
+                        "name_en": "Nico O'REILLY"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "201",
+                    "status": "LOSE",
+                    "winOrd": "11",
+                    "selections": [
+                      {
+                        "selId": "35",
+                        "str": "201",
+                        "name_ch": "艾基迪基",
+                        "name_en": "Hugo EKITIKE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "123",
+                    "status": "LOSE",
+                    "winOrd": "10",
+                    "selections": [
+                      {
+                        "selId": "36",
+                        "str": "123",
+                        "name_ch": "卡胡辛洛夫",
+                        "name_en": "Abdukodir KHUSANOV"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "110",
+                    "status": "LOSE",
+                    "winOrd": "4",
+                    "selections": [
+                      {
+                        "selId": "37",
+                        "str": "110",
+                        "name_ch": "卓基",
+                        "name_en": "Mathis Rayan CHERKI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "106",
+                    "status": "LOSE",
+                    "winOrd": "3",
+                    "selections": [
+                      {
+                        "selId": "22",
+                        "str": "106",
+                        "name_ch": "謝利美杜古",
+                        "name_en": "Jeremy DOKU"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "103",
+                    "status": "WIN",
+                    "winOrd": "2",
+                    "selections": [
+                      {
+                        "selId": "24",
+                        "str": "103",
+                        "name_ch": "安東尼施美安",
+                        "name_en": "Antoine SEMENYO"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "210",
+                    "status": "LOSE",
+                    "winOrd": "15",
+                    "selections": [
+                      {
+                        "selId": "26",
+                        "str": "210",
+                        "name_ch": "賴恩格雲貝治",
+                        "name_en": "Ryan GRAVENBERCH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "216",
+                    "status": "LOSE",
+                    "winOrd": "18",
+                    "selections": [
+                      {
+                        "selId": "28",
+                        "str": "216",
+                        "name_ch": "米路斯卻基斯",
+                        "name_en": "Milos KERKEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "207",
+                    "status": "LOSE",
+                    "winOrd": "13",
+                    "selections": [
+                      {
+                        "selId": "29",
+                        "str": "207",
+                        "name_ch": "蘇保斯拉爾",
+                        "name_en": "Dominik SZOBOSZLAI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "213",
+                    "status": "LOSE",
+                    "winOrd": "17",
+                    "selections": [
+                      {
+                        "selId": "10",
+                        "str": "213",
+                        "name_ch": "華基爾雲迪積克",
+                        "name_en": "Virgil VAN DIJK"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "114",
+                    "status": "LOSE",
+                    "winOrd": "7",
+                    "selections": [
+                      {
+                        "selId": "11",
+                        "str": "114",
+                        "name_ch": "洛迪卡斯簡迪",
+                        "name_en": "RODRI Cascante"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "101",
+                    "status": "LOSE",
+                    "winOrd": "1",
+                    "selections": [
+                      {
+                        "selId": "12",
+                        "str": "101",
+                        "name_ch": "艾寧夏蘭特",
+                        "name_en": "Erling HAALAND"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "212",
+                    "status": "LOSE",
+                    "winOrd": "16",
+                    "selections": [
+                      {
+                        "selId": "14",
+                        "str": "212",
+                        "name_ch": "居迪斯鍾斯",
+                        "name_en": "Curtis JONES"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "220",
+                    "status": "LOSE",
+                    "winOrd": "19",
+                    "selections": [
+                      {
+                        "selId": "15",
+                        "str": "220",
+                        "name_ch": "伊巴希馬干拿迪",
+                        "name_en": "Ibrahima KONATE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "115",
+                    "status": "LOSE",
+                    "winOrd": "8",
+                    "selections": [
+                      {
+                        "selId": "16",
+                        "str": "115",
+                        "name_ch": "馬克古希",
+                        "name_en": "Marc GUEHI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "120",
+                    "status": "LOSE",
+                    "winOrd": "9",
+                    "selections": [
+                      {
+                        "selId": "19",
+                        "str": "120",
+                        "name_ch": "馬菲奧斯紐尼斯",
+                        "name_en": "Matheus NUNES"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "000",
+                    "status": "LOSE",
+                    "winOrd": "21",
+                    "selections": [
+                      {
+                        "selId": "1",
+                        "str": "00",
+                        "name_ch": "無下一名入球球員",
+                        "name_en": "No Next Scorer"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "112",
+                    "status": "LOSE",
+                    "winOrd": "6",
+                    "selections": [
+                      {
+                        "selId": "3",
+                        "str": "112",
+                        "name_ch": "貝拿度施華",
+                        "name_en": "BERNARDO SILVA"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "221",
+                    "status": "LOSE",
+                    "winOrd": "20",
+                    "selections": [
+                      {
+                        "selId": "4",
+                        "str": "221",
+                        "name_ch": "祖高美斯",
+                        "name_en": "Joe GOMEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "204",
+                    "status": "LOSE",
+                    "winOrd": "12",
+                    "selections": [
+                      {
+                        "selId": "7",
+                        "str": "204",
+                        "name_ch": "穆罕默德沙拿",
+                        "name_en": "Mohamed SALAH"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "1594748051",
+            "status": "PAYOUTSTARTED",
+            "oddsType": "NGS",
+            "instNo": 4,
+            "name_ch": "",
+            "name_en": "",
+            "lines": [
+              {
+                "combinations": [
+                  {
+                    "str": "000",
+                    "status": "LOSE",
+                    "winOrd": "21",
+                    "selections": [
+                      {
+                        "selId": "1",
+                        "str": "00",
+                        "name_ch": "無下一名入球球員",
+                        "name_en": "No Next Scorer"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "112",
+                    "status": "LOSE",
+                    "winOrd": "6",
+                    "selections": [
+                      {
+                        "selId": "3",
+                        "str": "112",
+                        "name_ch": "貝拿度施華",
+                        "name_en": "BERNARDO SILVA"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "221",
+                    "status": "LOSE",
+                    "winOrd": "20",
+                    "selections": [
+                      {
+                        "selId": "4",
+                        "str": "221",
+                        "name_ch": "祖高美斯",
+                        "name_en": "Joe GOMEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "204",
+                    "status": "LOSE",
+                    "winOrd": "12",
+                    "selections": [
+                      {
+                        "selId": "7",
+                        "str": "204",
+                        "name_ch": "穆罕默德沙拿",
+                        "name_en": "Mohamed SALAH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "213",
+                    "status": "LOSE",
+                    "winOrd": "17",
+                    "selections": [
+                      {
+                        "selId": "10",
+                        "str": "213",
+                        "name_ch": "華基爾雲迪積克",
+                        "name_en": "Virgil VAN DIJK"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "114",
+                    "status": "LOSE",
+                    "winOrd": "7",
+                    "selections": [
+                      {
+                        "selId": "11",
+                        "str": "114",
+                        "name_ch": "洛迪卡斯簡迪",
+                        "name_en": "RODRI Cascante"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "101",
+                    "status": "WIN",
+                    "winOrd": "1",
+                    "selections": [
+                      {
+                        "selId": "12",
+                        "str": "101",
+                        "name_ch": "艾寧夏蘭特",
+                        "name_en": "Erling HAALAND"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "212",
+                    "status": "LOSE",
+                    "winOrd": "16",
+                    "selections": [
+                      {
+                        "selId": "14",
+                        "str": "212",
+                        "name_ch": "居迪斯鍾斯",
+                        "name_en": "Curtis JONES"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "220",
+                    "status": "LOSE",
+                    "winOrd": "19",
+                    "selections": [
+                      {
+                        "selId": "15",
+                        "str": "220",
+                        "name_ch": "伊巴希馬干拿迪",
+                        "name_en": "Ibrahima KONATE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "115",
+                    "status": "LOSE",
+                    "winOrd": "8",
+                    "selections": [
+                      {
+                        "selId": "16",
+                        "str": "115",
+                        "name_ch": "馬克古希",
+                        "name_en": "Marc GUEHI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "120",
+                    "status": "LOSE",
+                    "winOrd": "9",
+                    "selections": [
+                      {
+                        "selId": "19",
+                        "str": "120",
+                        "name_ch": "馬菲奧斯紐尼斯",
+                        "name_en": "Matheus NUNES"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "106",
+                    "status": "LOSE",
+                    "winOrd": "3",
+                    "selections": [
+                      {
+                        "selId": "22",
+                        "str": "106",
+                        "name_ch": "謝利美杜古",
+                        "name_en": "Jeremy DOKU"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "103",
+                    "status": "LOSE",
+                    "winOrd": "2",
+                    "selections": [
+                      {
+                        "selId": "24",
+                        "str": "103",
+                        "name_ch": "安東尼施美安",
+                        "name_en": "Antoine SEMENYO"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "210",
+                    "status": "LOSE",
+                    "winOrd": "15",
+                    "selections": [
+                      {
+                        "selId": "26",
+                        "str": "210",
+                        "name_ch": "賴恩格雲貝治",
+                        "name_en": "Ryan GRAVENBERCH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "216",
+                    "status": "LOSE",
+                    "winOrd": "18",
+                    "selections": [
+                      {
+                        "selId": "28",
+                        "str": "216",
+                        "name_ch": "米路斯卻基斯",
+                        "name_en": "Milos KERKEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "207",
+                    "status": "LOSE",
+                    "winOrd": "13",
+                    "selections": [
+                      {
+                        "selId": "29",
+                        "str": "207",
+                        "name_ch": "蘇保斯拉爾",
+                        "name_en": "Dominik SZOBOSZLAI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "208",
+                    "status": "LOSE",
+                    "winOrd": "14",
+                    "selections": [
+                      {
+                        "selId": "30",
+                        "str": "208",
+                        "name_ch": "域斯",
+                        "name_en": "Florian WIRTZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "111",
+                    "status": "LOSE",
+                    "winOrd": "5",
+                    "selections": [
+                      {
+                        "selId": "33",
+                        "str": "111",
+                        "name_ch": "尼高奧萊利",
+                        "name_en": "Nico O'REILLY"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "201",
+                    "status": "LOSE",
+                    "winOrd": "11",
+                    "selections": [
+                      {
+                        "selId": "35",
+                        "str": "201",
+                        "name_ch": "艾基迪基",
+                        "name_en": "Hugo EKITIKE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "123",
+                    "status": "LOSE",
+                    "winOrd": "10",
+                    "selections": [
+                      {
+                        "selId": "36",
+                        "str": "123",
+                        "name_ch": "卡胡辛洛夫",
+                        "name_en": "Abdukodir KHUSANOV"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "110",
+                    "status": "LOSE",
+                    "winOrd": "4",
+                    "selections": [
+                      {
+                        "selId": "37",
+                        "str": "110",
+                        "name_ch": "卓基",
+                        "name_en": "Mathis Rayan CHERKI"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "1594747015",
+            "status": "PAYOUTSTARTED",
+            "oddsType": "NTS",
+            "instNo": 4,
+            "name_ch": "",
+            "name_en": "",
+            "lines": [
+              {
+                "combinations": [
+                  {
+                    "str": "H",
+                    "status": "WIN",
+                    "winOrd": "1",
+                    "selections": [
+                      {
+                        "selId": "1",
+                        "str": "H",
+                        "name_ch": "主隊",
+                        "name_en": "Home"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "A",
+                    "status": "LOSE",
+                    "winOrd": "2",
+                    "selections": [
+                      {
+                        "selId": "2",
+                        "str": "A",
+                        "name_ch": "客隊",
+                        "name_en": "Away"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "N",
+                    "status": "LOSE",
+                    "winOrd": "3",
+                    "selections": [
+                      {
+                        "selId": "3",
+                        "str": "N",
+                        "name_ch": "無入球",
+                        "name_en": "No Goals"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "1594838015",
+            "status": "PAYOUTSTARTED",
+            "oddsType": "NTS",
+            "instNo": 5,
+            "name_ch": "",
+            "name_en": "",
+            "lines": [
+              {
+                "combinations": [
+                  {
+                    "str": "H",
+                    "status": "LOSE",
+                    "winOrd": "1",
+                    "selections": [
+                      {
+                        "selId": "1",
+                        "str": "H",
+                        "name_ch": "主隊",
+                        "name_en": "Home"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "A",
+                    "status": "LOSE",
+                    "winOrd": "2",
+                    "selections": [
+                      {
+                        "selId": "2",
+                        "str": "A",
+                        "name_ch": "客隊",
+                        "name_en": "Away"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "N",
+                    "status": "WIN",
+                    "winOrd": "3",
+                    "selections": [
+                      {
+                        "selId": "3",
+                        "str": "N",
+                        "name_ch": "無入球",
+                        "name_en": "No Goals"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "1594839051",
+            "status": "PAYOUTSTARTED",
+            "oddsType": "NGS",
+            "instNo": 5,
+            "name_ch": "",
+            "name_en": "",
+            "lines": [
+              {
+                "combinations": [
+                  {
+                    "str": "110",
+                    "status": "LOSE",
+                    "winOrd": "8",
+                    "selections": [
+                      {
+                        "selId": "37",
+                        "str": "110",
+                        "name_ch": "卓基",
+                        "name_en": "Mathis Rayan CHERKI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "113",
+                    "status": "LOSE",
+                    "winOrd": "11",
+                    "selections": [
+                      {
+                        "selId": "38",
+                        "str": "113",
+                        "name_ch": "尼高干沙利斯",
+                        "name_en": "Nico GONZALEZ Iglesias"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "208",
+                    "status": "LOSE",
+                    "winOrd": "22",
+                    "selections": [
+                      {
+                        "selId": "30",
+                        "str": "208",
+                        "name_ch": "域斯",
+                        "name_en": "Florian WIRTZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "105",
+                    "status": "LOSE",
+                    "winOrd": "5",
+                    "selections": [
+                      {
+                        "selId": "31",
+                        "str": "105",
+                        "name_ch": "雷恩達斯",
+                        "name_en": "Tijjani REIJNDERS"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "107",
+                    "status": "LOSE",
+                    "winOrd": "7",
+                    "selections": [
+                      {
+                        "selId": "32",
+                        "str": "107",
+                        "name_ch": "沙雲奴",
+                        "name_en": "SAVINHO Moreira de Oliveira"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "111",
+                    "status": "LOSE",
+                    "winOrd": "9",
+                    "selections": [
+                      {
+                        "selId": "33",
+                        "str": "111",
+                        "name_ch": "尼高奧萊利",
+                        "name_en": "Nico O'REILLY"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "102",
+                    "status": "LOSE",
+                    "winOrd": "2",
+                    "selections": [
+                      {
+                        "selId": "34",
+                        "str": "102",
+                        "name_ch": "馬莫殊",
+                        "name_en": "Omar MARMOUSH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "201",
+                    "status": "LOSE",
+                    "winOrd": "16",
+                    "selections": [
+                      {
+                        "selId": "35",
+                        "str": "201",
+                        "name_ch": "艾基迪基",
+                        "name_en": "Hugo EKITIKE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "123",
+                    "status": "LOSE",
+                    "winOrd": "15",
+                    "selections": [
+                      {
+                        "selId": "36",
+                        "str": "123",
+                        "name_ch": "卡胡辛洛夫",
+                        "name_en": "Abdukodir KHUSANOV"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "203",
+                    "status": "LOSE",
+                    "winOrd": "17",
+                    "selections": [
+                      {
+                        "selId": "21",
+                        "str": "203",
+                        "name_ch": "加普",
+                        "name_en": "Cody GAKPO"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "106",
+                    "status": "LOSE",
+                    "winOrd": "6",
+                    "selections": [
+                      {
+                        "selId": "22",
+                        "str": "106",
+                        "name_ch": "謝利美杜古",
+                        "name_en": "Jeremy DOKU"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "214",
+                    "status": "LOSE",
+                    "winOrd": "27",
+                    "selections": [
+                      {
+                        "selId": "23",
+                        "str": "214",
+                        "name_ch": "謝利美費林邦",
+                        "name_en": "Jeremie FRIMPONG"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "103",
+                    "status": "LOSE",
+                    "winOrd": "3",
+                    "selections": [
+                      {
+                        "selId": "24",
+                        "str": "103",
+                        "name_ch": "安東尼施美安",
+                        "name_en": "Antoine SEMENYO"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "210",
+                    "status": "LOSE",
+                    "winOrd": "23",
+                    "selections": [
+                      {
+                        "selId": "26",
+                        "str": "210",
+                        "name_ch": "賴恩格雲貝治",
+                        "name_en": "Ryan GRAVENBERCH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "205",
+                    "status": "LOSE",
+                    "winOrd": "19",
+                    "selections": [
+                      {
+                        "selId": "27",
+                        "str": "205",
+                        "name_ch": "費達歷高基艾沙",
+                        "name_en": "Federico CHIESA"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "216",
+                    "status": "LOSE",
+                    "winOrd": "28",
+                    "selections": [
+                      {
+                        "selId": "28",
+                        "str": "216",
+                        "name_ch": "米路斯卻基斯",
+                        "name_en": "Milos KERKEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "207",
+                    "status": "LOSE",
+                    "winOrd": "21",
+                    "selections": [
+                      {
+                        "selId": "29",
+                        "str": "207",
+                        "name_ch": "蘇保斯拉爾",
+                        "name_en": "Dominik SZOBOSZLAI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "212",
+                    "status": "LOSE",
+                    "winOrd": "25",
+                    "selections": [
+                      {
+                        "selId": "14",
+                        "str": "212",
+                        "name_ch": "居迪斯鍾斯",
+                        "name_en": "Curtis JONES"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "220",
+                    "status": "LOSE",
+                    "winOrd": "29",
+                    "selections": [
+                      {
+                        "selId": "15",
+                        "str": "220",
+                        "name_ch": "伊巴希馬干拿迪",
+                        "name_en": "Ibrahima KONATE"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "115",
+                    "status": "LOSE",
+                    "winOrd": "13",
+                    "selections": [
+                      {
+                        "selId": "16",
+                        "str": "115",
+                        "name_ch": "馬克古希",
+                        "name_en": "Marc GUEHI"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "211",
+                    "status": "LOSE",
+                    "winOrd": "24",
+                    "selections": [
+                      {
+                        "selId": "17",
+                        "str": "211",
+                        "name_ch": "阿歷斯麥亞里士打",
+                        "name_en": "Alexis MAC ALLISTER"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "120",
+                    "status": "LOSE",
+                    "winOrd": "14",
+                    "selections": [
+                      {
+                        "selId": "19",
+                        "str": "120",
+                        "name_ch": "馬菲奧斯紐尼斯",
+                        "name_en": "Matheus NUNES"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "206",
+                    "status": "LOSE",
+                    "winOrd": "20",
+                    "selections": [
+                      {
+                        "selId": "42",
+                        "str": "206",
+                        "name_ch": "安古莫夏",
+                        "name_en": "Rio NGUMOHA"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "213",
+                    "status": "LOSE",
+                    "winOrd": "26",
+                    "selections": [
+                      {
+                        "selId": "10",
+                        "str": "213",
+                        "name_ch": "華基爾雲迪積克",
+                        "name_en": "Virgil VAN DIJK"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "114",
+                    "status": "LOSE",
+                    "winOrd": "12",
+                    "selections": [
+                      {
+                        "selId": "11",
+                        "str": "114",
+                        "name_ch": "洛迪卡斯簡迪",
+                        "name_en": "RODRI Cascante"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "101",
+                    "status": "LOSE",
+                    "winOrd": "1",
+                    "selections": [
+                      {
+                        "selId": "12",
+                        "str": "101",
+                        "name_ch": "艾寧夏蘭特",
+                        "name_en": "Erling HAALAND"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "000",
+                    "status": "WIN",
+                    "winOrd": "31",
+                    "selections": [
+                      {
+                        "selId": "1",
+                        "str": "00",
+                        "name_ch": "無下一名入球球員",
+                        "name_en": "No Next Scorer"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "112",
+                    "status": "LOSE",
+                    "winOrd": "10",
+                    "selections": [
+                      {
+                        "selId": "3",
+                        "str": "112",
+                        "name_ch": "貝拿度施華",
+                        "name_en": "BERNARDO SILVA"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "221",
+                    "status": "LOSE",
+                    "winOrd": "30",
+                    "selections": [
+                      {
+                        "selId": "4",
+                        "str": "221",
+                        "name_ch": "祖高美斯",
+                        "name_en": "Joe GOMEZ"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "204",
+                    "status": "LOSE",
+                    "winOrd": "18",
+                    "selections": [
+                      {
+                        "selId": "7",
+                        "str": "204",
+                        "name_ch": "穆罕默德沙拿",
+                        "name_en": "Mohamed SALAH"
+                      }
+                    ]
+                  },
+                  {
+                    "str": "104",
+                    "status": "LOSE",
+                    "winOrd": "4",
+                    "selections": [
+                      {
+                        "selId": "9",
+                        "str": "104",
+                        "name_ch": "菲爾科頓",
+                        "name_en": "Phil FODEN"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "additionalResults": []
+      }
+    ]
+  }
+}

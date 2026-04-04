@@ -1,12 +1,18 @@
 from __future__ import annotations
 
 import json
+import sys
+import time
 from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Set, Tuple
+from typing import Any, Callable, Dict, List, Set, Tuple
 
 import requests
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from src.live_feed.providers.hkjc_provider import HKJCFootballProvider
 from src.live_feed.providers.hkjc_request_debug import (
@@ -47,6 +53,47 @@ MATCH_FIELD_CANDIDATES = [
     "homeInjuredCount",
     "awayInjuredCount",
 ]
+
+DEFAULT_RETRY_ATTEMPTS = 3
+DEFAULT_RETRY_BACKOFF_SECONDS = 1.2
+
+
+def _classify_error(exc: Exception) -> str:
+    if isinstance(exc, requests.exceptions.Timeout):
+        return "NET-TIMEOUT"
+    if isinstance(exc, requests.exceptions.ConnectionError):
+        return "NET-CONNECTION"
+    if isinstance(exc, requests.exceptions.RequestException):
+        return "NET-REQUEST"
+    if isinstance(exc, json.JSONDecodeError):
+        return "DATA-JSON"
+    if isinstance(exc, KeyError):
+        return "DATA-SCHEMA"
+    return "FATAL"
+
+
+def _run_with_retry(
+    *,
+    step_label: str,
+    action: Callable[[], Any],
+    attempts: int = DEFAULT_RETRY_ATTEMPTS,
+    backoff_seconds: float = DEFAULT_RETRY_BACKOFF_SECONDS,
+) -> Any:
+    last_error: Exception | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            return action()
+        except Exception as exc:  # pragma: no cover - best effort diagnostic path
+            last_error = exc
+            level = _classify_error(exc)
+            print(f"[ERROR][{level}] step={step_label} attempt={attempt}/{attempts} detail={exc}")
+            retryable = level.startswith("NET-")
+            if not retryable or attempt >= attempts:
+                break
+            sleep_seconds = backoff_seconds * attempt
+            print(f"[RETRY] step={step_label} wait={sleep_seconds:.1f}s")
+            time.sleep(sleep_seconds)
+    raise RuntimeError(f"step_failed:{step_label}") from last_error
 
 
 def walk_keys(obj: Any, path: str = "") -> List[Tuple[str, str]]:
@@ -146,7 +193,15 @@ def _collect_values(obj: Any, key: str) -> List[Any]:
 
 def probe_graphql_fields() -> None:
     session = requests.Session()
-    candidate, _ = resolve_request_candidate(mode="handicap", session=session, timeout=25)
+    try:
+        candidate, _ = _run_with_retry(
+            step_label="resolve-candidate:handicap",
+            action=lambda: resolve_request_candidate(mode="handicap", session=session, timeout=25),
+        )
+    except Exception as exc:
+        print(f"[ERROR][GRAPHQL-BOOT] skip probe_graphql_fields detail={exc}")
+        return
+
     endpoint = candidate.endpoint_url
     headers = dict(candidate.headers or {})
     variables = dict(candidate.variables or {})
@@ -227,18 +282,34 @@ def deep_probe_other_operations(output_root: Path) -> None:
     session = requests.Session()
     today = datetime.now(timezone.utc).strftime("%Y%m%d")
 
-    results_candidate, _ = resolve_request_candidate(
-        mode="results",
-        session=session,
-        timeout=25,
-        start_date=today,
-        end_date=today,
-    )
+    try:
+        results_candidate, _ = _run_with_retry(
+            step_label="resolve-candidate:results",
+            action=lambda: resolve_request_candidate(
+                mode="results",
+                session=session,
+                timeout=25,
+                start_date=today,
+                end_date=today,
+            ),
+        )
+    except Exception as exc:
+        print(f"[ERROR][RESULTS-BOOT] skip deep probe detail={exc}")
+        return
+
     results_candidate = replace(
         results_candidate,
         variables=build_frontend_match_results_variables(start_date=today, end_date=today),
     )
-    results_meta = replay_request_candidate(results_candidate, session=session, timeout=25)
+    try:
+        results_meta = _run_with_retry(
+            step_label="replay-candidate:results",
+            action=lambda: replay_request_candidate(results_candidate, session=session, timeout=25),
+        )
+    except Exception as exc:
+        print(f"[ERROR][RESULTS-REPLAY] skip deep probe detail={exc}")
+        return
+
     results_json = results_meta.get("response_json")
     results_path = output_root / "latest_raw_hkjc_probe_results.json"
     results_path.write_text(json.dumps(results_json, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -253,12 +324,28 @@ def deep_probe_other_operations(output_root: Path) -> None:
         print("[DEEP] no results match id; skip results-detail probing")
         return
 
-    detail_candidate, _ = resolve_request_candidate(mode="results-detail", session=session, timeout=25)
+    try:
+        detail_candidate, _ = _run_with_retry(
+            step_label="resolve-candidate:results-detail",
+            action=lambda: resolve_request_candidate(mode="results-detail", session=session, timeout=25),
+        )
+    except Exception as exc:
+        print(f"[ERROR][DETAIL-BOOT] skip results-detail probe detail={exc}")
+        return
+
     detail_candidate = replace(
         detail_candidate,
         variables=build_frontend_match_result_details_variables(match_id=match_id),
     )
-    detail_meta = replay_request_candidate(detail_candidate, session=session, timeout=25)
+    try:
+        detail_meta = _run_with_retry(
+            step_label="replay-candidate:results-detail-default",
+            action=lambda: replay_request_candidate(detail_candidate, session=session, timeout=25),
+        )
+    except Exception as exc:
+        print(f"[ERROR][DETAIL-REPLAY] skip results-detail default detail={exc}")
+        return
+
     detail_json = detail_meta.get("response_json")
     detail_path = output_root / "latest_raw_hkjc_probe_results_detail_default.json"
     detail_path.write_text(json.dumps(detail_json, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -272,7 +359,15 @@ def deep_probe_other_operations(output_root: Path) -> None:
         ["FGS"],
     ]
     for index, fb_types in enumerate(player_pool_sets, start=1):
-        detail_candidate_player, _ = resolve_request_candidate(mode="results-detail", session=session, timeout=25)
+        try:
+            detail_candidate_player, _ = _run_with_retry(
+                step_label=f"resolve-candidate:results-detail-player-{index}",
+                action=lambda: resolve_request_candidate(mode="results-detail", session=session, timeout=25),
+            )
+        except Exception as exc:
+            print(f"[ERROR][DETAIL-PLAYER-BOOT] set={index} skip detail={exc}")
+            continue
+
         detail_candidate_player = replace(
             detail_candidate_player,
             variables=build_frontend_match_result_details_variables(
@@ -280,7 +375,15 @@ def deep_probe_other_operations(output_root: Path) -> None:
                 fb_odds_types=fb_types,
             ),
         )
-        detail_meta_player = replay_request_candidate(detail_candidate_player, session=session, timeout=25)
+        try:
+            detail_meta_player = _run_with_retry(
+                step_label=f"replay-candidate:results-detail-player-{index}",
+                action=lambda: replay_request_candidate(detail_candidate_player, session=session, timeout=25),
+            )
+        except Exception as exc:
+            print(f"[ERROR][DETAIL-PLAYER-REPLAY] set={index} skip detail={exc}")
+            continue
+
         detail_json_player = detail_meta_player.get("response_json")
         output_path = output_root / f"latest_raw_hkjc_probe_results_detail_player_{index}.json"
         output_path.write_text(json.dumps(detail_json_player, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -312,7 +415,10 @@ def _first_match_id(results_json: Any) -> str | None:
 
 def fetch_live_probe(output_path: Path) -> None:
     provider = HKJCFootballProvider()
-    provider.fetch_market_snapshot(as_of_utc=datetime.now(timezone.utc), poll_timeout_seconds=25)
+    _run_with_retry(
+        step_label="provider-fetch-market-snapshot",
+        action=lambda: provider.fetch_market_snapshot(as_of_utc=datetime.now(timezone.utc), poll_timeout_seconds=25),
+    )
     raw = provider.get_last_raw_snapshot() or {}
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(raw, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -326,8 +432,12 @@ def main() -> None:
     check_file(Path("artifacts/debug/latest_hkjc_request_debug_handicap.json"))
 
     probe_path = Path("artifacts/live/raw/latest_raw_hkjc_probe.json")
-    fetch_live_probe(probe_path)
-    check_file(probe_path)
+    try:
+        fetch_live_probe(probe_path)
+        check_file(probe_path)
+    except Exception as exc:
+        print(f"[ERROR][LIVE-PROBE] skip live probe detail={exc}")
+
     probe_graphql_fields()
     deep_probe_other_operations(Path("artifacts/live/raw"))
 
