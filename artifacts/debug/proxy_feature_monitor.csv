@@ -1,0 +1,7 @@
+feature_name,importance_value,importance_rank,sample_count,missing_rate,mean,std,first_half_mean,second_half_mean,first_half_missing_rate,second_half_missing_rate,drift_abs,drift_ratio,drift_cohen_d
+rd_pool_available_density,0.0,74,380,1.0,,,,,1.0,1.0,,,
+rd_combination_available_density,0.0,75,380,1.0,,,,,1.0,1.0,,,
+rd_combination_suspended_density,0.0,76,380,1.0,,,,,1.0,1.0,,,
+rd_selection_count_total,0.0,77,380,1.0,,,,,1.0,1.0,,,
+rd_unique_selection_count,0.0,78,380,1.0,,,,,1.0,1.0,,,
+rd_market_depth_index,0.0,79,380,1.0,,,,,1.0,1.0,,,

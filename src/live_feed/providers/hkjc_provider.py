@@ -310,6 +310,8 @@ def _match_to_event_payloads(
     if not home_name or not away_name:
         return []
 
+    injury_home, injury_away, squad_home, squad_away = _extract_absence_signals(match_record)
+
     competition = str(tournament_obj.get("name_en") or tournament_obj.get("name_ch") or "HKJC").strip() or "HKJC"
     competition_ch = str(tournament_obj.get("name_ch") or "").strip()
     kickoff = _parse_kickoff(match_record.get("kickOffTime") or match_record.get("matchDate"), snapshot_time)
@@ -343,6 +345,10 @@ def _match_to_event_payloads(
                 away_name_ch=str(away_obj.get("name_ch") or away_name),
                 home_code=str(home_obj.get("id") or ""),
                 away_code=str(away_obj.get("id") or ""),
+                injury_absence_index_home=injury_home,
+                injury_absence_index_away=injury_away,
+                squad_absence_score_home=squad_home,
+                squad_absence_score_away=squad_away,
                 request_mode=request_mode,
                 transport_mode=transport_mode,
             )
@@ -368,6 +374,10 @@ def _line_to_payload(
     away_name_ch: str,
     home_code: str,
     away_code: str,
+    injury_absence_index_home: float | None,
+    injury_absence_index_away: float | None,
+    squad_absence_score_home: float | None,
+    squad_absence_score_away: float | None,
     request_mode: str,
     transport_mode: str,
 ) -> dict[str, Any] | None:
@@ -417,6 +427,10 @@ def _line_to_payload(
         "handicap_condition_raw": handicap_condition,
         "odds_home": odds_home,
         "odds_away": odds_away,
+        "injury_absence_index_home": injury_absence_index_home,
+        "injury_absence_index_away": injury_absence_index_away,
+        "squad_absence_score_home": squad_absence_score_home,
+        "squad_absence_score_away": squad_absence_score_away,
         "side_semantic": "home",
         "match_status": match_status,
         "line_is_main": bool(line.get("main")),
@@ -493,6 +507,49 @@ def _optional_float(value: Any) -> float | None:
         return float(value)
     except (TypeError, ValueError):
         return None
+
+
+def _extract_absence_signals(match_record: dict[str, Any]) -> tuple[float | None, float | None, float | None, float | None]:
+    home_team_obj = match_record.get("homeTeam") if isinstance(match_record.get("homeTeam"), dict) else None
+    away_team_obj = match_record.get("awayTeam") if isinstance(match_record.get("awayTeam"), dict) else None
+
+    injury_home = _first_numeric(
+        match_record,
+        ["injury_absence_index_home", "injury_index_home", "home_injury_index"],
+    )
+    injury_away = _first_numeric(
+        match_record,
+        ["injury_absence_index_away", "injury_index_away", "away_injury_index"],
+    )
+    squad_home = _first_numeric(
+        match_record,
+        ["squad_absence_score_home", "home_squad_absence_score"],
+    )
+    squad_away = _first_numeric(
+        match_record,
+        ["squad_absence_score_away", "away_squad_absence_score"],
+    )
+
+    if injury_home is None and home_team_obj is not None:
+        injury_home = _first_numeric(home_team_obj, ["injury_absence_index", "injury_index", "absence_index"])
+    if injury_away is None and away_team_obj is not None:
+        injury_away = _first_numeric(away_team_obj, ["injury_absence_index", "injury_index", "absence_index"])
+    if squad_home is None and home_team_obj is not None:
+        squad_home = _first_numeric(home_team_obj, ["squad_absence_score", "absence_score"])
+    if squad_away is None and away_team_obj is not None:
+        squad_away = _first_numeric(away_team_obj, ["squad_absence_score", "absence_score"])
+
+    return injury_home, injury_away, squad_home, squad_away
+
+
+def _first_numeric(source: dict[str, Any], keys: list[str]) -> float | None:
+    for key in keys:
+        if key not in source:
+            continue
+        value = _optional_float(source.get(key))
+        if value is not None:
+            return value
+    return None
 
 
 def _normalize_results_date(value: str) -> str:

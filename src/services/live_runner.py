@@ -193,6 +193,9 @@ class LiveRunner:
         }
         if self._config.dry_run and alert_preview_path.exists():
             status["alert_preview_path"] = str(alert_preview_path)
+        proxy_monitor_path = self._config.output_dir.parent / "debug" / "proxy_feature_monitor.csv"
+        status["proxy_monitor_csv_path"] = str(proxy_monitor_path)
+        proxy_monitor_df = _safe_read_csv_tail(proxy_monitor_path, rows=12)
         status_path = self._config.output_dir / "live_status.json"
         status_path.write_text(json.dumps(status, indent=2), encoding="utf-8")
 
@@ -206,6 +209,7 @@ class LiveRunner:
             odds_history_path=odds_history_path,
             event_log_path=event_log_path,
             alert_log_path=alert_log_path,
+            proxy_monitor_df=proxy_monitor_df,
         )
 
         LOGGER.info(
@@ -518,6 +522,7 @@ class LiveRunner:
         odds_history_path: Path,
         event_log_path: Path,
         alert_log_path: Path,
+        proxy_monitor_df: pd.DataFrame,
     ) -> None:
         odds_history_tail = _safe_read_csv_tail(odds_history_path, rows=20)
         recent_events = _safe_read_csv_tail(event_log_path, rows=20)
@@ -628,6 +633,13 @@ class LiveRunner:
         {_table_or_empty(recent_events, "No event log rows")}
       </section>
     </div>
+
+        <div class='grid'>
+            <section class='card'>
+                <h2>Proxy Feature Monitor (Latest)</h2>
+                {_table_or_empty(proxy_monitor_df, "No proxy monitor rows yet; run train to generate artifacts/debug/proxy_feature_monitor.csv")}
+            </section>
+        </div>
 
     <p class='footer'>Generated from artifacts/live CSV and JSON outputs.</p>
   </div>

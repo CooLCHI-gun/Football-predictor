@@ -102,6 +102,12 @@ MARKET_FEATURE_COLUMNS = [
     "hk_off_market_flag",
     "hk_off_market_direction",
     "hk_off_market_agree_with_model_flag",
+    "rd_pool_available_density",
+    "rd_combination_available_density",
+    "rd_combination_suspended_density",
+    "rd_selection_count_total",
+    "rd_unique_selection_count",
+    "rd_market_depth_index",
     "missing_odds_flag",
 ]
 

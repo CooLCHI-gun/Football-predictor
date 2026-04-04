@@ -1,0 +1,17 @@
+{
+  "updated_at_utc": "2026-04-04T14:07:18.286999+00:00",
+  "runs": [
+    {
+      "run_id": "20260404T140718Z",
+      "recorded_at_utc": "2026-04-04T14:07:18.286014+00:00",
+      "missing_rate_over_threshold": {
+        "rd_pool_available_density": true,
+        "rd_combination_available_density": true,
+        "rd_combination_suspended_density": true,
+        "rd_selection_count_total": true,
+        "rd_unique_selection_count": true,
+        "rd_market_depth_index": true
+      }
+    }
+  ]
+}

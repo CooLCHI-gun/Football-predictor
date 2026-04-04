@@ -30,6 +30,9 @@ class ObjectiveWeights:
     lambda_drawdown: float
     lambda_ror: float
     mu_clv: float
+    mu_win_rate: float
+    mu_placed_bets: float
+    target_placed_bets: int
     lambda_low_bets: float
     min_bets_target: int
 
@@ -98,6 +101,9 @@ def optimize_strategy(
         lambda_drawdown=settings.optimizer_lambda_drawdown,
         lambda_ror=float(getattr(settings, "optimizer_lambda_ror", 0.7)),
         mu_clv=float(getattr(settings, "optimizer_mu_clv", 0.3)),
+        mu_win_rate=float(getattr(settings, "optimizer_mu_win_rate", 0.2)),
+        mu_placed_bets=float(getattr(settings, "optimizer_mu_placed_bets", 0.2)),
+        target_placed_bets=int(getattr(settings, "optimizer_target_placed_bets", 120)),
         lambda_low_bets=settings.optimizer_lambda_low_bets,
         min_bets_target=settings.optimizer_min_bets_target,
     )
@@ -168,10 +174,11 @@ def optimize_strategy(
 
         score = compute_objective_score(
             roi=roi,
+            win_rate=win_rate,
             max_drawdown=max_drawdown,
             risk_of_ruin_estimate=risk_of_ruin_estimate,
             clv_score=clv_score,
-            total_bets=total_bets,
+            total_bets_placed=total_bets,
             weights=weights,
         )
 
@@ -218,18 +225,25 @@ def optimize_strategy(
 def compute_objective_score(
     *,
     roi: float,
+    win_rate: float,
     max_drawdown: float,
     risk_of_ruin_estimate: float | None,
     clv_score: float | None,
-    total_bets: int,
+    total_bets_placed: int,
     weights: ObjectiveWeights,
 ) -> float:
-    low_bet_penalty = max(0.0, (weights.min_bets_target - total_bets) / max(1, weights.min_bets_target))
+    low_bet_penalty = max(
+        0.0,
+        (weights.min_bets_target - total_bets_placed) / max(1, weights.min_bets_target),
+    )
     risk_penalty = risk_of_ruin_estimate if risk_of_ruin_estimate is not None else 1.0
     clv_term = clv_score if clv_score is not None else 0.0
-    # Penalize large drawdowns and too few bets so the optimizer favors more stable profiles.
+    placed_bets_term = min(1.0, total_bets_placed / max(1, weights.target_placed_bets))
+    # Multi-objective score balances return quality (roi/win-rate/clv) against downside (drawdown/ruin/low-bet fragility).
     return (
         roi
+        + (weights.mu_win_rate * win_rate)
+        + (weights.mu_placed_bets * placed_bets_term)
         - (weights.lambda_drawdown * max_drawdown)
         - (weights.lambda_ror * risk_penalty)
         + (weights.mu_clv * clv_term)

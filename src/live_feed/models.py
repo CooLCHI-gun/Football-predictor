@@ -31,6 +31,10 @@ class NormalizedMarketSnapshot:
     handicap_line: float
     odds_home: float
     odds_away: float
+    injury_absence_index_home: float | None = None
+    injury_absence_index_away: float | None = None
+    squad_absence_score_home: float | None = None
+    squad_absence_score_away: float | None = None
 
     def ingestion_key(self) -> str:
         """Stable idempotency key preventing duplicate ingestion writes."""
@@ -62,5 +66,9 @@ class NormalizedMarketSnapshot:
             "handicap_line": self.handicap_line,
             "odds_home": self.odds_home,
             "odds_away": self.odds_away,
+            "injury_absence_index_home": self.injury_absence_index_home,
+            "injury_absence_index_away": self.injury_absence_index_away,
+            "squad_absence_score_home": self.squad_absence_score_home,
+            "squad_absence_score_away": self.squad_absence_score_away,
             "ingestion_key": self.ingestion_key(),
         }

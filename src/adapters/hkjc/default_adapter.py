@@ -83,6 +83,23 @@ class DefaultHKJCAdapter(HKJCAdapter):
         if handicap_line is None or odds_home is None or odds_away is None:
             return None
 
+        injury_home = self._first_optional_float(
+            payload,
+            ["injury_absence_index_home", "injury_index_home", "home_injury_index"],
+        )
+        injury_away = self._first_optional_float(
+            payload,
+            ["injury_absence_index_away", "injury_index_away", "away_injury_index"],
+        )
+        squad_home = self._first_optional_float(
+            payload,
+            ["squad_absence_score_home", "home_squad_absence_score"],
+        )
+        squad_away = self._first_optional_float(
+            payload,
+            ["squad_absence_score_away", "away_squad_absence_score"],
+        )
+
         return NormalizedMarketSnapshot(
             provider_name=event.provider_name,
             provider_match_id=provider_match_id,
@@ -99,6 +116,10 @@ class DefaultHKJCAdapter(HKJCAdapter):
             handicap_line=handicap_line,
             odds_home=odds_home,
             odds_away=odds_away,
+            injury_absence_index_home=injury_home,
+            injury_absence_index_away=injury_away,
+            squad_absence_score_home=squad_home,
+            squad_absence_score_away=squad_away,
         )
 
     def _read_str(self, payload: dict[str, object], logical_key: str) -> str:
@@ -177,3 +198,17 @@ class DefaultHKJCAdapter(HKJCAdapter):
         if parsed <= 1.0:
             return None
         return parsed
+
+    @staticmethod
+    def _first_optional_float(payload: dict[str, object], keys: list[str]) -> float | None:
+        for key in keys:
+            if key not in payload:
+                continue
+            try:
+                value = payload.get(key)
+                if value in (None, ""):
+                    continue
+                return float(value)
+            except (TypeError, ValueError):
+                continue
+        return None

@@ -85,6 +85,21 @@ python -m src.main build-features-full `
 
 若你已完成資料下載，也可直接使用既有 full 特徵檔進入回測與優化。
 
+可配置特徵欄位清單（資料來源 + 缺失值策略）
+- 預設配置檔：`config\feature_fields.json`
+- 可透過 `FEATURE_FIELD_CONFIG_PATH` 或 CLI `--feature-field-config-path` 覆寫
+- 可配置項目：欄位啟用順序（`active_fields`）、缺失值策略（`missing_strategy`）、欄位來源（`source`）
+- 內建啟動前驗證：若 `active_fields` 欄位拼寫錯誤或 `missing_strategy` 非法，`build-features*` 會立即失敗（fail-fast）
+- 已實作並可配置欄位：`fixture_density_7d_home`、`fixture_density_14d_away`、`line_drift_60m`
+
+```powershell
+python -m src.main build-features-full `
+  --input-path data\raw\real\historical_matches_real_non_hkjc.csv `
+  --output-path data\processed\features_phase3_full.csv `
+  --feature-field-config-path config\feature_fields.json `
+  --force
+```
+
 ---
 
 ## 3. 回測與優化（Phase 4-5）
@@ -130,6 +145,36 @@ python -m src.main optimize `
 輸出位置
 - artifacts\optimizer\opt_coverage_balance\params_results.csv
 - artifacts\optimizer\opt_coverage_balance\best_params.json
+
+多目標 optimizer 模板（ROI + Win rate + placed bets + drawdown）
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+
+$env:OPTIMIZER_LAMBDA_DRAWDOWN = "0.55"
+$env:OPTIMIZER_LAMBDA_ROR = "0.60"
+$env:OPTIMIZER_MU_CLV = "0.20"
+$env:OPTIMIZER_MU_WIN_RATE = "0.35"
+$env:OPTIMIZER_MU_PLACED_BETS = "0.25"
+$env:OPTIMIZER_TARGET_PLACED_BETS = "120"
+$env:OPTIMIZER_LAMBDA_LOW_BETS = "0.10"
+$env:OPTIMIZER_MIN_BETS_TARGET = "60"
+
+python -m src.main optimize `
+  --input-csv-path data\processed\features_phase3_full.csv `
+  --output-dir artifacts\optimizer `
+  --run-id opt_multi_objective `
+  --edge-grid 0.01,0.015,0.02 `
+  --confidence-grid 0.05,0.10,0.15 `
+  --max-alerts-grid 1,2,3 `
+  --policy-grid flat,fractional_kelly `
+  --kelly-grid 0.10,0.15,0.20 `
+  --max-stake-grid 0.008,0.01 `
+  --daily-exposure-grid 0.02,0.03 `
+  --max-runs 120 `
+  --use-prediction-cache `
+  --force
+```
 
 ### 3.3 NON_HKJC baseline 解讀（目前共識）
 
@@ -274,6 +319,29 @@ env:
   TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
   TELEGRAM_DRY_RUN: ${{ secrets.TELEGRAM_DRY_RUN }}
 ```
+
+## 5.1 GitHub Actions（取代 Railway）
+
+本專案已提供兩個工作流程：
+- `.github/workflows/ci.yml`：push / pull request 觸發，執行核心 smoke 與回測測試。
+- `.github/workflows/scheduled-hkjc.yml`：排程執行 backtest / optimize / live-run-once（dry-run）。
+
+建議做法
+- 把 daily 與 live 任務改由 GitHub Actions 排程，不再依賴 Railway 常駐程序。
+- 先用 `workflow_dispatch` 手動跑通，再啟用 schedule。
+
+需要設定的 Secrets / Variables
+- Secrets：`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`TELEGRAM_DRY_RUN`
+- Variables（選填）：`LIVE_MODE`
+
+排程說明（UTC）
+- `30 17 * * *`：01:30 HKT backtest
+- `30 19 * * *`：03:30 HKT optimize
+- `*/15 * * * *`：每 15 分鐘一次 live one-shot（dry-run）
+
+備註
+- GitHub Actions 最短排程粒度是 5 分鐘，且可能有排程延遲，不保證秒級準時。
+- 若要真實送出 Telegram，請把 `TELEGRAM_DRY_RUN` 設為 `false` 並確認金鑰配置。
 
 ---
 
@@ -423,13 +491,30 @@ python -m src.main railway-job-once
 
 建議 Railway 排程
 - 每 5 分鐘觸發一次同一條 command：`python -m src.main railway-job-once`
-- command 會做一次 `live-run-once` 後退出
+- command 每次都會執行一次 `live-run-once` 後退出
 - `backtest` / `optimize` 只會在到達指定時間後每日各執行一次（用 state file 去重）
+- 可選開啟 `data-update`（`download-real-data` command），每日最多一次
+- 可選開啟 `feature-rebuild`（`build-features-full` command），每日最多一次
+- 可選開啟 `retrain`（`train` command），同樣每日最多一次，再接續當次 `live-run-once`
+- 可選開啟 `switch gate`（混合轉 HKJC-only）並輸出每日審計 `artifacts/switch_decision.json`
+- 可選開啟 `switch Telegram report`，每日推送 PASS/FAIL 與原因
+- 可選開啟 `live auto-tune`，從當日 optimizer best params 自動調整 live 門檻
 
 常用覆寫參數（可選）
 
 ```powershell
 python -m src.main railway-job-once `
+  --data-update-enabled `
+  --data-update-time 00:15 `
+  --feature-rebuild-enabled `
+  --feature-rebuild-time 00:30 `
+  --retrain-enabled `
+  --retrain-time 00:45 `
+  --switch-enabled `
+  --switch-auto-apply `
+  --switch-required-consecutive-passes 2 `
+  --switch-telegram-report-enabled `
+  --live-auto-tune-enabled `
   --backtest-time 01:30 `
   --optimize-time 03:30 `
   --live-mode dry `
@@ -441,19 +526,81 @@ python -m src.main railway-job-once `
 - 並設定 `TELEGRAM_DRY_RUN=false`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`
 
 可調整的 Railway 環境變數（選填）
+- `DATA_UPDATE_ENABLED`（預設 `false`；`true` 會啟用每日資料更新）
+- `DATA_UPDATE_TIME`（預設 `00:15`）
+- `DATA_UPDATE_URLS`（預設沿用 settings 的 FOOTBALL_DATA_SOURCE_URLS）
+- `DATA_UPDATE_RAW_DIR`（預設 `data/raw/real`）
+- `DATA_UPDATE_NORMALIZED_OUTPUT_PATH`（預設 `data/raw/real/historical_matches_real_non_hkjc.csv`）
+- `FEATURE_REBUILD_ENABLED`（預設 `false`；`true` 會啟用每日特徵重建）
+- `FEATURE_REBUILD_TIME`（預設 `00:30`）
+- `FEATURE_REBUILD_INPUT_PATH`（預設沿用 `DATA_UPDATE_NORMALIZED_OUTPUT_PATH`）
+- `FEATURE_REBUILD_OUTPUT_PATH`（預設沿用 `FEATURE_PATH`）
+- `RETRAIN_ENABLED`（預設 `false`；`true` 會啟用每日重訓）
+- `RETRAIN_TIME`（預設 `00:45`）
+- `RETRAIN_INPUT_PATH`（預設沿用 `FEATURE_REBUILD_OUTPUT_PATH`，未設定時再沿用 `FEATURE_PATH`）
+- `RETRAIN_MODEL_OUTPUT_PATH`（預設沿用 `LIVE_MODEL_PATH`）
+- `RETRAIN_REPORT_OUTPUT_PATH`（預設 `artifacts/train_report.json`）
 - `BACKTEST_TIME`（預設 `01:30`）
 - `OPTIMIZE_TIME`（預設 `03:30`）
 - `TIMEZONE_NAME`（預設 `Asia/Hong_Kong`）
 - `FEATURE_PATH`（預設 `data/processed/features_phase3_full.csv`）
+- `BACKTEST_OUTPUT_DIR`（預設 `artifacts/backtest`）
+- `OPTIMIZER_OUTPUT_DIR`（預設 `artifacts/optimizer`）
 - `OPTIMIZER_MAX_RUNS`（預設 `120`）
-- `LIVE_INTERVAL_SECONDS`（預設 `300`，即每 5 分鐘）
 - `LIVE_PROVIDER`（預設 `hkjc`）
 - `LIVE_MODEL_PATH`（預設 `artifacts/model_bundle.pkl`）
 - `LIVE_EDGE_THRESHOLD`（預設 `0.02`）
 - `LIVE_CONFIDENCE_THRESHOLD`（預設 `0.56`）
 - `LIVE_MAX_ALERTS`（預設 `3`）
 - `LIVE_OUTPUT_DIR`（預設 `artifacts/live`）
-- `--state-path`（預設 `artifacts/railway_job_state.json`）
+- `RAILWAY_STATE_PATH`（預設 `artifacts/railway_job_state.json`）
+- `SWITCH_ENABLED`（預設 `false`；啟用混合轉 HKJC-only 門檻判定）
+- `SWITCH_AUTO_APPLY`（預設 `false`；門檻連續通過後自動切至 HKJC feature）
+- `SWITCH_HKJC_SUMMARY_PATH`（預設 `artifacts/backtest/hkjc_coverage_balanced/summary.csv`）
+- `SWITCH_MIXED_SUMMARY_PATH`（預設空；可填 mixed baseline summary 供差值比較）
+- `SWITCH_HKJC_FEATURE_PATH`（預設 `data/processed/features_phase3_hkjc.csv`）
+- `SWITCH_HKJC_RETRAIN_INPUT_PATH`（預設空；未設時沿用 `SWITCH_HKJC_FEATURE_PATH`）
+- `SWITCH_MIN_MATCHES`（預設 `500`）
+- `SWITCH_MIN_TOTAL_BETS`（預設 `120`）
+- `SWITCH_MIN_ROI`（預設 `0.015`）
+- `SWITCH_MIN_WIN_RATE`（預設 `0.515`）
+- `SWITCH_MAX_DD`（預設 `0.12`）
+- `SWITCH_MAX_ROI_GAP_TO_MIXED`（預設 `0.005`）
+- `SWITCH_MAX_DD_GAP_TO_MIXED`（預設 `0.02`）
+- `SWITCH_MAX_BET_DROP_RATIO`（預設 `0.25`）
+- `SWITCH_REQUIRE_HKJC_SOURCE`（預設 `true`）
+- `SWITCH_REQUIRED_CONSECUTIVE_PASSES`（預設 `2`）
+- `SWITCH_DECISION_OUTPUT_PATH`（預設 `artifacts/switch_decision.json`）
+- `SWITCH_TELEGRAM_REPORT_ENABLED`（預設 `false`；推送 switch gate 分析到 Telegram）
+- `LIVE_AUTO_TUNE_ENABLED`（預設 `false`；從 optimizer best params 自動調整 live 門檻）
+- `LIVE_AUTO_TUNE_MIN_EDGE`（預設 `0.01`）
+- `LIVE_AUTO_TUNE_MAX_EDGE`（預設 `0.03`）
+- `LIVE_AUTO_TUNE_MIN_CONFIDENCE`（預設 `0.50`）
+- `LIVE_AUTO_TUNE_MAX_CONFIDENCE`（預設 `0.60`）
+- `LIVE_AUTO_TUNE_MIN_ALERTS`（預設 `1`）
+- `LIVE_AUTO_TUNE_MAX_ALERTS`（預設 `3`）
+
+每次 `train`（包括 `railway-job-once` 內的 retrain）完成後，會自動輸出 proxy 特徵監控檔：
+- `artifacts/debug/proxy_feature_monitor.json`
+- `artifacts/debug/proxy_feature_monitor.csv`
+
+欄位解讀重點：
+- `importance_value` / `importance_rank`：來自 feature importance，數值越高代表模型越常使用該 proxy 特徵。
+- `missing_rate`：缺失比例（`1.0` 代表全部缺失）。
+- `drift_abs`：前半段與後半段樣本均值的絕對差。
+- `drift_ratio`：`drift_abs / abs(first_half_mean)`，用於看相對漂移強度。
+- `drift_cohen_d`：以前後半段 pooled std 計算的效果量，絕對值越大代表分布漂移越明顯。
+
+實務上可先用以下規則做保留/降權候選檢查：
+- 低重要度 + 高缺失（例如 `importance_value` 接近 0 且 `missing_rate` 長期 > 0.9）。
+- 低重要度 + 高漂移（例如 `importance_value` 接近 0 且 `abs(drift_cohen_d)` 持續偏高）。
+
+switch 審計檔內容重點
+- `passed`：今日門檻是否通過
+- `reasons`：失敗原因清單
+- `pass_streak`：連續通過日數
+- `switch_mode`：`MIXED` 或 `HKJC_ONLY`
+- `auto_apply_effective`：今日是否已實際套用 HKJC 路徑
 
 PowerShell / venv 說明
 - 啟動腳本會強制使用 `.venv\Scripts\python.exe`

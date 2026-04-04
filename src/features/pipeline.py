@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import defaultdict, deque
 from dataclasses import dataclass
+import json
 import logging
 from pathlib import Path
 from typing import Any
@@ -9,6 +10,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from src.features.external_injury import default_injury_data_source
 from src.features.hk_market_compare import add_hk_vs_consensus_features
 from src.strategy.settlement import settle_handicap_bet
 
@@ -36,6 +38,113 @@ COLUMN_ALIASES = {
 
 LOGGER = logging.getLogger(__name__)
 
+ALLOWED_MISSING_STRATEGIES = {
+    "keep_nan",
+    "fill_zero",
+    "fill_minus_one",
+    "fill_half",
+    "fill_mean",
+    "fill_constant",
+}
+
+KNOWN_FEATURE_FIELDS = {
+    "provider_match_id",
+    "source_market",
+    "kickoff_time_utc",
+    "competition",
+    "home_team_name",
+    "away_team_name",
+    "ft_home_goals",
+    "ft_away_goals",
+    "target_handicap_side",
+    "home_form_points_last5",
+    "home_form_points_last10",
+    "away_form_points_last5",
+    "away_form_points_last10",
+    "home_recent_home_form_last5",
+    "away_recent_away_form_last5",
+    "home_goals_scored_last5",
+    "home_goals_conceded_last5",
+    "home_goal_diff_last5",
+    "away_goals_scored_last5",
+    "away_goals_conceded_last5",
+    "away_goal_diff_last5",
+    "rest_days_home",
+    "rest_days_away",
+    "rest_days_diff",
+    "recent5_rest_days_diff",
+    "fixture_density_7d_home",
+    "fixture_density_14d_away",
+    "injury_absence_index_home",
+    "injury_absence_index_away",
+    "rd_pool_available_density",
+    "rd_combination_available_density",
+    "rd_combination_suspended_density",
+    "rd_selection_count_total",
+    "rd_unique_selection_count",
+    "rd_market_depth_index",
+    "recent5_hdc_cover_rate_home",
+    "recent10_hdc_cover_rate_home",
+    "recent5_hdc_cover_rate_away",
+    "recent10_hdc_cover_rate_away",
+    "recent5_goal_diff_mean_home",
+    "recent10_goal_diff_mean_home",
+    "recent5_goal_diff_mean_away",
+    "recent10_goal_diff_mean_away",
+    "recent5_xg_diff_mean_home",
+    "recent5_xg_diff_mean_away",
+    "recent10_xg_diff_mean_home",
+    "recent10_xg_diff_mean_away",
+    "recent_hdc_cover_ewm_alpha_0p3_home",
+    "recent_hdc_cover_ewm_alpha_0p3_away",
+    "recent5_hdc_cover_advantage",
+    "recent10_hdc_cover_advantage",
+    "h2h_last5_hdc_cover_rate",
+    "h2h_last10_hdc_cover_rate",
+    "h2h_home_last5_hdc_cover_rate",
+    "h2h_last5_hdc_cover_mean",
+    "h2h_last10_hdc_cover_mean",
+    "h2h_last5_goal_diff_mean",
+    "h2h_last5_xg_diff_mean",
+    "h2h_sample_size_last5",
+    "h2h_sample_size_last10",
+    "elo_home_pre",
+    "elo_away_pre",
+    "elo_diff_pre",
+    "history_home_matches_count",
+    "history_away_matches_count",
+    "missing_home_history_flag",
+    "missing_away_history_flag",
+    "missing_home_ft_goals_flag",
+    "missing_away_ft_goals_flag",
+    "handicap_open_line",
+    "handicap_close_line",
+    "handicap_line_60m",
+    "line_drift_60m",
+    "handicap_line_movement",
+    "missing_handicap_line_flag",
+    "odds_home_open",
+    "odds_away_open",
+    "odds_home_close",
+    "odds_away_close",
+    "implied_prob_home_open",
+    "implied_prob_away_open",
+    "implied_prob_home_close",
+    "implied_prob_away_close",
+    "missing_odds_flag",
+    "hk_line",
+    "consensus_line",
+    "hk_line_minus_consensus_line",
+    "hk_implied_prob_side",
+    "hk_implied_prob",
+    "consensus_implied_prob_side",
+    "consensus_implied_prob",
+    "hk_minus_consensus_prob",
+    "hk_off_market_flag",
+    "hk_off_market_direction",
+    "hk_off_market_agree_with_model_flag",
+}
+
 
 @dataclass(frozen=True)
 class TeamMatchState:
@@ -52,6 +161,7 @@ class TeamMatchState:
 def build_feature_pipeline(
     input_path: Path = Path("data/raw/matches_template.csv"),
     output_path: Path = Path("data/processed/features_mvp.csv"),
+    feature_field_config_path: Path | None = Path("config/feature_fields.json"),
 ) -> str:
     """Build MVP features with strict as-of logic only.
 
@@ -59,13 +169,134 @@ def build_feature_pipeline(
     current kickoff timestamp. Full-time labels are never included in pre-match features.
     """
     LOGGER.info("Feature build started: input=%s output=%s", input_path, output_path)
+    validate_feature_field_config(feature_field_config_path)
     raw_df = load_raw_matches(input_path)
     normalized_df = normalize_schema(raw_df)
     sorted_df = sort_chronologically(normalized_df)
     feature_df = compute_features(sorted_df)
+    feature_df = apply_feature_field_config(feature_df, feature_field_config_path)
     write_features(feature_df, output_path)
     LOGGER.info("Feature build completed: rows=%s output=%s", len(feature_df), output_path)
     return f"Feature build complete: {len(feature_df)} rows -> {output_path}"
+
+
+def validate_feature_field_config(config_path: Path | None) -> None:
+    """Validate feature config early to fail fast on misspelled fields/strategies."""
+    if config_path is None or not config_path.exists():
+        return
+
+    try:
+        payload = json.loads(config_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(f"Invalid feature field config: {config_path}") from exc
+
+    if not isinstance(payload, dict):
+        raise ValueError(f"Feature field config must be a JSON object: {config_path}")
+
+    active_fields_raw = payload.get("active_fields", [])
+    field_metadata_raw = payload.get("field_metadata", {})
+
+    if active_fields_raw is None:
+        active_fields_raw = []
+    if not isinstance(active_fields_raw, list):
+        raise ValueError("Feature field config 'active_fields' must be a list.")
+    if not isinstance(field_metadata_raw, dict):
+        raise ValueError("Feature field config 'field_metadata' must be an object.")
+
+    active_fields = [str(item) for item in active_fields_raw if str(item).strip()]
+    metadata_fields = [str(key) for key in field_metadata_raw.keys()]
+    unknown_fields = sorted((set(active_fields) | set(metadata_fields)) - KNOWN_FEATURE_FIELDS)
+    if unknown_fields:
+        raise ValueError(f"Unknown fields in feature field config: {', '.join(unknown_fields)}")
+
+    invalid_strategies: list[str] = []
+    for field_name, metadata in field_metadata_raw.items():
+        if not isinstance(metadata, dict):
+            raise ValueError(f"field_metadata['{field_name}'] must be an object.")
+        strategy = str(metadata.get("missing_strategy", "keep_nan")).strip().lower()
+        if strategy not in ALLOWED_MISSING_STRATEGIES:
+            invalid_strategies.append(f"{field_name}:{strategy}")
+
+    if invalid_strategies:
+        raise ValueError(
+            "Invalid missing_strategy in feature field config: "
+            + ", ".join(invalid_strategies)
+            + f". Allowed: {', '.join(sorted(ALLOWED_MISSING_STRATEGIES))}"
+        )
+
+
+def apply_feature_field_config(df: pd.DataFrame, config_path: Path | None) -> pd.DataFrame:
+    """Apply configurable field selection/order and missing-value strategies.
+
+    Config schema (JSON):
+    - keep_unlisted_fields: bool
+    - active_fields: list[str]
+    - field_metadata: dict[str, {missing_strategy: str, fill_value?: number}]
+    """
+    if config_path is None or not config_path.exists():
+        return df
+
+    try:
+        payload = json.loads(config_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(f"Invalid feature field config: {config_path}") from exc
+
+    if not isinstance(payload, dict):
+        raise ValueError(f"Feature field config must be a JSON object: {config_path}")
+
+    active_fields_raw = payload.get("active_fields", [])
+    field_metadata_raw = payload.get("field_metadata", {})
+    keep_unlisted_fields = bool(payload.get("keep_unlisted_fields", True))
+
+    active_fields = [str(item) for item in active_fields_raw if str(item).strip()]
+    field_metadata: dict[str, dict[str, object]] = {}
+    if isinstance(field_metadata_raw, dict):
+        for key, value in field_metadata_raw.items():
+            if isinstance(value, dict):
+                field_metadata[str(key)] = value
+
+    configured_df = df.copy()
+
+    for column in active_fields:
+        if column not in configured_df.columns:
+            configured_df[column] = np.nan
+
+    target_columns = list(configured_df.columns) if keep_unlisted_fields else active_fields
+    for column in target_columns:
+        metadata = field_metadata.get(column, {})
+        strategy = str(metadata.get("missing_strategy", "keep_nan")).strip().lower()
+        fill_value = metadata.get("fill_value")
+        configured_df[column] = _apply_missing_strategy(configured_df[column], strategy=strategy, fill_value=fill_value)
+
+    if active_fields:
+        existing_active = [column for column in active_fields if column in configured_df.columns]
+        if keep_unlisted_fields:
+            remaining = [column for column in configured_df.columns if column not in existing_active]
+            configured_df = configured_df[existing_active + remaining]
+        else:
+            configured_df = configured_df[existing_active]
+
+    return configured_df
+
+
+def _apply_missing_strategy(series: pd.Series, *, strategy: str, fill_value: object) -> pd.Series:
+    if strategy == "keep_nan":
+        return series
+    if strategy == "fill_zero":
+        return series.fillna(0.0)
+    if strategy == "fill_minus_one":
+        return series.fillna(-1.0)
+    if strategy == "fill_half":
+        return series.fillna(0.5)
+    if strategy == "fill_mean":
+        numeric = pd.to_numeric(series, errors="coerce")
+        mean_value = numeric.mean()
+        if pd.isna(mean_value):
+            return series
+        return numeric.fillna(float(mean_value))
+    if strategy == "fill_constant":
+        return series.fillna(fill_value)
+    return series
 
 
 def load_raw_matches(input_path: Path) -> pd.DataFrame:
@@ -105,6 +336,7 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:
     h2h_history: dict[tuple[str, str], deque[dict[str, object]]] = defaultdict(lambda: deque(maxlen=20))
     team_last_kickoff: dict[str, pd.Timestamp] = {}
     team_elo: dict[str, float] = defaultdict(lambda: 1500.0)
+    injury_source = default_injury_data_source()
 
     rows: list[dict[str, object]] = []
 
@@ -148,6 +380,9 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:
         home_recent5_rest_days_mean = _mean_recent_rest_days(home_hist, 5)
         away_recent5_rest_days_mean = _mean_recent_rest_days(away_hist, 5)
         recent5_rest_days_diff = _subtract_optional(home_recent5_rest_days_mean, away_recent5_rest_days_mean)
+        fixture_density_7d_home = _count_matches_within_days(home_hist, kickoff, days=7)
+        fixture_density_14d_away = _count_matches_within_days(away_hist, kickoff, days=14)
+        injury_signal = injury_source.get_injury_signal(row)
 
         recent5_hdc_cover_rate_home = _cover_rate_with_shrinkage(home_hdc_scores, n=5)
         recent10_hdc_cover_rate_home = _cover_rate_with_shrinkage(home_hdc_scores, n=10)
@@ -205,6 +440,10 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:
             "rest_days_away": rest_days_away,
             "rest_days_diff": rest_days_diff,
             "recent5_rest_days_diff": recent5_rest_days_diff,
+            "fixture_density_7d_home": fixture_density_7d_home,
+            "fixture_density_14d_away": fixture_density_14d_away,
+            "injury_absence_index_home": injury_signal.home_index,
+            "injury_absence_index_away": injury_signal.away_index,
             "recent5_hdc_cover_rate_home": recent5_hdc_cover_rate_home,
             "recent10_hdc_cover_rate_home": recent10_hdc_cover_rate_home,
             "recent5_hdc_cover_rate_away": recent5_hdc_cover_rate_away,
@@ -242,6 +481,7 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:
         }
 
         feature_row.update(_odds_and_line_features(row))
+        feature_row.update(_results_detail_proxy_features(row))
         rows.append(feature_row)
 
         home_goals = int(row["ft_home_goals"]) if not pd.isna(row["ft_home_goals"]) else 0
@@ -409,6 +649,13 @@ def _mean_recent_rest_days(history: list[TeamMatchState], n: int) -> float | Non
     return float(np.mean(rest_days))
 
 
+def _count_matches_within_days(history: list[TeamMatchState], current_kickoff: pd.Timestamp, days: int) -> int:
+    if days <= 0:
+        return 0
+    boundary = current_kickoff - pd.Timedelta(days=days)
+    return int(sum(1 for item in history if item.kickoff_time_utc >= boundary))
+
+
 def _subtract_optional(left: float | None, right: float | None) -> float | None:
     if left is None or right is None:
         return None
@@ -521,6 +768,7 @@ def _update_elo(
 def _odds_and_line_features(row: pd.Series) -> dict[str, object]:
     open_line = _to_float(row.get("handicap_open_line", np.nan))
     close_line = _to_float(row.get("handicap_close_line", np.nan))
+    line_60m = _to_float(row.get("handicap_line_60m", row.get("handicap_60m_line", np.nan)))
 
     home_open_odds = _to_float(row.get("odds_home_open", np.nan))
     away_open_odds = _to_float(row.get("odds_away_open", np.nan))
@@ -533,6 +781,8 @@ def _odds_and_line_features(row: pd.Series) -> dict[str, object]:
     return {
         "handicap_open_line": open_line,
         "handicap_close_line": close_line,
+        "handicap_line_60m": line_60m,
+        "line_drift_60m": None if pd.isna(line_60m) or pd.isna(close_line) else close_line - line_60m,
         "handicap_line_movement": None if pd.isna(open_line) or pd.isna(close_line) else close_line - open_line,
         "missing_handicap_line_flag": int(pd.isna(open_line) or pd.isna(close_line)),
         "odds_home_open": home_open_odds,
@@ -564,3 +814,132 @@ def _normalized_implied_probs(home_odds: float, away_odds: float) -> tuple[float
     if total <= 0:
         return None, None
     return raw_home / total, raw_away / total
+
+
+def _results_detail_proxy_features(row: pd.Series) -> dict[str, object]:
+    payload = _extract_results_detail_payload(row)
+    if payload is None:
+        return {
+            "rd_pool_available_density": _as_optional_float(row.get("rd_pool_available_density")),
+            "rd_combination_available_density": _as_optional_float(row.get("rd_combination_available_density")),
+            "rd_combination_suspended_density": _as_optional_float(row.get("rd_combination_suspended_density")),
+            "rd_selection_count_total": _as_optional_float(row.get("rd_selection_count_total")),
+            "rd_unique_selection_count": _as_optional_float(row.get("rd_unique_selection_count")),
+            "rd_market_depth_index": _as_optional_float(row.get("rd_market_depth_index")),
+        }
+
+    pools = _extract_fo_pools(payload)
+    if not pools:
+        return {
+            "rd_pool_available_density": 0.0,
+            "rd_combination_available_density": 0.0,
+            "rd_combination_suspended_density": 0.0,
+            "rd_selection_count_total": 0.0,
+            "rd_unique_selection_count": 0.0,
+            "rd_market_depth_index": 0.0,
+        }
+
+    available_pool_statuses = {"available", "sellingstarted", "open", "active"}
+    available_comb_statuses = {"available", "open", "active", "win"}
+    suspended_comb_statuses = {"suspended", "suspend", "closed", "lose"}
+
+    pool_count = len(pools)
+    available_pools = 0
+    combination_count = 0
+    available_combination_count = 0
+    suspended_combination_count = 0
+    selection_count_total = 0
+    unique_selection_tokens: set[str] = set()
+
+    for pool in pools:
+        pool_status = str(pool.get("status") or "").strip().lower()
+        if pool_status in available_pool_statuses:
+            available_pools += 1
+
+        lines = pool.get("lines")
+        if not isinstance(lines, list):
+            continue
+        for line in lines:
+            if not isinstance(line, dict):
+                continue
+            combinations = line.get("combinations")
+            if not isinstance(combinations, list):
+                continue
+            for combination in combinations:
+                if not isinstance(combination, dict):
+                    continue
+                combination_count += 1
+                comb_status = str(combination.get("status") or "").strip().lower()
+                if comb_status in available_comb_statuses:
+                    available_combination_count += 1
+                if comb_status in suspended_comb_statuses:
+                    suspended_combination_count += 1
+
+                selections = combination.get("selections")
+                if not isinstance(selections, list):
+                    continue
+                selection_count_total += len(selections)
+                for selection in selections:
+                    if not isinstance(selection, dict):
+                        continue
+                    token = str(
+                        selection.get("selId")
+                        or selection.get("id")
+                        or selection.get("str")
+                        or selection.get("name_en")
+                        or selection.get("name_ch")
+                        or ""
+                    ).strip()
+                    if token:
+                        unique_selection_tokens.add(token)
+
+    pool_density = available_pools / pool_count if pool_count > 0 else 0.0
+    comb_available_density = available_combination_count / combination_count if combination_count > 0 else 0.0
+    comb_suspended_density = suspended_combination_count / combination_count if combination_count > 0 else 0.0
+    market_depth = selection_count_total / pool_count if pool_count > 0 else 0.0
+
+    return {
+        "rd_pool_available_density": float(pool_density),
+        "rd_combination_available_density": float(comb_available_density),
+        "rd_combination_suspended_density": float(comb_suspended_density),
+        "rd_selection_count_total": float(selection_count_total),
+        "rd_unique_selection_count": float(len(unique_selection_tokens)),
+        "rd_market_depth_index": float(market_depth),
+    }
+
+
+def _extract_results_detail_payload(row: pd.Series) -> dict[str, object] | None:
+    for key in ("results_detail_json", "results_detail_payload", "hkjc_results_detail_json"):
+        value = row.get(key)
+        if value is None or (isinstance(value, float) and pd.isna(value)):
+            continue
+        if isinstance(value, dict):
+            return value
+        if isinstance(value, str):
+            text = value.strip()
+            if not text:
+                continue
+            try:
+                parsed = json.loads(text)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(parsed, dict):
+                return parsed
+    return None
+
+
+def _extract_fo_pools(payload: dict[str, object]) -> list[dict[str, object]]:
+    data = payload.get("data") if isinstance(payload, dict) else None
+    if isinstance(data, dict):
+        matches = data.get("matches")
+        if isinstance(matches, list) and matches:
+            first_match = matches[0]
+            if isinstance(first_match, dict):
+                pools = first_match.get("foPools")
+                if isinstance(pools, list):
+                    return [item for item in pools if isinstance(item, dict)]
+
+    pools = payload.get("foPools")
+    if isinstance(pools, list):
+        return [item for item in pools if isinstance(item, dict)]
+    return []

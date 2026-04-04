@@ -1,11 +1,16 @@
 from __future__ import annotations
 
+import json
 import logging
 from pathlib import Path
 
 import pandas as pd
 
-from src.debug.feature_importance import export_feature_importance_debug
+from src.debug.feature_importance import (
+    evaluate_proxy_availability_alerts,
+    export_feature_importance_debug,
+    export_proxy_feature_monitor_report,
+)
 from src.models.baselines import (
     build_feature_frame,
     generate_prediction_frame,
@@ -13,7 +18,6 @@ from src.models.baselines import (
     load_model_bundle,
     prepare_training_frame,
     save_model_bundle,
-    save_training_report,
     train_model_bundle,
 )
 
@@ -28,6 +32,8 @@ def train_model_command(
     include_market_features: bool,
     model_output_path: Path,
     report_output_path: Path,
+    proxy_alert_missing_rate_threshold: float,
+    proxy_alert_consecutive_runs: int,
 ) -> str:
     """Train configured model and persist model bundle plus training report."""
     LOGGER.info("Model train started: input=%s model=%s approach=%s", input_path, model_name, approach)
@@ -39,7 +45,6 @@ def train_model_command(
         include_market_features=include_market_features,
     )
     save_model_bundle(bundle=bundle, output_path=model_output_path)
-    save_training_report(report=report, output_path=report_output_path)
 
     training_df = prepare_training_frame(df=df, approach=approach)
     feature_columns = get_feature_columns(include_market_features=include_market_features)
@@ -51,6 +56,26 @@ def train_model_command(
         feature_frame=feature_frame,
         y=target,
     )
+    importance_df = pd.read_csv(debug_feature_path)
+    proxy_json_path, proxy_csv_path = export_proxy_feature_monitor_report(
+        feature_frame=feature_frame,
+        importance_df=importance_df,
+        kickoff_series=training_df.get("kickoff_time_utc"),
+    )
+    proxy_alerts = evaluate_proxy_availability_alerts(
+        proxy_monitor_csv_path=proxy_csv_path,
+        missing_rate_threshold=proxy_alert_missing_rate_threshold,
+        consecutive_runs=proxy_alert_consecutive_runs,
+    )
+
+    report_payload = report.to_dict()
+    report_payload["proxy_monitor"] = {
+        "json_path": str(proxy_json_path),
+        "csv_path": str(proxy_csv_path),
+    }
+    report_payload["proxy_availability_alert"] = proxy_alerts
+    report_output_path.parent.mkdir(parents=True, exist_ok=True)
+    report_output_path.write_text(json.dumps(report_payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     LOGGER.info("Model train completed: model=%s report=%s", model_output_path, report_output_path)
 
@@ -59,7 +84,9 @@ def train_model_command(
         f"samples={report.sample_size} | "
         f"brier={report.brier_score} | log_loss={report.log_loss} | "
         f"model={model_output_path} | report={report_output_path} | "
-        f"feature_importance={debug_feature_path} | feature_group_importance={debug_group_path}"
+        f"feature_importance={debug_feature_path} | feature_group_importance={debug_group_path} | "
+        f"proxy_monitor_json={proxy_json_path} | proxy_monitor_csv={proxy_csv_path} | "
+        f"proxy_alerts={proxy_alerts.get('alert_count', 0)}"
     )
 
 

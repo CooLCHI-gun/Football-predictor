@@ -1,0 +1,242 @@
+{
+  "keep_unlisted_fields": true,
+  "active_fields": [
+    "provider_match_id",
+    "source_market",
+    "kickoff_time_utc",
+    "competition",
+    "home_team_name",
+    "away_team_name",
+    "target_handicap_side",
+    "home_form_points_last5",
+    "home_form_points_last10",
+    "away_form_points_last5",
+    "away_form_points_last10",
+    "rest_days_home",
+    "rest_days_away",
+    "rest_days_diff",
+    "recent5_rest_days_diff",
+    "fixture_density_7d_home",
+    "fixture_density_14d_away",
+    "injury_absence_index_home",
+    "injury_absence_index_away",
+    "rd_pool_available_density",
+    "rd_combination_available_density",
+    "rd_combination_suspended_density",
+    "rd_selection_count_total",
+    "rd_unique_selection_count",
+    "rd_market_depth_index",
+    "recent5_hdc_cover_rate_home",
+    "recent5_hdc_cover_rate_away",
+    "recent5_hdc_cover_advantage",
+    "h2h_last5_hdc_cover_rate",
+    "h2h_last5_goal_diff_mean",
+    "elo_home_pre",
+    "elo_away_pre",
+    "elo_diff_pre",
+    "handicap_open_line",
+    "handicap_close_line",
+    "handicap_line_60m",
+    "line_drift_60m",
+    "handicap_line_movement",
+    "implied_prob_home_close",
+    "implied_prob_away_close",
+    "missing_handicap_line_flag",
+    "missing_odds_flag",
+    "missing_home_history_flag",
+    "missing_away_history_flag"
+  ],
+  "field_metadata": {
+    "provider_match_id": {
+      "source": "raw_match_feed",
+      "missing_strategy": "keep_nan",
+      "description": "Provider match identifier."
+    },
+    "source_market": {
+      "source": "raw_match_feed",
+      "missing_strategy": "fill_constant",
+      "fill_value": "NON_HKJC",
+      "description": "Market origin label."
+    },
+    "home_form_points_last5": {
+      "source": "team_history",
+      "missing_strategy": "fill_zero",
+      "description": "Home team points from last 5 fixtures (as-of)."
+    },
+    "away_form_points_last5": {
+      "source": "team_history",
+      "missing_strategy": "fill_zero",
+      "description": "Away team points from last 5 fixtures (as-of)."
+    },
+    "rest_days_home": {
+      "source": "team_schedule",
+      "missing_strategy": "fill_mean",
+      "description": "Days since home team's previous match."
+    },
+    "rest_days_away": {
+      "source": "team_schedule",
+      "missing_strategy": "fill_mean",
+      "description": "Days since away team's previous match."
+    },
+    "rest_days_diff": {
+      "source": "derived",
+      "missing_strategy": "fill_zero",
+      "description": "Home rest days minus away rest days."
+    },
+    "fixture_density_7d_home": {
+      "source": "team_schedule",
+      "missing_strategy": "fill_zero",
+      "description": "Home matches played in previous 7 days."
+    },
+    "fixture_density_14d_away": {
+      "source": "team_schedule",
+      "missing_strategy": "fill_zero",
+      "description": "Away matches played in previous 14 days."
+    },
+    "injury_absence_index_home": {
+      "source": "squad_availability_external",
+      "missing_strategy": "fill_zero",
+      "description": "External injury absence score for home side."
+    },
+    "injury_absence_index_away": {
+      "source": "squad_availability_external",
+      "missing_strategy": "fill_zero",
+      "description": "External injury absence score for away side."
+    },
+    "rd_pool_available_density": {
+      "source": "results_detail_proxy",
+      "missing_strategy": "fill_zero",
+      "description": "Share of results-detail pools in available/selling status."
+    },
+    "rd_combination_available_density": {
+      "source": "results_detail_proxy",
+      "missing_strategy": "fill_zero",
+      "description": "Share of combinations marked available/open in results-detail."
+    },
+    "rd_combination_suspended_density": {
+      "source": "results_detail_proxy",
+      "missing_strategy": "fill_zero",
+      "description": "Share of suspended/closed combinations in results-detail."
+    },
+    "rd_selection_count_total": {
+      "source": "results_detail_proxy",
+      "missing_strategy": "fill_zero",
+      "description": "Total number of selections across all combinations in results-detail payload."
+    },
+    "rd_unique_selection_count": {
+      "source": "results_detail_proxy",
+      "missing_strategy": "fill_zero",
+      "description": "Distinct selection token count from results-detail payload."
+    },
+    "rd_market_depth_index": {
+      "source": "results_detail_proxy",
+      "missing_strategy": "fill_zero",
+      "description": "Selection count per pool as a lightweight market-depth proxy."
+    },
+    "recent5_hdc_cover_rate_home": {
+      "source": "team_history_hdc",
+      "missing_strategy": "fill_half",
+      "description": "Shrinkage cover rate for home team's last 5."
+    },
+    "recent5_hdc_cover_rate_away": {
+      "source": "team_history_hdc",
+      "missing_strategy": "fill_half",
+      "description": "Shrinkage cover rate for away team's last 5."
+    },
+    "recent5_hdc_cover_advantage": {
+      "source": "derived",
+      "missing_strategy": "fill_zero",
+      "description": "Difference between home and away cover rates."
+    },
+    "h2h_last5_hdc_cover_rate": {
+      "source": "h2h_history",
+      "missing_strategy": "fill_half",
+      "description": "Head-to-head cover rate in last 5 relevant meetings."
+    },
+    "h2h_last5_goal_diff_mean": {
+      "source": "h2h_history",
+      "missing_strategy": "fill_zero",
+      "description": "Mean goal difference in oriented H2H history."
+    },
+    "elo_home_pre": {
+      "source": "elo_state",
+      "missing_strategy": "fill_constant",
+      "fill_value": 1500,
+      "description": "Pre-match ELO for home side."
+    },
+    "elo_away_pre": {
+      "source": "elo_state",
+      "missing_strategy": "fill_constant",
+      "fill_value": 1500,
+      "description": "Pre-match ELO for away side."
+    },
+    "elo_diff_pre": {
+      "source": "derived",
+      "missing_strategy": "fill_zero",
+      "description": "ELO difference (home - away)."
+    },
+    "handicap_open_line": {
+      "source": "market_odds",
+      "missing_strategy": "keep_nan",
+      "description": "Opening handicap line."
+    },
+    "handicap_close_line": {
+      "source": "market_odds",
+      "missing_strategy": "keep_nan",
+      "description": "Closing handicap line."
+    },
+    "handicap_line_movement": {
+      "source": "derived",
+      "missing_strategy": "fill_zero",
+      "description": "Close line minus open line."
+    },
+    "handicap_line_60m": {
+      "source": "market_microstructure",
+      "missing_strategy": "keep_nan",
+      "description": "Handicap line around 60 minutes before kickoff."
+    },
+    "line_drift_60m": {
+      "source": "market_microstructure",
+      "missing_strategy": "fill_zero",
+      "description": "Close line minus 60-minute pre-kickoff line."
+    },
+    "implied_prob_home_close": {
+      "source": "market_odds",
+      "missing_strategy": "fill_half",
+      "description": "Normalized close implied probability for home side."
+    },
+    "implied_prob_away_close": {
+      "source": "market_odds",
+      "missing_strategy": "fill_half",
+      "description": "Normalized close implied probability for away side."
+    },
+    "missing_handicap_line_flag": {
+      "source": "data_quality",
+      "missing_strategy": "fill_zero",
+      "description": "1 if handicap line missing."
+    },
+    "missing_odds_flag": {
+      "source": "data_quality",
+      "missing_strategy": "fill_zero",
+      "description": "1 if close odds missing."
+    },
+    "missing_home_history_flag": {
+      "source": "data_quality",
+      "missing_strategy": "fill_zero",
+      "description": "1 if no pre-match history for home side."
+    },
+    "missing_away_history_flag": {
+      "source": "data_quality",
+      "missing_strategy": "fill_zero",
+      "description": "1 if no pre-match history for away side."
+    }
+  },
+  "future_candidates": [
+    {
+      "name": "weather_humidity_pct",
+      "source": "weather",
+      "missing_strategy": "fill_mean",
+      "description": "Kickoff humidity percentage."
+    }
+  ]
+}
