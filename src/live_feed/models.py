@@ -21,16 +21,16 @@ class NormalizedMarketSnapshot:
     source_market: str
     market_id: str
     competition: str
-    competition_ch: str
     kickoff_time_utc: datetime
     snapshot_time_utc: datetime
     home_team_name: str
-    home_team_name_ch: str
     away_team_name: str
-    away_team_name_ch: str
     handicap_line: float
     odds_home: float
     odds_away: float
+    competition_ch: str = ""
+    home_team_name_ch: str = ""
+    away_team_name_ch: str = ""
     injury_absence_index_home: float | None = None
     injury_absence_index_away: float | None = None
     squad_absence_score_home: float | None = None

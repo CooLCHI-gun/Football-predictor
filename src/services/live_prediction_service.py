@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -46,6 +47,7 @@ class AlertSender(Protocol):
         edge_threshold: float,
         confidence_threshold: float,
         max_alerts: int,
+        flip_hkjc_side: bool = False,
     ) -> str:
         ...
 
@@ -161,13 +163,7 @@ class LivePredictionService:
 
         alerts_message = "No candidate bets after strategy/risk filters."
         if not candidate_df.empty:
-            alerts_message = self._alert_sender.send_from_predictions(
-                predictions_path=candidates_path,
-                edge_threshold=self._edge_threshold,
-                confidence_threshold=self._confidence_threshold,
-                max_alerts=self._max_alerts,
-                flip_hkjc_side=self._flip_hkjc_side,
-            )
+            alerts_message = self._send_alerts(predictions_path=candidates_path)
 
         return LiveCycleResult(
             fetched_events=len(events),
@@ -177,6 +173,25 @@ class LivePredictionService:
             predictions_path=predictions_path,
             candidates_path=candidates_path,
             alerts_message=alerts_message,
+        )
+
+    def _send_alerts(self, *, predictions_path: Path) -> str:
+        sender_signature = inspect.signature(self._alert_sender.send_from_predictions)
+        sender_supports_flip = "flip_hkjc_side" in sender_signature.parameters
+        if sender_supports_flip:
+            return self._alert_sender.send_from_predictions(
+                predictions_path=predictions_path,
+                edge_threshold=self._edge_threshold,
+                confidence_threshold=self._confidence_threshold,
+                max_alerts=self._max_alerts,
+                flip_hkjc_side=self._flip_hkjc_side,
+            )
+
+        return self._alert_sender.send_from_predictions(
+            predictions_path=predictions_path,
+            edge_threshold=self._edge_threshold,
+            confidence_threshold=self._confidence_threshold,
+            max_alerts=self._max_alerts,
         )
 
     def _to_prediction_input(self, snapshots: list[NormalizedMarketSnapshot]) -> pd.DataFrame:
