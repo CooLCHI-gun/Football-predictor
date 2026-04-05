@@ -1,0 +1,40 @@
+version: 1
+policy_name: artifacts_90d_retention
+description: >-
+  Repository policy for generated artifacts and logs. Keep local artifacts for 90 days,
+  do not track generated outputs in git, and align GitHub Actions artifact retention.
+
+scopes:
+  local_generated_artifacts:
+    path: artifacts/
+    keep_days: 90
+    tracked_in_git: false
+    notes:
+      - Generated outputs must remain local-only unless explicitly promoted.
+      - Files older than keep_days should be pruned by scheduled housekeeping.
+
+  github_actions_artifacts:
+    keep_days: 90
+    notes:
+      - Workflows that use actions/upload-artifact should set retention-days: 90.
+      - GitHub does not upload repository artifacts automatically.
+      - Upload only files required for audit or reproducibility.
+
+controls:
+  required_gitignore_rules:
+    - artifacts/**/*.csv
+    - artifacts/**/*.json
+    - artifacts/**/*.parquet
+    - artifacts/**/*.pkl
+    - artifacts/**/*.html
+    - artifacts/live/**
+    - artifacts/backtest/**
+    - artifacts/optimizer/**
+    - artifacts/debug/**
+    - artifacts/hkjc_history/**
+  exceptions:
+    - artifacts/.gitkeep
+
+review:
+  owner: repo-maintainers
+  cadence: monthly

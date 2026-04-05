@@ -1,6 +1,0 @@
-provider_name,provider_match_id,source_market,market_id,competition,kickoff_time_utc,snapshot_time_utc,home_team_name,away_team_name,handicap_line,odds_home,odds_away,ingestion_key
-mock,mock_match_001,HKJC_LIKE,ah_ft,MOCK_LEAGUE,2026-04-03T11:19:04.844279+00:00,2026-04-03T10:49:04.844279+00:00,Mock Home 1,Mock Away 1,-0.5,1.9,1.94,mock|mock_match_001|ah_ft|-0.50|2026-04-03T10:49:04+00:00
-mock,mock_match_002,HKJC_LIKE,ah_ft,MOCK_LEAGUE,2026-04-03T11:49:04.844279+00:00,2026-04-03T10:49:04.844279+00:00,Mock Home 2,Mock Away 2,-0.25,1.92,1.92,mock|mock_match_002|ah_ft|-0.25|2026-04-03T10:49:04+00:00
-mock,mock_match_003,HKJC_LIKE,ah_ft,MOCK_LEAGUE,2026-04-03T12:19:04.844279+00:00,2026-04-03T10:49:04.844279+00:00,Mock Home 3,Mock Away 3,-0.5,1.88,1.93,mock|mock_match_003|ah_ft|-0.50|2026-04-03T10:49:04+00:00
-mock,mock_match_004,HKJC_LIKE,ah_ft,MOCK_LEAGUE,2026-04-03T12:49:04.844279+00:00,2026-04-03T10:49:04.844279+00:00,Mock Home 4,Mock Away 4,-0.25,1.9,1.94,mock|mock_match_004|ah_ft|-0.25|2026-04-03T10:49:04+00:00
-mock,mock_match_005,HKJC_LIKE,ah_ft,MOCK_LEAGUE,2026-04-03T13:19:04.844279+00:00,2026-04-03T10:49:04.844279+00:00,Mock Home 5,Mock Away 5,-0.5,1.92,1.92,mock|mock_match_005|ah_ft|-0.50|2026-04-03T10:49:04+00:00

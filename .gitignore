@@ -13,6 +13,17 @@ venv/
 htmlcov/
 artifacts/*.csv
 artifacts/*.json
+artifacts/**/*.csv
+artifacts/**/*.json
+artifacts/**/*.parquet
+artifacts/**/*.pkl
+artifacts/**/*.html
+artifacts/live/**
+artifacts/backtest/**
+artifacts/optimizer/**
+artifacts/debug/**
+artifacts/hkjc_history/**
+!artifacts/.gitkeep
 data/cache/*
 !data/cache/.gitkeep
 data/processed/*

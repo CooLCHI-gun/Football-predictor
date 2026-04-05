@@ -1,3 +1,0 @@
-cycle_id,event_time_utc,level,event,message
-20260403T104907Z,2026-04-03T10:49:07.776779+00:00,INFO,cycle_summary,raw=5 normalized=5 inserted=5 skipped=0 candidates=0
-20260403T104909Z,2026-04-03T10:49:09.932283+00:00,INFO,cycle_summary,raw=5 normalized=5 inserted=5 skipped=0 candidates=0

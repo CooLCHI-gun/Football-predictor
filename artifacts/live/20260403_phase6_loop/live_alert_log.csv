@@ -1,3 +1,0 @@
-cycle_id,alert_time_utc,provider_match_id,alert_state,message,mode
-20260403T104907Z,2026-04-03T10:49:07.775780+00:00,,skipped,No candidates passed thresholds.,dry-run
-20260403T104909Z,2026-04-03T10:49:09.931268+00:00,,skipped,No candidates passed thresholds.,dry-run
