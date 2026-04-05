@@ -74,6 +74,8 @@ def send_telegram_alert(
 
     alert_log_path = Path("artifacts/live/live_alert_log.csv")
     filtered["match_key"] = filtered.apply(_build_match_key, axis=1)
+    filtered["alert_day"] = filtered["kickoff_time_utc"].dt.date.astype(str)
+    filtered["dedup_key"] = filtered["alert_day"] + "|" + filtered["match_key"]
 
     before_same_match_dedup = len(filtered)
     filtered = filtered.sort_values("edge", ascending=False).drop_duplicates(subset=["match_key"], keep="first")
@@ -81,7 +83,7 @@ def send_telegram_alert(
 
     sent_keys = _read_sent_match_keys(alert_log_path)
     before_history_dedup = len(filtered)
-    filtered = filtered[~filtered["match_key"].isin(sent_keys)]
+    filtered = filtered[~filtered["dedup_key"].isin(sent_keys)]
     skipped_history = before_history_dedup - len(filtered)
 
     if skipped_same_match > 0 or skipped_history > 0:
@@ -147,6 +149,7 @@ def send_telegram_alert(
             row={
                 "cycle_id": datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
                 "alert_time_utc": datetime.now(timezone.utc).isoformat(),
+                "alert_day": str(row.get("alert_day", "")),
                 "provider_match_id": str(row.get("provider_match_id", "")),
                 "match_key": str(row.get("match_key", "")),
                 "alert_state": "sent",
@@ -196,12 +199,15 @@ def _read_sent_match_keys(log_path: Path) -> set[str]:
     if log_df.empty:
         return set()
 
-    keys: set[str] = set()
-    if "match_key" in log_df.columns:
-        keys.update({_clean_token(v) for v in log_df["match_key"].tolist() if _clean_token(v)})
-    if "provider_match_id" in log_df.columns:
-        keys.update({_clean_token(v) for v in log_df["provider_match_id"].tolist() if _clean_token(v)})
-    return keys
+    if "alert_day" in log_df.columns and "match_key" in log_df.columns:
+        keys: set[str] = set()
+        for day, key in zip(log_df["alert_day"].tolist(), log_df["match_key"].tolist()):
+            day_token = str(day).strip()
+            key_token = _clean_token(key)
+            if day_token and day_token.lower() != "nan" and key_token:
+                keys.add(f"{day_token}|{key_token}")
+        return keys
+    return set()
 
 
 def _append_alert_log_row(log_path: Path, row: dict[str, str]) -> None:
@@ -209,6 +215,7 @@ def _append_alert_log_row(log_path: Path, row: dict[str, str]) -> None:
     expected_fields = [
         "cycle_id",
         "alert_time_utc",
+        "alert_day",
         "provider_match_id",
         "match_key",
         "alert_state",

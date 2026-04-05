@@ -300,16 +300,28 @@ class LiveRunner:
         )
 
         alert_log_path = self._config.output_dir / "live_alert_log.csv"
+        sent_match_keys_path = self._config.output_dir / "live_sent_match_keys.csv"
         ranked_candidates = candidates_df.copy()
         ranked_candidates["_match_key"] = ranked_candidates.apply(self._build_match_key, axis=1)
         ranked_candidates = ranked_candidates.sort_values(["edge", "confidence_score"], ascending=False)
         ranked_candidates = ranked_candidates.drop_duplicates(subset=["_match_key"], keep="first")
 
-        sent_provider_ids = self._read_sent_provider_match_ids(alert_log_path)
+        sent_provider_ids = self._read_sent_provider_match_ids_by_day(alert_log_path)
+        sent_match_keys = self._read_sent_match_keys(sent_match_keys_path)
+        ranked_candidates["_alert_day"] = ranked_candidates.apply(self._build_alert_day, axis=1)
+        ranked_candidates["_dedup_key"] = ranked_candidates["_alert_day"] + "|" + ranked_candidates["_match_key"]
+        if "provider_match_id" in ranked_candidates.columns:
+            ranked_candidates["_provider_day_key"] = (
+                ranked_candidates["_alert_day"] + "|" + ranked_candidates["provider_match_id"].astype(str).str.strip()
+            )
+        else:
+            ranked_candidates["_provider_day_key"] = ranked_candidates["_alert_day"] + "|"
         if sent_provider_ids and "provider_match_id" in ranked_candidates.columns:
             ranked_candidates = ranked_candidates[
-                ~ranked_candidates["provider_match_id"].astype(str).str.strip().isin(sent_provider_ids)
+                ~ranked_candidates["_provider_day_key"].isin(sent_provider_ids)
             ]
+        if sent_match_keys:
+            ranked_candidates = ranked_candidates[~ranked_candidates["_dedup_key"].isin(sent_match_keys)]
 
         for index, (_, row) in enumerate(ranked_candidates.head(self._config.max_alerts).iterrows(), start=1):
             effective_side = str(row.get("effective_predicted_side", row.get("predicted_side", "home")))
@@ -364,6 +376,11 @@ class LiveRunner:
                     "mode": "dry-run" if self._config.dry_run else "live",
                 }
             )
+            self._append_sent_match_key(
+                sent_match_keys_path,
+                alert_day=str(row.get("_alert_day", "")).strip(),
+                match_key=str(row.get("_match_key", "")).strip(),
+            )
         if self._config.dry_run:
             preview_blocks: list[str] = []
             for index, preview in enumerate(preview_lines, start=1):
@@ -379,20 +396,66 @@ class LiveRunner:
         return f"{kickoff}|{home}|{away}"
 
     @staticmethod
-    def _read_sent_provider_match_ids(alert_log_path: Path) -> set[str]:
+    def _build_alert_day(row: pd.Series) -> str:
+        kickoff_raw = str(row.get("kickoff_time_utc", "")).strip()
+        kickoff = pd.to_datetime(kickoff_raw, utc=True, errors="coerce")
+        if pd.notna(kickoff):
+            return kickoff.date().isoformat()
+        return datetime.now(timezone.utc).date().isoformat()
+
+    @staticmethod
+    def _read_sent_provider_match_ids_by_day(alert_log_path: Path) -> set[str]:
         if not alert_log_path.exists():
             return set()
         try:
             alert_log_df = pd.read_csv(alert_log_path)
         except Exception:
             return set()
-        if "provider_match_id" not in alert_log_df.columns:
+        if "provider_match_id" not in alert_log_df.columns or "alert_time_utc" not in alert_log_df.columns:
             return set()
+        alert_days = pd.to_datetime(alert_log_df["alert_time_utc"], utc=True, errors="coerce").dt.date.astype("string")
+        provider_ids = alert_log_df["provider_match_id"].astype("string")
         return {
-            str(value).strip()
-            for value in alert_log_df["provider_match_id"].tolist()
-            if str(value).strip() and str(value).strip().lower() != "nan"
+            f"{str(day).strip()}|{str(provider_id).strip()}"
+            for day, provider_id in zip(alert_days.tolist(), provider_ids.tolist())
+            if str(day).strip() and str(day).strip().lower() != "nan" and str(provider_id).strip() and str(provider_id).strip().lower() != "nan"
         }
+
+    @staticmethod
+    def _read_sent_match_keys(path: Path) -> set[str]:
+        if not path.exists():
+            return set()
+        try:
+            frame = pd.read_csv(path)
+        except Exception:
+            return set()
+        if "match_key" not in frame.columns:
+            return set()
+        if "alert_day" in frame.columns:
+            return {
+                f"{str(day).strip()}|{str(key).strip()}"
+                for day, key in zip(frame["alert_day"].tolist(), frame["match_key"].tolist())
+                if str(day).strip() and str(day).strip().lower() != "nan" and str(key).strip() and str(key).strip().lower() != "nan"
+            }
+        return set()
+
+    @staticmethod
+    def _append_sent_match_key(path: Path, *, alert_day: str, match_key: str) -> None:
+        day_token = alert_day.strip()
+        key = match_key.strip()
+        if not day_token or not key:
+            return
+        path.parent.mkdir(parents=True, exist_ok=True)
+        row = pd.DataFrame(
+            [
+                {
+                    "alert_day": day_token,
+                    "match_key": key,
+                    "created_at_utc": datetime.now(timezone.utc).isoformat(),
+                }
+            ]
+        )
+        row.to_csv(path, mode="a", index=False, header=not path.exists())
 
     def _build_dry_run_preview_candidates(self, snapshot_df: pd.DataFrame) -> pd.DataFrame:
         settings = get_settings()
