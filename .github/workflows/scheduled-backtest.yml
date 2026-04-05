@@ -68,6 +68,32 @@ jobs:
             --run-id "$RUN_ID" \
             --force
 
+      - name: Notify Telegram on failure
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -z "${TELEGRAM_BOT_TOKEN}" ] || [ -z "${TELEGRAM_CHAT_ID}" ]; then
+            echo "telegram secrets not configured; skip failure notification"
+            exit 0
+          fi
+
+          RUN_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          MSG=$(cat <<EOF
+          [GHA FAIL] ${GITHUB_WORKFLOW}
+          Repo: ${GITHUB_REPOSITORY}
+          Branch: ${GITHUB_REF_NAME}
+          Actor: ${GITHUB_ACTOR}
+          Run: ${RUN_URL}
+          EOF
+          )
+
+          curl -sS --fail -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}" \
+            -d "disable_web_page_preview=true"
+
       - name: Upload artifacts
         if: always()
         uses: actions/upload-artifact@v4

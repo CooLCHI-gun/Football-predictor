@@ -141,7 +141,33 @@ coverage-balanced 參數
 
 ## Part 3. Live HKJC Workflow（Phase 6）
 
-### 1) 先做 dry-run（建議預設）
+### 1) 先選 preset（保守 / 平衡 / 進取）
+
+平衡是推薦起步，通常最不容易落入「太保守」或「太進取」。
+
+保守
+- edge-threshold = 0.03
+- confidence-threshold = 0.60
+- max-alerts = 1
+
+平衡（推薦）
+- edge-threshold = 0.025
+- confidence-threshold = 0.55
+- max-alerts = 2
+
+進取
+- edge-threshold = 0.015
+- confidence-threshold = 0.50
+- max-alerts = 3
+
+GitHub Actions 手動執行（Run workflow）建議填法
+- Live provider: `hkjc`
+- Edge threshold: `0.025`
+- Confidence threshold: `0.55`
+- Max alerts: `2`
+- dry or live: 先 `dry`（跑 1-2 次正常後再切 `live`）
+
+### 2) 先做 dry-run（平衡 preset）
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
@@ -151,25 +177,25 @@ python -m src.main live-run-once `
   --provider hkjc `
   --model-path artifacts\model_bundle.pkl `
   --dry-run `
-  --edge-threshold 0.02 `
-  --confidence-threshold 0.10 `
-  --max-alerts 3 `
+  --edge-threshold 0.025 `
+  --confidence-threshold 0.55 `
+  --max-alerts 2 `
   --force
 ```
 
-### 2) 檢查 live artifacts
+### 3) 檢查 live artifacts
 
 - artifacts\live\live_snapshot.csv
 - artifacts\live\live_candidates.csv
 - artifacts\live\live_alert_preview.txt
 - artifacts\live\live_alert_log.csv
 
-### 3) 準備切換 live（production-safe）
+### 4) 準備切換 live（production-safe）
 
-建議先維持小量
-- edge-threshold 約 0.02
-- confidence-threshold 約 0.10 到 0.12
-- max-alerts = 1
+建議先沿用平衡 preset 做小量 live
+- edge-threshold = 0.025
+- confidence-threshold = 0.55
+- max-alerts = 2
 - policy = fractional_kelly
 - fractional_kelly_factor 約 0.15
 - max_stake_pct 約 0.01
@@ -185,13 +211,13 @@ python -m src.main live-run-once `
   --provider hkjc `
   --model-path artifacts\model_bundle.pkl `
   --live `
-  --edge-threshold 0.02 `
-  --confidence-threshold 0.10 `
-  --max-alerts 1 `
+  --edge-threshold 0.025 `
+  --confidence-threshold 0.55 `
+  --max-alerts 2 `
   --force
 ```
 
-### 4) HKJC 結果對齊驗證（可選但建議）
+### 5) HKJC 結果對齊驗證（可選但建議）
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
@@ -233,6 +259,7 @@ GitHub Actions 實務更新（2026-04）
 - workflow 強制納入 `xgboost` + `lightgbm`（缺檔即補訓）。
 - 目前模型權重政策：`xgboost=0.70`、`lightgbm=0.30`。
 - Telegram 訊息已加上名稱清洗與繁體中文顯示保護，避免 `nan/null` 或錯誤隊名進入通知。
+- `ci`、`scheduled-backtest`、`scheduled-optimize`、`scheduled-live`、`pipeline-one-shot` 失敗時，會自動送 Telegram 通知（含 run URL）。
 
 部署策略（重要）
 - 本專案現階段以 GitHub Actions 為唯一排程入口，不再使用 Railway。

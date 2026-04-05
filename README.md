@@ -237,14 +237,33 @@ python -m src.main analyze-hkjc `
 
 ## 4. Live Monitoring（Phase 6, HKJC）
 
-### 4.1 研究 dry-run preset（建議起步）
+### 4.1 Live 參數 preset（保守 / 平衡 / 進取）
 
-- provider: hkjc
-- model path: artifacts\model_bundle.pkl
-- edge-threshold = 0.02
-- confidence-threshold = 0.10
+建議先用「平衡」做 1-2 次 dry-run，觀察候選數與訊號品質，再決定是否切 live。
+
+保守（訊號少、過濾較嚴）
+- edge-threshold = 0.03
+- confidence-threshold = 0.60
+- max-alerts = 1
+
+平衡（推薦，避免過度保守或過度進取）
+- edge-threshold = 0.025
+- confidence-threshold = 0.55
+- max-alerts = 2
+
+進取（訊號較多、波動較高）
+- edge-threshold = 0.015
+- confidence-threshold = 0.50
 - max-alerts = 3
-- TELEGRAM_DRY_RUN = "true"
+
+手動 Run workflow（Actions UI）建議填法
+- Live provider: `hkjc`
+- Edge threshold: `0.025`
+- Confidence threshold: `0.55`
+- Max alerts: `2`
+- dry or live: 先 `dry`，穩定後再改 `live`
+
+CLI（平衡 preset，建議起步）
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
@@ -254,17 +273,16 @@ python -m src.main live-run-once `
   --provider hkjc `
   --model-path artifacts\model_bundle.pkl `
   --dry-run `
-  --edge-threshold 0.02 `
-  --confidence-threshold 0.10 `
-  --max-alerts 3 `
+  --edge-threshold 0.025 `
+  --confidence-threshold 0.55 `
+  --max-alerts 2 `
   --force
 ```
 
-### 4.2 production-safe preset（小量 live）
+### 4.2 production-safe（小量 live）
 
-- edge-threshold 約 0.02
-- confidence-threshold 約 0.10 到 0.12
-- max-alerts = 1
+- 建議先沿用平衡 preset（0.025 / 0.55 / 2）跑短期 live 觀察。
+- 若你要更保守，再調回（0.03 / 0.60 / 1）。
 - bankroll 建議維持：fractional Kelly 0.15、max stake 1%、daily exposure 3%
 
 ```powershell
@@ -277,9 +295,9 @@ python -m src.main live-run-once `
   --provider hkjc `
   --model-path artifacts\model_bundle.pkl `
   --live `
-  --edge-threshold 0.02 `
-  --confidence-threshold 0.10 `
-  --max-alerts 1 `
+  --edge-threshold 0.025 `
+  --confidence-threshold 0.55 `
+  --max-alerts 2 `
   --force
 ```
 
@@ -368,6 +386,11 @@ Telegram 訊息正確性
 - 已加入名稱清洗（例如 `nan/null/none` 不會進入訊息）。
 - 比賽/球隊顯示優先使用中文欄位，無值時安全回退映射，避免隊名錯置或占位字串。
 - 訊息內容維持繁體中文格式。
+
+新增 workflow 失敗自動通知
+- `ci`、`scheduled-backtest`、`scheduled-optimize`、`scheduled-live`、`pipeline-one-shot` 失敗時會自動送 Telegram 通知。
+- 通知內容包含 workflow 名稱、branch、觸發者與 run URL，便於快速點回失敗頁面。
+- 若未設定 `TELEGRAM_BOT_TOKEN` 或 `TELEGRAM_CHAT_ID`，通知步驟會自動略過，不影響原流程。
 
 建議做法
 - 把 daily 與 live 任務改由 GitHub Actions 排程，不再依賴 Railway 常駐程序。
