@@ -104,6 +104,10 @@ def send_telegram_alert(
 
     sent = 0
     lines: list[str] = []
+
+    import csv
+    from datetime import datetime, timezone
+
     for _, row in filtered.sort_values("edge", ascending=False).head(max_alerts).iterrows():
         stake_size = float(settings.bankroll_initial * settings.bankroll_fixed_fraction_pct)
         bet = BetRecord(
@@ -135,6 +139,24 @@ def send_telegram_alert(
             lines.append(f"Alert {sent}: DRY_RUN prepared")
         else:
             lines.append(f"Alert {sent}: {result}")
+
+        # --- 新增: 每次推送後寫入 log ---
+        log_row = {
+            "cycle_id": datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
+            "alert_time_utc": datetime.now(timezone.utc).isoformat(),
+            "provider_match_id": str(row.get("provider_match_id", "")),
+            "alert_state": "sent",
+            "message": lines[-1],
+            "alert_message": lines[-1],
+            "mode": "dry-run" if settings.telegram_dry_run else "live"
+        }
+        log_path = Path("artifacts/live/live_alert_log.csv")
+        log_exists = log_path.exists()
+        with open(log_path, "a", newline='', encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=list(log_row.keys()))
+            if not log_exists:
+                writer.writeheader()
+            writer.writerow(log_row)
 
     LOGGER.info("Alert completed: sent=%s", sent)
     return "\n".join([f"Alerts processed: {sent}", *lines])
