@@ -299,7 +299,19 @@ class LiveRunner:
             source="live-runner",
         )
 
-        for index, (_, row) in enumerate(candidates_df.head(self._config.max_alerts).iterrows(), start=1):
+        alert_log_path = self._config.output_dir / "live_alert_log.csv"
+        ranked_candidates = candidates_df.copy()
+        ranked_candidates["_match_key"] = ranked_candidates.apply(self._build_match_key, axis=1)
+        ranked_candidates = ranked_candidates.sort_values(["edge", "confidence_score"], ascending=False)
+        ranked_candidates = ranked_candidates.drop_duplicates(subset=["_match_key"], keep="first")
+
+        sent_provider_ids = self._read_sent_provider_match_ids(alert_log_path)
+        if sent_provider_ids and "provider_match_id" in ranked_candidates.columns:
+            ranked_candidates = ranked_candidates[
+                ~ranked_candidates["provider_match_id"].astype(str).str.strip().isin(sent_provider_ids)
+            ]
+
+        for index, (_, row) in enumerate(ranked_candidates.head(self._config.max_alerts).iterrows(), start=1):
             effective_side = str(row.get("effective_predicted_side", row.get("predicted_side", "home")))
             original_side = str(row.get("original_predicted_side", row.get("predicted_side", "home")))
             selected_odds = float(row.get("odds_home_close", 0.0))
@@ -358,6 +370,29 @@ class LiveRunner:
                 preview_blocks.append(f"--- Alert {index} ---\n{preview}")
             preview_path.write_text("\n\n".join(preview_blocks) + "\n", encoding="utf-8")
         return rows
+
+    @staticmethod
+    def _build_match_key(row: pd.Series) -> str:
+        kickoff = str(row.get("kickoff_time_utc", "")).strip().lower()
+        home = str(row.get("home_team_name", "")).strip().lower()
+        away = str(row.get("away_team_name", "")).strip().lower()
+        return f"{kickoff}|{home}|{away}"
+
+    @staticmethod
+    def _read_sent_provider_match_ids(alert_log_path: Path) -> set[str]:
+        if not alert_log_path.exists():
+            return set()
+        try:
+            alert_log_df = pd.read_csv(alert_log_path)
+        except Exception:
+            return set()
+        if "provider_match_id" not in alert_log_df.columns:
+            return set()
+        return {
+            str(value).strip()
+            for value in alert_log_df["provider_match_id"].tolist()
+            if str(value).strip() and str(value).strip().lower() != "nan"
+        }
 
     def _build_dry_run_preview_candidates(self, snapshot_df: pd.DataFrame) -> pd.DataFrame:
         settings = get_settings()

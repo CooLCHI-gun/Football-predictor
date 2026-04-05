@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import csv
+from datetime import datetime, timezone
 import logging
 from pathlib import Path
 
@@ -70,21 +72,24 @@ def send_telegram_alert(
     filtered["edge"] = filtered["model_probability"].astype(float) - filtered["implied_probability"].astype(float)
     filtered = filtered[filtered["edge"] >= edge_threshold]
 
-    # --- 去重: 排除已推送過的 provider_match_id ---
     alert_log_path = Path("artifacts/live/live_alert_log.csv")
-    sent_ids = set()
-    if alert_log_path.exists():
-        try:
-            log_df = pd.read_csv(alert_log_path)
-            if "provider_match_id" in log_df.columns:
-                sent_ids = set(log_df["provider_match_id"].astype(str))
-        except Exception as e:
-            LOGGER.warning(f"Failed to read alert log for deduplication: {e}")
-    before_dedup = len(filtered)
-    filtered = filtered[~filtered["provider_match_id"].astype(str).isin(sent_ids)]
-    after_dedup = len(filtered)
-    if before_dedup > after_dedup:
-        LOGGER.info(f"Deduplication: {before_dedup-after_dedup} alerts skipped (already sent)")
+    filtered["match_key"] = filtered.apply(_build_match_key, axis=1)
+
+    before_same_match_dedup = len(filtered)
+    filtered = filtered.sort_values("edge", ascending=False).drop_duplicates(subset=["match_key"], keep="first")
+    skipped_same_match = before_same_match_dedup - len(filtered)
+
+    sent_keys = _read_sent_match_keys(alert_log_path)
+    before_history_dedup = len(filtered)
+    filtered = filtered[~filtered["match_key"].isin(sent_keys)]
+    skipped_history = before_history_dedup - len(filtered)
+
+    if skipped_same_match > 0 or skipped_history > 0:
+        LOGGER.info(
+            "Alert deduplication applied: skipped_same_match=%s skipped_history=%s",
+            skipped_same_match,
+            skipped_history,
+        )
 
     if filtered.empty:
         LOGGER.info("Alert found no candidate bets after threshold filtering")
@@ -104,9 +109,6 @@ def send_telegram_alert(
 
     sent = 0
     lines: list[str] = []
-
-    import csv
-    from datetime import datetime, timezone
 
     for _, row in filtered.sort_values("edge", ascending=False).head(max_alerts).iterrows():
         stake_size = float(settings.bankroll_initial * settings.bankroll_fixed_fraction_pct)
@@ -140,23 +142,19 @@ def send_telegram_alert(
         else:
             lines.append(f"Alert {sent}: {result}")
 
-        # --- 新增: 每次推送後寫入 log ---
-        log_row = {
-            "cycle_id": datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
-            "alert_time_utc": datetime.now(timezone.utc).isoformat(),
-            "provider_match_id": str(row.get("provider_match_id", "")),
-            "alert_state": "sent",
-            "message": lines[-1],
-            "alert_message": lines[-1],
-            "mode": "dry-run" if settings.telegram_dry_run else "live"
-        }
-        log_path = Path("artifacts/live/live_alert_log.csv")
-        log_exists = log_path.exists()
-        with open(log_path, "a", newline='', encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=list(log_row.keys()))
-            if not log_exists:
-                writer.writeheader()
-            writer.writerow(log_row)
+        _append_alert_log_row(
+            log_path=alert_log_path,
+            row={
+                "cycle_id": datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
+                "alert_time_utc": datetime.now(timezone.utc).isoformat(),
+                "provider_match_id": str(row.get("provider_match_id", "")),
+                "match_key": str(row.get("match_key", "")),
+                "alert_state": "sent",
+                "message": result,
+                "alert_message": _extract_alert_message(result),
+                "mode": "dry-run" if settings.telegram_dry_run else "live",
+            },
+        )
 
     LOGGER.info("Alert completed: sent=%s", sent)
     return "\n".join([f"Alerts processed: {sent}", *lines])
@@ -169,3 +167,66 @@ def _select_implied_probability(row: pd.Series, side: str, odds_source: str) -> 
     if pd.isna(value):
         return None
     return float(value)
+
+
+def _clean_token(value: object) -> str:
+    text = str(value or "").strip()
+    return " ".join(text.split()).lower()
+
+
+def _build_match_key(row: pd.Series) -> str:
+    provider_match_id = _clean_token(row.get("provider_match_id"))
+    if provider_match_id:
+        return provider_match_id
+    kickoff = _clean_token(row.get("kickoff_time_utc"))
+    home = _clean_token(row.get("home_team_name"))
+    away = _clean_token(row.get("away_team_name"))
+    return f"{kickoff}|{home}|{away}"
+
+
+def _read_sent_match_keys(log_path: Path) -> set[str]:
+    if not log_path.exists():
+        return set()
+    try:
+        log_df = pd.read_csv(log_path)
+    except Exception as exc:
+        LOGGER.warning("Failed to read alert log for deduplication: %s", exc)
+        return set()
+
+    if log_df.empty:
+        return set()
+
+    keys: set[str] = set()
+    if "match_key" in log_df.columns:
+        keys.update({_clean_token(v) for v in log_df["match_key"].tolist() if _clean_token(v)})
+    if "provider_match_id" in log_df.columns:
+        keys.update({_clean_token(v) for v in log_df["provider_match_id"].tolist() if _clean_token(v)})
+    return keys
+
+
+def _append_alert_log_row(log_path: Path, row: dict[str, str]) -> None:
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    expected_fields = [
+        "cycle_id",
+        "alert_time_utc",
+        "provider_match_id",
+        "match_key",
+        "alert_state",
+        "message",
+        "alert_message",
+        "mode",
+    ]
+    row_payload = {field: row.get(field, "") for field in expected_fields}
+    write_header = not log_path.exists()
+    with log_path.open("a", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=expected_fields)
+        if write_header:
+            writer.writeheader()
+        writer.writerow(row_payload)
+
+
+def _extract_alert_message(message: str) -> str:
+    marker = "DRY_RUN: "
+    if message.startswith(marker):
+        return message[len(marker) :]
+    return message
