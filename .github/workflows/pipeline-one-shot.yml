@@ -1,4 +1,4 @@
-name: Pipeline One-Shot
+name: Pipeline One-Shot Daily
 
 on:
   workflow_dispatch:
@@ -22,7 +22,7 @@ on:
         default: '120'
         type: string
   schedule:
-    - cron: '30 16 * * *' # 00:30 HKT full one-shot pipeline
+    - cron: '30 16 * * *' # Daily at 00:30 HKT (not every 5 minutes)
 
 concurrency:
   group: pipeline-one-shot-${{ github.ref }}

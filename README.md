@@ -352,7 +352,13 @@ env:
 - `.github/workflows/scheduled-backtest.yml`：每日 backtest（可手動觸發）。
 - `.github/workflows/scheduled-optimize.yml`：每日 optimizer（可手動觸發）。
 - `.github/workflows/scheduled-live.yml`：每 5 分鐘 live one-shot（可手動觸發，支援 dry/live）。
-- `.github/workflows/pipeline-one-shot.yml`：一條龍 one-shot（train xgboost + train lightgbm + backtest + optimize + live）。
+- `.github/workflows/pipeline-one-shot.yml`：一條龍 one-shot（train xgboost + train lightgbm + backtest + optimize + live），每日一次（00:30 HKT）。
+
+Actions 頁面快速分辨（避免揀錯）
+- 要每 5 分鐘監測 live：請揀 `Scheduled Live One-Shot`（workflow 檔：`.github/workflows/scheduled-live.yml`）。
+- 要每日完整一條龍流程：請揀 `Pipeline One-Shot Daily`（workflow 檔：`.github/workflows/pipeline-one-shot.yml`）。
+- 若只見到每日一次 run，多數是你開了 `Pipeline One-Shot Daily`；呢個屬正常行為。
+- 先在左側 workflow 名稱確認，再入去看 run 詳情，可減少誤判排程頻率。
 
 新增資料閘門
 - 三個排程 workflow 都會先執行 `.github/scripts/validate_training_data.py`。
