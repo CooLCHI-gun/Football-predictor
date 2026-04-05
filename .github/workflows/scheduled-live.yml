@@ -99,6 +99,16 @@ jobs:
           pip install -r requirements.txt
           python -m playwright install chromium
 
+      - name: Ensure feature CSV exists
+        run: |
+          if [ ! -f "$FEATURE_PATH" ]; then
+            echo "feature file not found at $FEATURE_PATH; rebuilding from tracked raw data"
+            python -m src.main build-features-full \
+              --input-path data/raw/real/historical_matches_real_non_hkjc.csv \
+              --output-path "$FEATURE_PATH" \
+              --force
+          fi
+
       - name: Validate training data source
         run: |
           python .github/scripts/validate_training_data.py \
