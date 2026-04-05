@@ -18,6 +18,24 @@
     "/^py -3\\.11 --version$/": {
       "approve": true,
       "matchCommandLine": true
+    },
+    "c:/Users/lccqs/Football-predictor/.venv/Scripts/python.exe": true,
+    "git rev-parse": true,
+    "/^git rm -r --cached --quiet artifacts$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^git add artifacts/\\.gitkeep$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^git diff -- \\.gitignore$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^git add \\.gitignore config/data_retention_policy\\.yml$/": {
+      "approve": true,
+      "matchCommandLine": true
     }
   },
   "python.analysis.autoImportCompletions": true

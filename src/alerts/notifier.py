@@ -61,6 +61,12 @@ def send_bet_alert(bet: BetRecord, client: TelegramClient) -> str:
 
 def build_bet_alert_message(bet: BetRecord) -> str:
     kickoff_hkt = _to_hkt_text(bet.kickoff_time_utc)
+    home_team_name = _normalize_text_field(bet.home_team_name)
+    away_team_name = _normalize_text_field(bet.away_team_name)
+    competition_name = _normalize_text_field(bet.competition)
+    home_team_name_zh = _normalize_text_field(bet.home_team_name_zh)
+    away_team_name_zh = _normalize_text_field(bet.away_team_name_zh)
+    competition_name_zh = _normalize_text_field(bet.competition_zh)
     effective_odds = (
         bet.odds
         if bet.odds > 1.0
@@ -69,13 +75,13 @@ def build_bet_alert_message(bet: BetRecord) -> str:
     recommended_side = _format_recommended_side(bet.predicted_side)
     handicap_text = _format_handicap_line(bet.handicap_line)
     match_display = resolve_match_display(
-        bet.home_team_name,
-        bet.away_team_name,
-        bet.competition,
+        home_team_name,
+        away_team_name,
+        competition_name,
         lang="zh-HK",
-        home_team_zh=bet.home_team_name_zh,
-        away_team_zh=bet.away_team_name_zh,
-        competition_zh=bet.competition_zh,
+        home_team_zh=home_team_name_zh,
+        away_team_zh=away_team_name_zh,
+        competition_zh=competition_name_zh,
     )
     market_side_label = resolve_market_label(
         market_id=bet.market_id,
@@ -89,8 +95,8 @@ def build_bet_alert_message(bet: BetRecord) -> str:
         original_side_label = _format_recommended_side(bet.original_predicted_side)
         effective_side_label = _format_recommended_side(bet.predicted_side)
         side_debug_lines = (
-            f"\n🧠 model side: {original_side_label}"
-            f"\n🔁 effective side: {effective_side_label}"
+            f"\n🧠 模型方向: {original_side_label}"
+            f"\n🔁 生效方向: {effective_side_label}"
         )
     return (
         f"⚽ 第{bet.match_number or '?'}場 - {match_display.competition} {kickoff_hkt}\n"
@@ -138,3 +144,10 @@ def _format_policy_label(policy: str) -> str:
 def _format_source_label(source_label: str) -> str:
     key = source_label.strip().upper()
     return _SOURCE_LABEL_MAP.get(key, source_label)
+
+
+def _normalize_text_field(value: str) -> str:
+    text = str(value).strip()
+    if text.lower() in {"", "nan", "none", "null", "na", "n/a"}:
+        return ""
+    return text

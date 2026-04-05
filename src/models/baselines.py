@@ -19,6 +19,18 @@ from sklearn.metrics import brier_score_loss, log_loss
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
+try:
+    from xgboost import XGBClassifier, XGBRegressor
+except ImportError:  # pragma: no cover - optional dependency
+    XGBClassifier = None
+    XGBRegressor = None
+
+try:
+    from lightgbm import LGBMClassifier, LGBMRegressor
+except ImportError:  # pragma: no cover - optional dependency
+    LGBMClassifier = None
+    LGBMRegressor = None
+
 from src.strategy.settlement import settle_handicap_bet
 
 
@@ -172,6 +184,7 @@ def train_model_bundle(
                 and previous_bundle.include_market_features == include_market_features
             )
             if can_reuse_previous:
+                assert previous_bundle is not None
                 bundle = previous_bundle
                 probabilities = predict_home_cover_probability(bundle=bundle, df=training_df)
                 fallback_note = (
@@ -473,6 +486,77 @@ def _train_direct_cover_model(
             np.asarray(probabilities, dtype=float),
         )
 
+    if model_name == "xgboost":
+        if XGBClassifier is None:
+            raise ValueError("xgboost is not installed. Install package 'xgboost' to use model_name=xgboost.")
+        estimator = Pipeline(
+            steps=[
+                ("imputer", SimpleImputer(strategy="median")),
+                (
+                    "classifier",
+                    XGBClassifier(
+                        random_state=42,
+                        n_estimators=300,
+                        max_depth=4,
+                        learning_rate=0.05,
+                        subsample=0.9,
+                        colsample_bytree=0.9,
+                        objective="binary:logistic",
+                        eval_metric="logloss",
+                    ),
+                ),
+            ]
+        )
+        estimator.fit(X, y)
+        probabilities = estimator.predict_proba(X)[:, 1]
+        return (
+            ModelBundle(
+                model_name="xgboost",
+                approach="direct_cover",
+                include_market_features=include_market_features,
+                feature_columns=[],
+                estimator=estimator,
+                calibration_method="none",
+                fallback_note="Using XGBoost classifier as high-capacity tree model for direct_cover.",
+            ),
+            np.asarray(probabilities, dtype=float),
+        )
+
+    if model_name == "lightgbm":
+        if LGBMClassifier is None:
+            raise ValueError("lightgbm is not installed. Install package 'lightgbm' to use model_name=lightgbm.")
+        estimator = Pipeline(
+            steps=[
+                ("imputer", SimpleImputer(strategy="median")),
+                (
+                    "classifier",
+                    LGBMClassifier(
+                        random_state=42,
+                        n_estimators=300,
+                        max_depth=-1,
+                        learning_rate=0.05,
+                        subsample=0.9,
+                        colsample_bytree=0.9,
+                        verbose=-1,
+                    ),
+                ),
+            ]
+        )
+        estimator.fit(X, y)
+        probabilities = estimator.predict_proba(X)[:, 1]
+        return (
+            ModelBundle(
+                model_name="lightgbm",
+                approach="direct_cover",
+                include_market_features=include_market_features,
+                feature_columns=[],
+                estimator=estimator,
+                calibration_method="none",
+                fallback_note="Using LightGBM classifier as high-capacity tree model for direct_cover.",
+            ),
+            np.asarray(probabilities, dtype=float),
+        )
+
     raise ValueError(f"Unsupported model_name: {model_name}")
 
 
@@ -483,7 +567,10 @@ def _train_goal_diff_model(
     include_market_features: bool,
 ) -> ModelBundle:
     if model_name == "logistic_regression":
-        raise ValueError("logistic_regression supports direct_cover only. Use gradient_boosting or rule_based for goal_diff.")
+        raise ValueError(
+            "logistic_regression supports direct_cover only. "
+            "Use gradient_boosting, xgboost, lightgbm or rule_based for goal_diff."
+        )
 
     if model_name == "rule_based":
         predicted = _rule_based_goal_diff(X)
@@ -517,6 +604,74 @@ def _train_goal_diff_model(
             estimator=estimator,
             calibration_method="normal_residual_mapping",
             fallback_note="Using scikit-learn HistGradientBoostingRegressor as the Phase 3 expected goal-difference baseline.",
+            residual_std=max(residual_std, 0.25),
+        )
+
+    if model_name == "xgboost":
+        if XGBRegressor is None:
+            raise ValueError("xgboost is not installed. Install package 'xgboost' to use model_name=xgboost.")
+        estimator = Pipeline(
+            steps=[
+                ("imputer", SimpleImputer(strategy="median")),
+                (
+                    "regressor",
+                    XGBRegressor(
+                        random_state=42,
+                        n_estimators=300,
+                        max_depth=4,
+                        learning_rate=0.05,
+                        subsample=0.9,
+                        colsample_bytree=0.9,
+                        objective="reg:squarederror",
+                    ),
+                ),
+            ]
+        )
+        estimator.fit(X, y)
+        predicted = estimator.predict(X)
+        residual_std = float(np.std(y - predicted)) or 1.0
+        return ModelBundle(
+            model_name="xgboost",
+            approach="goal_diff",
+            include_market_features=include_market_features,
+            feature_columns=[],
+            estimator=estimator,
+            calibration_method="normal_residual_mapping",
+            fallback_note="Using XGBoost regressor for expected goal-difference modeling.",
+            residual_std=max(residual_std, 0.25),
+        )
+
+    if model_name == "lightgbm":
+        if LGBMRegressor is None:
+            raise ValueError("lightgbm is not installed. Install package 'lightgbm' to use model_name=lightgbm.")
+        estimator = Pipeline(
+            steps=[
+                ("imputer", SimpleImputer(strategy="median")),
+                (
+                    "regressor",
+                    LGBMRegressor(
+                        random_state=42,
+                        n_estimators=300,
+                        max_depth=-1,
+                        learning_rate=0.05,
+                        subsample=0.9,
+                        colsample_bytree=0.9,
+                        verbose=-1,
+                    ),
+                ),
+            ]
+        )
+        estimator.fit(X, y)
+        predicted = estimator.predict(X)
+        residual_std = float(np.std(y - predicted)) or 1.0
+        return ModelBundle(
+            model_name="lightgbm",
+            approach="goal_diff",
+            include_market_features=include_market_features,
+            feature_columns=[],
+            estimator=estimator,
+            calibration_method="normal_residual_mapping",
+            fallback_note="Using LightGBM regressor for expected goal-difference modeling.",
             residual_std=max(residual_std, 0.25),
         )
 

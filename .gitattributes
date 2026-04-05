@@ -1,0 +1,7 @@
+* text=auto
+
+# Keep giant generated artifacts out of noisy diffs and language stats.
+artifacts/** -diff linguist-generated
+
+# CSV is still plain text, but avoid noisy CRLF flips across platforms.
+*.csv text eol=lf

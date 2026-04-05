@@ -1,7 +1,11 @@
+import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pandas as pd
+import pytest
 
+from src.config.settings import get_settings
 from src.features.pipeline import build_feature_pipeline
 from src.optimizer.grid_search import ObjectiveWeights, compute_objective_score, optimize_strategy
 
@@ -91,3 +95,83 @@ def test_multi_objective_score_rewards_win_rate_and_placed_bets() -> None:
     )
 
     assert better_quality > low_quality
+
+
+def test_optimizer_winrate_guarded_hard_min_bets_with_outer_rolling(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    feature_path = tmp_path / "features_outer.csv"
+    output_dir = tmp_path / "optimizer"
+
+    # Outer rolling only needs enough rows to create sliding windows; backtest internals are mocked below.
+    pd.DataFrame({"row_id": list(range(240))}).to_csv(feature_path, index=False)
+
+    window_profiles = {
+        0.01: [
+            {"roi": 0.08, "win_rate": 0.62, "max_drawdown": 0.07, "total_bets_placed": 90},
+            {"roi": 0.07, "win_rate": 0.61, "max_drawdown": 0.08, "total_bets_placed": 95},
+            {"roi": 0.06, "win_rate": 0.60, "max_drawdown": 0.09, "total_bets_placed": 100},
+        ],
+        0.02: [
+            {"roi": 0.04, "win_rate": 0.56, "max_drawdown": 0.08, "total_bets_placed": 130},
+            {"roi": 0.03, "win_rate": 0.55, "max_drawdown": 0.09, "total_bets_placed": 128},
+            {"roi": 0.035, "win_rate": 0.57, "max_drawdown": 0.10, "total_bets_placed": 132},
+        ],
+    }
+
+    def _fake_run_backtest_with_result(
+        *,
+        input_path: Path,
+        strategy_overrides: dict[str, object],
+        **_: object,
+    ) -> SimpleNamespace:
+        edge = float(strategy_overrides["min_edge_threshold"])
+        file_name = input_path.name
+        window_idx = 0
+        if file_name.startswith("outer_window_") and file_name.endswith(".csv"):
+            token = file_name.removeprefix("outer_window_").removesuffix(".csv")
+            window_idx = max(0, int(token) - 1)
+
+        summary = {
+            **window_profiles[edge][window_idx],
+            "risk_of_ruin_estimate": 0.05,
+            "avg_clv_pct": 0.0,
+            "median_clv_pct": 0.0,
+            "pct_positive_clv": 0.0,
+            "prediction_cache_hits": 0,
+            "prediction_cache_misses": 1,
+        }
+        return SimpleNamespace(summary=summary)
+
+    monkeypatch.setattr("src.optimizer.grid_search.run_backtest_with_result", _fake_run_backtest_with_result)
+    monkeypatch.setenv("OPTIMIZER_MODE", "WINRATE_GUARDED")
+    monkeypatch.setenv("OPTIMIZER_HARD_MIN_BETS", "120")
+    monkeypatch.setenv("OPTIMIZER_MIN_BETS_TARGET", "120")
+    monkeypatch.setenv("OPTIMIZER_WINRATE_MIN_WIN_RATE", "0.53")
+    monkeypatch.setenv("OPTIMIZER_WINRATE_DRAWDOWN_CAP", "0.12")
+    get_settings.cache_clear()
+
+    try:
+        optimize_strategy(
+            input_path=feature_path,
+            output_dir=output_dir,
+            edge_grid=[0.01, 0.02],
+            confidence_grid=[0.55],
+            policy_grid=["flat"],
+            kelly_grid=[0.15],
+            max_alerts_grid=[1],
+            max_stake_grid=[0.01],
+            daily_exposure_grid=[0.03],
+            outer_rolling_windows=3,
+            outer_min_window_matches=60,
+            max_runs=2,
+        )
+    finally:
+        get_settings.cache_clear()
+
+    results_df = pd.read_csv(output_dir / "params_results.csv")
+    best_payload = json.loads((output_dir / "best_params.json").read_text(encoding="utf-8"))
+
+    assert set(results_df["outer_rolling_windows"]) == {3}
+    assert set(results_df["min_window_bets"]) == {90, 128}
+    assert float(best_payload["min_edge_threshold"]) == 0.02
+    assert int(best_payload["min_window_bets"]) == 128
+    assert float(best_payload["score"]) > -1000.0

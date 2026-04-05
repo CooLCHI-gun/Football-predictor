@@ -143,4 +143,7 @@ def resolve_match_display(
 def _safe_text(value: str | None) -> str:
     if value is None:
         return ""
-    return str(value).strip()
+    text = str(value).strip()
+    if text.lower() in {"nan", "none", "null", "na", "n/a"}:
+        return ""
+    return text

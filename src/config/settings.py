@@ -70,6 +70,12 @@ class AppSettings(BaseSettings):
     optimizer_target_placed_bets: int = Field(default=120, alias="OPTIMIZER_TARGET_PLACED_BETS")
     optimizer_lambda_low_bets: float = Field(default=0.1, alias="OPTIMIZER_LAMBDA_LOW_BETS")
     optimizer_min_bets_target: int = Field(default=10, alias="OPTIMIZER_MIN_BETS_TARGET")
+    optimizer_mode: str = Field(default="BALANCED", alias="OPTIMIZER_MODE")
+    optimizer_hard_min_bets: int = Field(default=120, alias="OPTIMIZER_HARD_MIN_BETS")
+    optimizer_winrate_min_win_rate: float = Field(default=0.53, alias="OPTIMIZER_WINRATE_MIN_WIN_RATE")
+    optimizer_winrate_drawdown_cap: float = Field(default=0.12, alias="OPTIMIZER_WINRATE_DRAWDOWN_CAP")
+    optimizer_outer_rolling_windows: int = Field(default=3, alias="OPTIMIZER_OUTER_ROLLING_WINDOWS")
+    optimizer_outer_min_window_matches: int = Field(default=180, alias="OPTIMIZER_OUTER_MIN_WINDOW_MATCHES")
 
     telegram_bot_token: str = Field(default="", alias="TELEGRAM_BOT_TOKEN")
     telegram_chat_id: str = Field(default="", alias="TELEGRAM_CHAT_ID")
@@ -92,6 +98,15 @@ class AppSettings(BaseSettings):
         allowed = {"AUTO", "NON_HKJC", "HKJC", "MIXED"}
         if candidate not in allowed:
             raise ValueError(f"BACKTEST_DATASET_SCOPE must be one of: {', '.join(sorted(allowed))}")
+        return candidate
+
+    @field_validator("optimizer_mode", mode="before")
+    @classmethod
+    def _normalize_optimizer_mode(cls, value: object) -> str:
+        candidate = str(value).strip().upper() if value is not None else "BALANCED"
+        allowed = {"BALANCED", "WINRATE_GUARDED"}
+        if candidate not in allowed:
+            raise ValueError(f"OPTIMIZER_MODE must be one of: {', '.join(sorted(allowed))}")
         return candidate
 
     @property

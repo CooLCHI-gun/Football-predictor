@@ -3,6 +3,7 @@ from __future__ import annotations
 import itertools
 import json
 import logging
+import statistics
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
@@ -23,6 +24,8 @@ DEFAULT_KELLY_GRID = [0.15, 0.25, 0.35, 0.50]
 DEFAULT_MAX_ALERTS_GRID = [1, 2, 3]
 DEFAULT_MAX_STAKE_GRID = [0.01, 0.02]
 DEFAULT_DAILY_EXPOSURE_GRID = [0.03, 0.05]
+DEFAULT_OUTER_ROLLING_WINDOWS = 1
+DEFAULT_OUTER_MIN_WINDOW_MATCHES = 120
 
 
 @dataclass(frozen=True)
@@ -35,6 +38,10 @@ class ObjectiveWeights:
     target_placed_bets: int
     lambda_low_bets: float
     min_bets_target: int
+    mode: str = "BALANCED"
+    winrate_min_win_rate: float = 0.53
+    winrate_drawdown_cap: float = 0.12
+    hard_min_bets: int = 120
 
 
 @dataclass(frozen=True)
@@ -62,6 +69,8 @@ def optimize_strategy(
     max_alerts_grid: list[int] | None = None,
     max_stake_grid: list[float] | None = None,
     daily_exposure_grid: list[float] | None = None,
+    outer_rolling_windows: int | None = None,
+    outer_min_window_matches: int | None = None,
     max_runs: int | None = None,
     dry_run: bool = False,
 ) -> str:
@@ -77,6 +86,11 @@ def optimize_strategy(
     max_alerts_grid = max_alerts_grid or DEFAULT_MAX_ALERTS_GRID
     max_stake_grid = max_stake_grid or DEFAULT_MAX_STAKE_GRID
     daily_exposure_grid = daily_exposure_grid or DEFAULT_DAILY_EXPOSURE_GRID
+    outer_rolling_windows = max(1, outer_rolling_windows or int(getattr(settings, "optimizer_outer_rolling_windows", DEFAULT_OUTER_ROLLING_WINDOWS)))
+    outer_min_window_matches = max(
+        30,
+        outer_min_window_matches or int(getattr(settings, "optimizer_outer_min_window_matches", DEFAULT_OUTER_MIN_WINDOW_MATCHES)),
+    )
 
     combinations = list(
         itertools.product(
@@ -106,6 +120,10 @@ def optimize_strategy(
         target_placed_bets=int(getattr(settings, "optimizer_target_placed_bets", 120)),
         lambda_low_bets=settings.optimizer_lambda_low_bets,
         min_bets_target=settings.optimizer_min_bets_target,
+        mode=str(getattr(settings, "optimizer_mode", "BALANCED")).upper(),
+        winrate_min_win_rate=float(getattr(settings, "optimizer_winrate_min_win_rate", 0.53)),
+        winrate_drawdown_cap=float(getattr(settings, "optimizer_winrate_drawdown_cap", 0.12)),
+        hard_min_bets=int(getattr(settings, "optimizer_hard_min_bets", 120)),
     )
 
     rows: list[dict[str, object]] = []
@@ -138,9 +156,9 @@ def optimize_strategy(
         ).replace(".", "p")
         run_dir = output_dir / "runs" / run_name
 
-        result = run_backtest_with_result(
+        summary = _evaluate_param_set_with_outer_rolling(
             input_path=input_path,
-            output_dir=run_dir,
+            run_dir=run_dir,
             prediction_cache_dir=prediction_cache_dir,
             use_prediction_cache=use_prediction_cache,
             force_prediction_cache_refresh=force_prediction_cache_refresh,
@@ -155,13 +173,15 @@ def optimize_strategy(
                 "max_stake_pct": params.max_stake_pct,
                 "daily_max_exposure_pct": params.daily_max_exposure_pct,
             },
+            outer_rolling_windows=outer_rolling_windows,
+            outer_min_window_matches=outer_min_window_matches,
         )
 
-        summary = result.summary
         roi = _as_float(summary.get("roi"), 0.0)
         max_drawdown = _as_float(summary.get("max_drawdown"), 0.0)
         total_bets = _as_int(summary.get("total_bets_placed"), 0)
         win_rate = _as_float(summary.get("win_rate"), 0.0)
+        min_window_bets = _as_int(summary.get("min_window_bets"), total_bets)
         risk_of_ruin_estimate = _as_optional_float(summary.get("risk_of_ruin_estimate"))
         avg_clv_pct = _as_optional_float(summary.get("avg_clv_pct"))
         median_clv_pct = _as_optional_float(summary.get("median_clv_pct"))
@@ -179,6 +199,7 @@ def optimize_strategy(
             risk_of_ruin_estimate=risk_of_ruin_estimate,
             clv_score=clv_score,
             total_bets_placed=total_bets,
+            min_window_bets=min_window_bets,
             weights=weights,
         )
 
@@ -188,19 +209,33 @@ def optimize_strategy(
             "max_drawdown": max_drawdown,
             "risk_of_ruin_estimate": risk_of_ruin_estimate,
             "total_bets_placed": total_bets,
+            "min_window_bets": min_window_bets,
             "win_rate": win_rate,
             "avg_clv_pct": avg_clv_pct,
             "median_clv_pct": median_clv_pct,
             "pct_positive_clv": pct_positive_clv,
             "clv_score": clv_score,
+            "outer_rolling_windows": _as_int(summary.get("outer_rolling_windows"), 1),
+            "outer_min_window_matches": outer_min_window_matches,
             "prediction_cache_hits": run_cache_hits,
             "prediction_cache_misses": run_cache_misses,
             "score": score,
         }
         rows.append(row)
 
-        if best_row is None or _as_float(row.get("score"), -1e9) > _as_float(best_row.get("score"), -1e9):
+        eligible_for_best = _as_int(row.get("min_window_bets"), 0) >= weights.hard_min_bets
+        if best_row is None and eligible_for_best:
             best_row = row
+            continue
+
+        if eligible_for_best and (
+            best_row is None or _as_float(row.get("score"), -1e9) > _as_float(best_row.get("score"), -1e9)
+        ):
+            best_row = row
+
+    # Fallback: if every run violates hard minimum-bets, keep top score anyway.
+    if best_row is None and rows:
+        best_row = max(rows, key=lambda item: _as_float(item.get("score"), -1e9))
 
     results_df = pd.DataFrame(rows).sort_values("score", ascending=False)
     params_results_path = output_dir / "params_results.csv"
@@ -219,7 +254,142 @@ def optimize_strategy(
     if use_prediction_cache:
         cache_fragment = f" | prediction_cache_hits={cache_hits} | prediction_cache_misses={cache_misses}"
 
-    return f"Optimization complete: runs={len(rows)} | results={params_results_path} | best={best_params_path}{cache_fragment}"
+    rolling_fragment = f" | outer_rolling_windows={outer_rolling_windows} | outer_min_window_matches={outer_min_window_matches}"
+    return (
+        f"Optimization complete: runs={len(rows)} | results={params_results_path} | "
+        f"best={best_params_path}{rolling_fragment}{cache_fragment}"
+    )
+
+
+def _evaluate_param_set_with_outer_rolling(
+    *,
+    input_path: Path,
+    run_dir: Path,
+    prediction_cache_dir: Path,
+    use_prediction_cache: bool,
+    force_prediction_cache_refresh: bool,
+    strategy_overrides: dict[str, object],
+    bankroll_overrides: dict[str, object],
+    outer_rolling_windows: int,
+    outer_min_window_matches: int,
+) -> dict[str, object]:
+    if outer_rolling_windows <= 1:
+        result = run_backtest_with_result(
+            input_path=input_path,
+            output_dir=run_dir,
+            prediction_cache_dir=prediction_cache_dir,
+            use_prediction_cache=use_prediction_cache,
+            force_prediction_cache_refresh=force_prediction_cache_refresh,
+            strategy_overrides=strategy_overrides,
+            bankroll_overrides=bankroll_overrides,
+        )
+        return {
+            **result.summary,
+            "outer_rolling_windows": 1,
+            "min_window_bets": _as_int(result.summary.get("total_bets_placed"), 0),
+        }
+
+    frame = pd.read_csv(input_path)
+    total_rows = len(frame)
+    if total_rows < outer_min_window_matches:
+        result = run_backtest_with_result(
+            input_path=input_path,
+            output_dir=run_dir,
+            prediction_cache_dir=prediction_cache_dir,
+            use_prediction_cache=use_prediction_cache,
+            force_prediction_cache_refresh=force_prediction_cache_refresh,
+            strategy_overrides=strategy_overrides,
+            bankroll_overrides=bankroll_overrides,
+        )
+        return {
+            **result.summary,
+            "outer_rolling_windows": 1,
+            "min_window_bets": _as_int(result.summary.get("total_bets_placed"), 0),
+        }
+
+    window_size = max(outer_min_window_matches, total_rows // outer_rolling_windows)
+    window_size = min(window_size, total_rows)
+    step = 1 if outer_rolling_windows <= 1 else max(1, (total_rows - window_size) // (outer_rolling_windows - 1))
+
+    summaries: list[dict[str, object]] = []
+    for window_idx in range(outer_rolling_windows):
+        start = min(window_idx * step, max(0, total_rows - window_size))
+        end = min(total_rows, start + window_size)
+        subset = frame.iloc[start:end].copy()
+        if len(subset) < outer_min_window_matches:
+            continue
+
+        window_input_path = run_dir / f"outer_window_{window_idx + 1}.csv"
+        window_output_dir = run_dir / f"outer_window_{window_idx + 1}"
+        window_input_path.parent.mkdir(parents=True, exist_ok=True)
+        subset.to_csv(window_input_path, index=False)
+
+        result = run_backtest_with_result(
+            input_path=window_input_path,
+            output_dir=window_output_dir,
+            prediction_cache_dir=prediction_cache_dir,
+            use_prediction_cache=use_prediction_cache,
+            force_prediction_cache_refresh=force_prediction_cache_refresh,
+            strategy_overrides=strategy_overrides,
+            bankroll_overrides=bankroll_overrides,
+        )
+        summaries.append(result.summary)
+
+    if not summaries:
+        result = run_backtest_with_result(
+            input_path=input_path,
+            output_dir=run_dir,
+            prediction_cache_dir=prediction_cache_dir,
+            use_prediction_cache=use_prediction_cache,
+            force_prediction_cache_refresh=force_prediction_cache_refresh,
+            strategy_overrides=strategy_overrides,
+            bankroll_overrides=bankroll_overrides,
+        )
+        return {
+            **result.summary,
+            "outer_rolling_windows": 1,
+            "min_window_bets": _as_int(result.summary.get("total_bets_placed"), 0),
+        }
+
+    roi_values = [_as_float(item.get("roi"), 0.0) for item in summaries]
+    win_rate_values = [_as_float(item.get("win_rate"), 0.0) for item in summaries]
+    drawdown_values = [_as_float(item.get("max_drawdown"), 0.0) for item in summaries]
+    bets_values = [_as_int(item.get("total_bets_placed"), 0) for item in summaries]
+    ror_values = [
+        _as_optional_float(item.get("risk_of_ruin_estimate"))
+        for item in summaries
+        if _as_optional_float(item.get("risk_of_ruin_estimate")) is not None
+    ]
+    clv_avg_values = [
+        _as_optional_float(item.get("avg_clv_pct"))
+        for item in summaries
+        if _as_optional_float(item.get("avg_clv_pct")) is not None
+    ]
+    clv_median_values = [
+        _as_optional_float(item.get("median_clv_pct"))
+        for item in summaries
+        if _as_optional_float(item.get("median_clv_pct")) is not None
+    ]
+    positive_clv_values = [
+        _as_optional_float(item.get("pct_positive_clv"))
+        for item in summaries
+        if _as_optional_float(item.get("pct_positive_clv")) is not None
+    ]
+
+    return {
+        "roi": statistics.fmean(roi_values) if roi_values else 0.0,
+        "win_rate": statistics.fmean(win_rate_values) if win_rate_values else 0.0,
+        "max_drawdown": max(drawdown_values) if drawdown_values else 0.0,
+        "total_bets_placed": int(round(statistics.fmean(bets_values))) if bets_values else 0,
+        "min_window_bets": min(bets_values) if bets_values else 0,
+        "risk_of_ruin_estimate": max(ror_values) if ror_values else None,
+        "avg_clv_pct": statistics.fmean(clv_avg_values) if clv_avg_values else None,
+        "median_clv_pct": statistics.fmean(clv_median_values) if clv_median_values else None,
+        "pct_positive_clv": statistics.fmean(positive_clv_values) if positive_clv_values else None,
+        "prediction_cache_hits": sum(_as_int(item.get("prediction_cache_hits"), 0) for item in summaries),
+        "prediction_cache_misses": sum(_as_int(item.get("prediction_cache_misses"), 0) for item in summaries),
+        "outer_rolling_windows": len(summaries),
+    }
 
 
 def compute_objective_score(
@@ -230,8 +400,24 @@ def compute_objective_score(
     risk_of_ruin_estimate: float | None,
     clv_score: float | None,
     total_bets_placed: int,
+    min_window_bets: int | None = None,
     weights: ObjectiveWeights,
 ) -> float:
+    min_window_bets = total_bets_placed if min_window_bets is None else min_window_bets
+    if min_window_bets < weights.hard_min_bets:
+        return -1000.0 - (weights.hard_min_bets - min_window_bets)
+
+    if weights.mode == "WINRATE_GUARDED":
+        return compute_objective_score_winrate_guarded(
+            roi=roi,
+            win_rate=win_rate,
+            max_drawdown=max_drawdown,
+            risk_of_ruin_estimate=risk_of_ruin_estimate,
+            clv_score=clv_score,
+            total_bets_placed=total_bets_placed,
+            weights=weights,
+        )
+
     low_bet_penalty = max(
         0.0,
         (weights.min_bets_target - total_bets_placed) / max(1, weights.min_bets_target),
@@ -248,6 +434,41 @@ def compute_objective_score(
         - (weights.lambda_ror * risk_penalty)
         + (weights.mu_clv * clv_term)
         - (weights.lambda_low_bets * low_bet_penalty)
+    )
+
+
+def compute_objective_score_winrate_guarded(
+    *,
+    roi: float,
+    win_rate: float,
+    max_drawdown: float,
+    risk_of_ruin_estimate: float | None,
+    clv_score: float | None,
+    total_bets_placed: int,
+    weights: ObjectiveWeights,
+) -> float:
+    if max_drawdown > weights.winrate_drawdown_cap:
+        return -500.0 - (max_drawdown - weights.winrate_drawdown_cap) * 100.0
+
+    if win_rate < weights.winrate_min_win_rate:
+        return -300.0 - (weights.winrate_min_win_rate - win_rate) * 100.0
+
+    risk_penalty = risk_of_ruin_estimate if risk_of_ruin_estimate is not None else 1.0
+    clv_term = clv_score if clv_score is not None else 0.0
+    placed_bets_term = min(1.0, total_bets_placed / max(1, weights.target_placed_bets))
+    low_bet_penalty = max(
+        0.0,
+        (weights.min_bets_target - total_bets_placed) / max(1, weights.min_bets_target),
+    )
+
+    return (
+        (1.50 * win_rate)
+        + (0.45 * roi)
+        + (0.15 * clv_term)
+        + (0.25 * placed_bets_term)
+        - (1.20 * max_drawdown)
+        - (0.80 * risk_penalty)
+        - (0.20 * low_bet_penalty)
     )
 
 

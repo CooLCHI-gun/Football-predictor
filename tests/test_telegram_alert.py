@@ -1,6 +1,6 @@
 import pytest
 
-from src.alerts.notifier import BetRecord, send_bet_alert
+from src.alerts.notifier import BetRecord, build_bet_alert_message, send_bet_alert
 from src.alerts.telegram_client import TelegramClient, validate_telegram_configuration
 
 
@@ -40,3 +40,55 @@ def test_validate_telegram_configuration_has_actionable_message() -> None:
     assert "TELEGRAM_CHAT_ID" in message
     assert "getUpdates" in message
     assert "Invoke-RestMethod" in message
+
+
+def test_build_bet_alert_message_sanitizes_nan_team_fields() -> None:
+    bet = BetRecord(
+        provider_match_id="x2",
+        kickoff_time_utc="2026-01-01T12:00:00+00:00",
+        home_team_name="Manchester City",
+        away_team_name="Liverpool",
+        handicap_line=-0.25,
+        model_name="xgboost",
+        model_approach="direct_cover",
+        predicted_side="home",
+        predicted_win_probability=0.58,
+        implied_probability=0.50,
+        edge=0.08,
+        stake_size=100.0,
+        competition="English Premier League",
+        competition_zh="nan",
+        home_team_name_zh="nan",
+        away_team_name_zh="null",
+    )
+
+    message = build_bet_alert_message(bet)
+
+    assert "曼城 對 利物浦" in message
+    assert "英超" in message
+    assert "nan" not in message.lower()
+    assert "null" not in message.lower()
+
+
+def test_build_bet_alert_message_uses_traditional_chinese_debug_labels() -> None:
+    bet = BetRecord(
+        provider_match_id="x3",
+        kickoff_time_utc="2026-01-01T12:00:00+00:00",
+        home_team_name="A",
+        away_team_name="B",
+        handicap_line=0.0,
+        model_name="xgboost",
+        model_approach="direct_cover",
+        predicted_side="away",
+        original_predicted_side="home",
+        predicted_win_probability=0.55,
+        implied_probability=0.48,
+        edge=0.07,
+        stake_size=100.0,
+        flip_hkjc_side_enabled=True,
+    )
+
+    message = build_bet_alert_message(bet)
+
+    assert "模型方向" in message
+    assert "生效方向" in message
