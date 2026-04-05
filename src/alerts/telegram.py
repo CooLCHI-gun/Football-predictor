@@ -65,9 +65,26 @@ def send_telegram_alert(
         ),
         axis=1,
     )
+
     filtered = filtered.dropna(subset=["implied_probability"])
     filtered["edge"] = filtered["model_probability"].astype(float) - filtered["implied_probability"].astype(float)
     filtered = filtered[filtered["edge"] >= edge_threshold]
+
+    # --- 去重: 排除已推送過的 provider_match_id ---
+    alert_log_path = Path("artifacts/live/live_alert_log.csv")
+    sent_ids = set()
+    if alert_log_path.exists():
+        try:
+            log_df = pd.read_csv(alert_log_path)
+            if "provider_match_id" in log_df.columns:
+                sent_ids = set(log_df["provider_match_id"].astype(str))
+        except Exception as e:
+            LOGGER.warning(f"Failed to read alert log for deduplication: {e}")
+    before_dedup = len(filtered)
+    filtered = filtered[~filtered["provider_match_id"].astype(str).isin(sent_ids)]
+    after_dedup = len(filtered)
+    if before_dedup > after_dedup:
+        LOGGER.info(f"Deduplication: {before_dedup-after_dedup} alerts skipped (already sent)")
 
     if filtered.empty:
         LOGGER.info("Alert found no candidate bets after threshold filtering")
