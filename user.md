@@ -227,6 +227,29 @@ env:
   TELEGRAM_DRY_RUN: ${{ secrets.TELEGRAM_DRY_RUN }}
 ```
 
+GitHub Actions 實務更新（2026-04）
+- `scheduled-live` 只讀取當天 optimizer run-id：`daily_optimize_YYYYMMDD`，不會再取「最新檔」。
+- `scheduled-live` 若 primary live 失敗，會自動 fallback 一次保守門檻：`edge=0.02`、`confidence=0.10`、`max_alerts=1`。
+- workflow 強制納入 `xgboost` + `lightgbm`（缺檔即補訓）。
+- 目前模型權重政策：`xgboost=0.70`、`lightgbm=0.30`。
+- Telegram 訊息已加上名稱清洗與繁體中文顯示保護，避免 `nan/null` 或錯誤隊名進入通知。
+
+部署策略（重要）
+- 本專案現階段以 GitHub Actions 為唯一排程入口，不再使用 Railway。
+- 建議固定使用四條排程 workflow：backtest / optimize / live / pipeline-one-shot。
+
+策略門檻（保守度）
+- 現行 live 門檻屬偏保守，目的是先控制風險與訊號品質。
+- 若要提高覆蓋率，建議每次只微調一項（例如 confidence 由 0.10 降到 0.08），並用 100+ 場回測 + rolling 驗證。
+- 不建議同時大幅降低 edge 與 confidence，避免在噪音期放大回撤。
+
+GraphQL 與 CSV 取捨
+- 有 GraphQL 仍建議保留 CSV，作為審計與重現用途（snapshot / summary / trade log）。
+- 但大型 CSV 不應提交到 Git，應改由 Actions artifact 或外部儲存管理。
+- push repo 不會自動上傳 artifacts；必須在 workflow 明確使用 `actions/upload-artifact@v4`。
+- 現行 workflow 已統一設定 `retention-days: 90`，對齊長期留存治理。
+- 留存制度文件：`config/data_retention_policy.yml`。
+
 ---
 
 ## Quick Reference

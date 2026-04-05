@@ -1,0 +1,111 @@
+name: Scheduled Optimize
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_path:
+        description: Feature CSV path
+        required: false
+        default: data/processed/features_phase3_full.csv
+        type: string
+      run_id:
+        description: Optimizer run id
+        required: false
+        default: gha_daily_optimize
+        type: string
+      max_runs:
+        description: Max optimizer runs
+        required: false
+        default: '120'
+        type: string
+  schedule:
+    - cron: '30 19 * * *' # 03:30 HKT optimize
+
+concurrency:
+  group: scheduled-optimize-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      FEATURE_PATH: ${{ github.event_name == 'workflow_dispatch' && inputs.feature_path || 'data/processed/features_phase3_full.csv' }}
+      RUN_ID_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.run_id || '' }}
+      MAX_RUNS: ${{ github.event_name == 'workflow_dispatch' && inputs.max_runs || '120' }}
+      OPTIMIZER_LAMBDA_DRAWDOWN: '0.55'
+      OPTIMIZER_LAMBDA_ROR: '0.60'
+      OPTIMIZER_MU_CLV: '0.20'
+      OPTIMIZER_MU_WIN_RATE: '0.35'
+      OPTIMIZER_MU_PLACED_BETS: '0.25'
+      OPTIMIZER_TARGET_PLACED_BETS: '120'
+      OPTIMIZER_LAMBDA_LOW_BETS: '0.10'
+      OPTIMIZER_MIN_BETS_TARGET: '120'
+      OPTIMIZER_HARD_MIN_BETS: '120'
+      OPTIMIZER_MODE: WINRATE_GUARDED
+      OPTIMIZER_WINRATE_MIN_WIN_RATE: '0.53'
+      OPTIMIZER_WINRATE_DRAWDOWN_CAP: '0.12'
+      OPTIMIZER_OUTER_ROLLING_WINDOWS: '3'
+      OPTIMIZER_OUTER_MIN_WINDOW_MATCHES: '180'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate training data source
+        run: |
+          python .github/scripts/validate_training_data.py \
+            --input-path "$FEATURE_PATH" \
+            --min-real-rows 300 \
+            --strict-after-min-real
+
+      - name: Resolve day-scoped optimizer run id
+        id: resolve_run_id
+        run: |
+          if [ -n "$RUN_ID_INPUT" ]; then
+            EFFECTIVE_RUN_ID="$RUN_ID_INPUT"
+          else
+            HKT_DATE=$(TZ=Asia/Hong_Kong date +%Y%m%d)
+            EFFECTIVE_RUN_ID="daily_optimize_${HKT_DATE}"
+          fi
+          echo "EFFECTIVE_RUN_ID=$EFFECTIVE_RUN_ID" >> "$GITHUB_ENV"
+          echo "effective_run_id=$EFFECTIVE_RUN_ID" >> "$GITHUB_OUTPUT"
+          echo "optimizer run id resolved: $EFFECTIVE_RUN_ID"
+
+      - name: Run optimizer
+        run: |
+          python -m src.main optimize \
+            --input-csv-path "$FEATURE_PATH" \
+            --output-dir artifacts/optimizer \
+            --run-id "$EFFECTIVE_RUN_ID" \
+            --max-runs "$MAX_RUNS" \
+            --use-prediction-cache \
+            --force
+
+      - name: Save day optimizer cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            artifacts/optimizer/${{ steps.resolve_run_id.outputs.effective_run_id }}/**
+          key: optimize-best-${{ runner.os }}-${{ github.ref_name }}-${{ steps.resolve_run_id.outputs.effective_run_id }}
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: optimize-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 90
+          path: |
+            artifacts/optimizer/**
+          if-no-files-found: ignore

@@ -1,0 +1,190 @@
+name: Pipeline One-Shot
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_path:
+        description: Feature CSV path
+        required: false
+        default: data/processed/features_phase3_full.csv
+        type: string
+      live_mode:
+        description: dry or live
+        required: false
+        default: dry
+        type: choice
+        options:
+          - dry
+          - live
+      max_runs:
+        description: Optimizer max runs
+        required: false
+        default: '120'
+        type: string
+  schedule:
+    - cron: '30 16 * * *' # 00:30 HKT full one-shot pipeline
+
+concurrency:
+  group: pipeline-one-shot-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      FEATURE_PATH: ${{ github.event_name == 'workflow_dispatch' && inputs.feature_path || 'data/processed/features_phase3_full.csv' }}
+      MAX_RUNS: ${{ github.event_name == 'workflow_dispatch' && inputs.max_runs || '120' }}
+      OPTIMIZER_LAMBDA_DRAWDOWN: '0.55'
+      OPTIMIZER_LAMBDA_ROR: '0.60'
+      OPTIMIZER_MU_CLV: '0.20'
+      OPTIMIZER_MU_WIN_RATE: '0.35'
+      OPTIMIZER_MU_PLACED_BETS: '0.25'
+      OPTIMIZER_TARGET_PLACED_BETS: '120'
+      OPTIMIZER_LAMBDA_LOW_BETS: '0.10'
+      OPTIMIZER_MIN_BETS_TARGET: '60'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Restore model and retrain-state cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            artifacts/model_bundle_xgboost.pkl
+            artifacts/model_bundle_lightgbm.pkl
+            artifacts/retrain_state/feature_hash.txt
+          key: pipeline-model-${{ runner.os }}-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            pipeline-model-${{ runner.os }}-${{ github.ref_name }}-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m playwright install chromium
+
+      - name: Validate training data source
+        run: |
+          python .github/scripts/validate_training_data.py \
+            --input-path "$FEATURE_PATH" \
+            --min-real-rows 300 \
+            --strict-after-min-real
+
+      - name: Decide whether retrain is needed
+        id: retrain_gate
+        run: |
+          mkdir -p artifacts/retrain_state
+          CURRENT_HASH=$(sha256sum "$FEATURE_PATH" | awk '{print $1}')
+          PREV_HASH=""
+          if [ -f artifacts/retrain_state/feature_hash.txt ]; then
+            PREV_HASH=$(cat artifacts/retrain_state/feature_hash.txt)
+          fi
+
+          SHOULD_RETRAIN="false"
+          if [ ! -f artifacts/model_bundle_xgboost.pkl ] || [ ! -f artifacts/model_bundle_lightgbm.pkl ]; then
+            SHOULD_RETRAIN="true"
+          elif [ "$CURRENT_HASH" != "$PREV_HASH" ]; then
+            SHOULD_RETRAIN="true"
+          fi
+
+          echo "feature_hash=$CURRENT_HASH" >> "$GITHUB_OUTPUT"
+          echo "should_retrain=$SHOULD_RETRAIN" >> "$GITHUB_OUTPUT"
+          echo "retrain decision: SHOULD_RETRAIN=$SHOULD_RETRAIN"
+
+      - name: Train XGBoost
+        if: ${{ steps.retrain_gate.outputs.should_retrain == 'true' }}
+        run: |
+          python -m src.main train \
+            --input-path "$FEATURE_PATH" \
+            --model-name xgboost \
+            --approach direct_cover \
+            --model-output-path artifacts/model_bundle_xgboost.pkl \
+            --report-output-path artifacts/train_report_xgboost_gha.json \
+            --force
+
+      - name: Train LightGBM shadow model
+        if: ${{ steps.retrain_gate.outputs.should_retrain == 'true' }}
+        run: |
+          python -m src.main train \
+            --input-path "$FEATURE_PATH" \
+            --model-name lightgbm \
+            --approach direct_cover \
+            --model-output-path artifacts/model_bundle_lightgbm.pkl \
+            --report-output-path artifacts/train_report_lightgbm_gha.json \
+            --force
+
+      - name: Persist current feature hash after retrain
+        if: ${{ steps.retrain_gate.outputs.should_retrain == 'true' }}
+        run: |
+          echo "${{ steps.retrain_gate.outputs.feature_hash }}" > artifacts/retrain_state/feature_hash.txt
+
+      - name: Backtest
+        run: |
+          python -m src.main backtest \
+            --input-csv-path "$FEATURE_PATH" \
+            --output-dir artifacts/backtest \
+            --run-id gha_pipeline_backtest \
+            --force
+
+      - name: Optimize
+        run: |
+          python -m src.main optimize \
+            --input-csv-path "$FEATURE_PATH" \
+            --output-dir artifacts/optimizer \
+            --run-id gha_pipeline_optimize \
+            --max-runs "$MAX_RUNS" \
+            --use-prediction-cache \
+            --force
+
+      - name: Live one-shot
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          LIVE_FLAG="--dry-run"
+          export TELEGRAM_DRY_RUN="true"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.live_mode }}" = "live" ]; then
+            LIVE_FLAG="--live"
+            export TELEGRAM_DRY_RUN="false"
+          fi
+
+          python -m src.main live-run-once \
+            --provider hkjc \
+            --model-path artifacts/model_bundle_xgboost.pkl \
+            $LIVE_FLAG \
+            --edge-threshold 0.02 \
+            --confidence-threshold 0.10 \
+            --max-alerts 1 \
+            --output-dir artifacts/live \
+            --force
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-one-shot-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 90
+          path: |
+            artifacts/backtest/**
+            artifacts/optimizer/**
+            artifacts/live/**
+            artifacts/train_report_xgboost_gha.json
+            artifacts/train_report_lightgbm_gha.json
+          if-no-files-found: ignore
+
+      - name: Save model and retrain-state cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            artifacts/model_bundle_xgboost.pkl
+            artifacts/model_bundle_lightgbm.pkl
+            artifacts/retrain_state/feature_hash.txt
+          key: pipeline-model-${{ runner.os }}-${{ github.ref_name }}-${{ github.run_id }}

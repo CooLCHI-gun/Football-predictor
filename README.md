@@ -10,6 +10,13 @@
 - 讓球結算只用全場 90 分鐘加傷停補時。
 - 不可把加時賽與十二碼納入標籤、結算、回測或警示。
 
+免責聲明（重要）
+- 本專案僅供技術研究、資料工程與模型驗證用途，不構成任何投注或投資建議。
+- 本專案與香港賽馬會（HKJC）沒有任何官方關聯、授權或背書。
+- 使用者需自行確保其資料存取、API/網站使用方式與自動化行為符合當地法律、平台條款與監管要求。
+- 專案輸出（含 Telegram 訊息）屬研究訊號，不保證準確性、完整性或盈利結果。
+- 使用本專案而產生之任何損失、爭議或法律責任，由使用者自行承擔。
+
 ---
 
 ## 1. 安裝與環境（Windows / PowerShell）
@@ -322,9 +329,45 @@ env:
 
 ## 5.1 GitHub Actions（取代 Railway）
 
-本專案已提供兩個工作流程：
+本專案已提供五個工作流程（拆分後較易除錯）：
 - `.github/workflows/ci.yml`：push / pull request 觸發，執行核心 smoke 與回測測試。
-- `.github/workflows/scheduled-hkjc.yml`：排程執行 backtest / optimize / live-run-once（dry-run）。
+- `.github/workflows/scheduled-backtest.yml`：每日 backtest（可手動觸發）。
+- `.github/workflows/scheduled-optimize.yml`：每日 optimizer（可手動觸發）。
+- `.github/workflows/scheduled-live.yml`：每 5 分鐘 live one-shot（可手動觸發，支援 dry/live）。
+- `.github/workflows/pipeline-one-shot.yml`：一條龍 one-shot（train xgboost + train lightgbm + backtest + optimize + live）。
+
+新增資料閘門
+- 三個排程 workflow 都會先執行 `.github/scripts/validate_training_data.py`。
+- 若真實資料已達門檻（預設 `min-real-rows=300`）仍混有 synthetic rows，流程會 fail-fast。
+- 若真實資料未達門檻，允許暫時混用 synthetic rows，並顯示 warning。
+
+新增 retrain 節流
+- `pipeline-one-shot` 會比較 `FEATURE_PATH` 的 SHA256 與上次快取值。
+- 只有「特徵資料已變更」或「模型檔不存在」時才觸發 retrain，避免無效重訓。
+
+新增 optimizer 強化
+- 支援 `OPTIMIZER_MODE=WINRATE_GUARDED`：優先提升 win rate 並限制回撤上限。
+- 支援外層 rolling 檢驗（`OPTIMIZER_OUTER_ROLLING_WINDOWS`、`OPTIMIZER_OUTER_MIN_WINDOW_MATCHES`）。
+- best params 新增最小成交硬約束（`OPTIMIZER_HARD_MIN_BETS`），避免低樣本誤選。
+
+新增 live auto-tune
+- `scheduled-live` 只會讀取「當天 run-id」：`artifacts/optimizer/daily_optimize_YYYYMMDD/best_params.json`。
+- 不再掃描最新檔，避免誤用舊日 optimizer 結果。
+
+新增 live 失敗保守 fallback
+- 若 primary live one-shot 失敗，workflow 會自動重跑一次保守參數：
+  - `edge-threshold=0.02`
+  - `confidence-threshold=0.10`
+  - `max-alerts=1`
+
+XGBoost + LightGBM 模型政策
+- live workflow 會確保 `xgboost` 與 `lightgbm` 兩個模型都已訓練（缺檔即補訓）。
+- 目前運行權重政策：`xgboost=0.70`、`lightgbm=0.30`（用於部署策略記錄與治理，primary execution 仍以 xgboost bundle 發送）。
+
+Telegram 訊息正確性
+- 已加入名稱清洗（例如 `nan/null/none` 不會進入訊息）。
+- 比賽/球隊顯示優先使用中文欄位，無值時安全回退映射，避免隊名錯置或占位字串。
+- 訊息內容維持繁體中文格式。
 
 建議做法
 - 把 daily 與 live 任務改由 GitHub Actions 排程，不再依賴 Railway 常駐程序。
@@ -332,14 +375,15 @@ env:
 
 需要設定的 Secrets / Variables
 - Secrets：`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`TELEGRAM_DRY_RUN`
-- Variables（選填）：`LIVE_MODE`
 
 排程說明（UTC）
 - `30 17 * * *`：01:30 HKT backtest
 - `30 19 * * *`：03:30 HKT optimize
-- `*/15 * * * *`：每 15 分鐘一次 live one-shot（dry-run）
+- `*/5 * * * *`：每 5 分鐘一次 live one-shot（dry-run）
 
 備註
+- GitHub Actions 是「排程觸發一次就跑完退出」模型，不是 24 小時常駐單進程。
+- 若要做到 24 小時監測效果，做法是提高 cron 頻率（例如每 5 或 15 分鐘）+ one-shot job。
 - GitHub Actions 最短排程粒度是 5 分鐘，且可能有排程延遲，不保證秒級準時。
 - 若要真實送出 Telegram，請把 `TELEGRAM_DRY_RUN` 設為 `false` 並確認金鑰配置。
 
@@ -358,7 +402,6 @@ python -m src.main predict --help
 python -m src.main predict-full --help
 python -m src.main backtest --help
 python -m src.main optimize --help
-python -m src.main daily-maintenance --help
 python -m src.main analyze-hkjc --help
 python -m src.main live-run-once --help
 python -m src.main live-loop --help
@@ -368,57 +411,11 @@ python -m src.main alert --help
 
 ---
 
-## 6.1 Railway 單一 command 每日雙時段排程
-
-當 Railway 只能設定一條啟動 command 時，可用 `daily-maintenance` 在同一個程序內分開時間執行 backtest 與 optimizer。
-
-```powershell
-python -m src.main daily-maintenance `
-  --timezone-name Asia/Hong_Kong `
-  --backtest-time 01:30 `
-  --optimize-time 03:30 `
-  --backtest-input-path data\processed\features_phase3_full.csv `
-  --optimize-input-path data\processed\features_phase3_full.csv `
-  --backtest-output-dir artifacts\backtest `
-  --optimize-output-dir artifacts\optimizer `
-  --use-date-run-id `
-  --use-prediction-cache `
-  --max-runs 120 `
-  --force
-```
-
-備註
-- `--backtest-time` 與 `--optimize-time` 使用 `HH:MM`（24 小時制）。
-- 預設時區為 `Asia/Hong_Kong`。
-- 預設會自動加上日期 run-id（例如 `daily_backtest_20260404`）。
-- `--repeat-daily` 可令同一程序每日持續循環。
-- 本機驗證可加 `--skip-wait`，立即執行兩個流程而不等待時間。
-
-快速驗證（立即執行，不等時間）
-
-```powershell
-python -m src.main daily-maintenance `
-  --timezone-name Asia/Hong_Kong `
-  --backtest-time 01:30 `
-  --optimize-time 03:30 `
-  --backtest-input-path data\processed\features_phase3_full.csv `
-  --optimize-input-path data\processed\features_phase3_full.csv `
-  --backtest-output-dir artifacts\backtest `
-  --optimize-output-dir artifacts\optimizer `
-  --use-date-run-id `
-  --use-prediction-cache `
-  --max-runs 30 `
-  --skip-wait `
-  --force
-```
-
----
-
-## 6.2 每日推薦與分析 command 清單
+## 6.1 每日推薦與分析 command 清單（GitHub Actions / 本機共用）
 
 ### A. 每日分析（Backtest + Optimizer + 分析報告）
 
-1) 每日雙時段分析（Railway 單 command）
+1) 每日雙時段分析（本機手動）
 
 ```powershell
 python -m src.main daily-maintenance `
@@ -483,104 +480,7 @@ python -m src.main alert `
 - 時間格式錯誤：`--backtest-time` / `--optimize-time` 必須是 `HH:MM`。
 - 想即刻測試流程：加 `--skip-wait`。
 
-### D. Railway 專用最短一行版（每日分析 + 每5分鐘推薦）
-
-```powershell
-python -m src.main railway-job-once
-```
-
-建議 Railway 排程
-- 每 5 分鐘觸發一次同一條 command：`python -m src.main railway-job-once`
-- command 每次都會執行一次 `live-run-once` 後退出
-- `backtest` / `optimize` 只會在到達指定時間後每日各執行一次（用 state file 去重）
-- 可選開啟 `data-update`（`download-real-data` command），每日最多一次
-- 可選開啟 `feature-rebuild`（`build-features-full` command），每日最多一次
-- 可選開啟 `retrain`（`train` command），同樣每日最多一次，再接續當次 `live-run-once`
-- 可選開啟 `switch gate`（混合轉 HKJC-only）並輸出每日審計 `artifacts/switch_decision.json`
-- 可選開啟 `switch Telegram report`，每日推送 PASS/FAIL 與原因
-- 可選開啟 `live auto-tune`，從當日 optimizer best params 自動調整 live 門檻
-
-常用覆寫參數（可選）
-
-```powershell
-python -m src.main railway-job-once `
-  --data-update-enabled `
-  --data-update-time 00:15 `
-  --feature-rebuild-enabled `
-  --feature-rebuild-time 00:30 `
-  --retrain-enabled `
-  --retrain-time 00:45 `
-  --switch-enabled `
-  --switch-auto-apply `
-  --switch-required-consecutive-passes 2 `
-  --switch-telegram-report-enabled `
-  --live-auto-tune-enabled `
-  --backtest-time 01:30 `
-  --optimize-time 03:30 `
-  --live-mode dry `
-  --force
-```
-
-如要真實發送 Telegram（非 dry-run）：
-- 在 Railway 變數設 `LIVE_MODE=live`
-- 並設定 `TELEGRAM_DRY_RUN=false`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`
-
-可調整的 Railway 環境變數（選填）
-- `DATA_UPDATE_ENABLED`（預設 `false`；`true` 會啟用每日資料更新）
-- `DATA_UPDATE_TIME`（預設 `00:15`）
-- `DATA_UPDATE_URLS`（預設沿用 settings 的 FOOTBALL_DATA_SOURCE_URLS）
-- `DATA_UPDATE_RAW_DIR`（預設 `data/raw/real`）
-- `DATA_UPDATE_NORMALIZED_OUTPUT_PATH`（預設 `data/raw/real/historical_matches_real_non_hkjc.csv`）
-- `FEATURE_REBUILD_ENABLED`（預設 `false`；`true` 會啟用每日特徵重建）
-- `FEATURE_REBUILD_TIME`（預設 `00:30`）
-- `FEATURE_REBUILD_INPUT_PATH`（預設沿用 `DATA_UPDATE_NORMALIZED_OUTPUT_PATH`）
-- `FEATURE_REBUILD_OUTPUT_PATH`（預設沿用 `FEATURE_PATH`）
-- `RETRAIN_ENABLED`（預設 `false`；`true` 會啟用每日重訓）
-- `RETRAIN_TIME`（預設 `00:45`）
-- `RETRAIN_INPUT_PATH`（預設沿用 `FEATURE_REBUILD_OUTPUT_PATH`，未設定時再沿用 `FEATURE_PATH`）
-- `RETRAIN_MODEL_OUTPUT_PATH`（預設沿用 `LIVE_MODEL_PATH`）
-- `RETRAIN_REPORT_OUTPUT_PATH`（預設 `artifacts/train_report.json`）
-- `BACKTEST_TIME`（預設 `01:30`）
-- `OPTIMIZE_TIME`（預設 `03:30`）
-- `TIMEZONE_NAME`（預設 `Asia/Hong_Kong`）
-- `FEATURE_PATH`（預設 `data/processed/features_phase3_full.csv`）
-- `BACKTEST_OUTPUT_DIR`（預設 `artifacts/backtest`）
-- `OPTIMIZER_OUTPUT_DIR`（預設 `artifacts/optimizer`）
-- `OPTIMIZER_MAX_RUNS`（預設 `120`）
-- `LIVE_PROVIDER`（預設 `hkjc`）
-- `LIVE_MODEL_PATH`（預設 `artifacts/model_bundle.pkl`）
-- `LIVE_EDGE_THRESHOLD`（預設 `0.02`）
-- `LIVE_CONFIDENCE_THRESHOLD`（預設 `0.56`）
-- `LIVE_MAX_ALERTS`（預設 `3`）
-- `LIVE_OUTPUT_DIR`（預設 `artifacts/live`）
-- `RAILWAY_STATE_PATH`（預設 `artifacts/railway_job_state.json`）
-- `SWITCH_ENABLED`（預設 `false`；啟用混合轉 HKJC-only 門檻判定）
-- `SWITCH_AUTO_APPLY`（預設 `false`；門檻連續通過後自動切至 HKJC feature）
-- `SWITCH_HKJC_SUMMARY_PATH`（預設 `artifacts/backtest/hkjc_coverage_balanced/summary.csv`）
-- `SWITCH_MIXED_SUMMARY_PATH`（預設空；可填 mixed baseline summary 供差值比較）
-- `SWITCH_HKJC_FEATURE_PATH`（預設 `data/processed/features_phase3_hkjc.csv`）
-- `SWITCH_HKJC_RETRAIN_INPUT_PATH`（預設空；未設時沿用 `SWITCH_HKJC_FEATURE_PATH`）
-- `SWITCH_MIN_MATCHES`（預設 `500`）
-- `SWITCH_MIN_TOTAL_BETS`（預設 `120`）
-- `SWITCH_MIN_ROI`（預設 `0.015`）
-- `SWITCH_MIN_WIN_RATE`（預設 `0.515`）
-- `SWITCH_MAX_DD`（預設 `0.12`）
-- `SWITCH_MAX_ROI_GAP_TO_MIXED`（預設 `0.005`）
-- `SWITCH_MAX_DD_GAP_TO_MIXED`（預設 `0.02`）
-- `SWITCH_MAX_BET_DROP_RATIO`（預設 `0.25`）
-- `SWITCH_REQUIRE_HKJC_SOURCE`（預設 `true`）
-- `SWITCH_REQUIRED_CONSECUTIVE_PASSES`（預設 `2`）
-- `SWITCH_DECISION_OUTPUT_PATH`（預設 `artifacts/switch_decision.json`）
-- `SWITCH_TELEGRAM_REPORT_ENABLED`（預設 `false`；推送 switch gate 分析到 Telegram）
-- `LIVE_AUTO_TUNE_ENABLED`（預設 `false`；從 optimizer best params 自動調整 live 門檻）
-- `LIVE_AUTO_TUNE_MIN_EDGE`（預設 `0.01`）
-- `LIVE_AUTO_TUNE_MAX_EDGE`（預設 `0.03`）
-- `LIVE_AUTO_TUNE_MIN_CONFIDENCE`（預設 `0.50`）
-- `LIVE_AUTO_TUNE_MAX_CONFIDENCE`（預設 `0.60`）
-- `LIVE_AUTO_TUNE_MIN_ALERTS`（預設 `1`）
-- `LIVE_AUTO_TUNE_MAX_ALERTS`（預設 `3`）
-
-每次 `train`（包括 `railway-job-once` 內的 retrain）完成後，會自動輸出 proxy 特徵監控檔：
+補充：每次 `train` 完成後，會自動輸出 proxy 特徵監控檔：
 - `artifacts/debug/proxy_feature_monitor.json`
 - `artifacts/debug/proxy_feature_monitor.csv`
 
@@ -602,10 +502,30 @@ switch 審計檔內容重點
 - `switch_mode`：`MIXED` 或 `HKJC_ONLY`
 - `auto_apply_effective`：今日是否已實際套用 HKJC 路徑
 
-PowerShell / venv 說明
-- 啟動腳本會強制使用 `.venv\Scripts\python.exe`
-- 啟動前會檢查 Python 版本必須為 `3.11`
-- 或直接使用 `python -m src.main railway-job-once`，不需額外 PowerShell 包裝
+---
+
+## 6.2 CSV 與 GraphQL 使用政策（檔案大小治理）
+
+結論
+- live 即時資料來源以 GraphQL 為主（HKJC provider）。
+- CSV 主要是「落地快照 / 回測輸入 / 審計追蹤」，不是唯一資料源。
+- push repo 不會自動上傳 artifacts；必須在 workflow 明確使用 `actions/upload-artifact@v4`。
+- 現行 workflow 已統一設定 `retention-days: 90`，對齊長期留存治理。
+- 留存制度文件：`config/data_retention_policy.yml`。
+
+如果 repository 太大上不到 GitHub，建議：
+- 不把大型輸出 CSV commit 到 repo（特別是 `artifacts/`、`data/raw/`、`data/processed/` 的大檔）。
+- 只保留必要的 schema/sample，小樣本示範即可。
+- 需要重現時由 command 重新產生，或改存 GitHub Actions artifact。
+- 針對長期保存歷史，放外部儲存（例如 object storage），repo 只留索引與說明。
+
+建議保留在 Git 的內容
+- 程式碼、workflow、設定檔、測試。
+- 小型範例資料（可在 CI 快速驗證）。
+
+建議不要進 Git 的內容
+- `artifacts/live/*.csv` 大量累積檔。
+- 大型歷史原始資料與完整特徵檔。
 
 ---
 
