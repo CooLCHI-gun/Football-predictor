@@ -1,4 +1,5 @@
 import inspect
+import re
 from pathlib import Path
 
 from typer.testing import CliRunner
@@ -31,8 +32,10 @@ def test_optimize_help_mentions_safety_options() -> None:
     runner = CliRunner()
     result = runner.invoke(app, ["optimize", "--help"])
     assert result.exit_code == 0
-    assert "--max-runs" in result.stdout
-    assert "--dry-run" in result.stdout
+    plain_help = re.sub(r"\x1b\[[0-9;]*m", "", result.stdout)
+    # Rich rendering may truncate option labels by terminal width in CI.
+    assert ("--max-runs" in plain_help) or ("max-runs" in plain_help)
+    assert ("--dry-run" in plain_help) or ("dry-run" in plain_help)
 
 
 def test_optimize_dry_run_succeeds_when_optimizer_artifacts_exist(tmp_path: Path) -> None:
