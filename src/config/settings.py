@@ -80,6 +80,7 @@ class AppSettings(BaseSettings):
     telegram_bot_token: str = Field(default="", alias="TELEGRAM_BOT_TOKEN")
     telegram_chat_id: str = Field(default="", alias="TELEGRAM_CHAT_ID")
     telegram_dry_run: bool = Field(default=True, alias="TELEGRAM_DRY_RUN")
+    alert_tone: str = Field(default="EXPRESSIVE", alias="ALERT_TONE")
 
     proxy_alert_missing_rate_threshold: float = Field(default=0.9, alias="PROXY_ALERT_MISSING_RATE_THRESHOLD")
     proxy_alert_consecutive_runs: int = Field(default=3, alias="PROXY_ALERT_CONSECUTIVE_RUNS")
@@ -107,6 +108,15 @@ class AppSettings(BaseSettings):
         allowed = {"BALANCED", "WINRATE_GUARDED"}
         if candidate not in allowed:
             raise ValueError(f"OPTIMIZER_MODE must be one of: {', '.join(sorted(allowed))}")
+        return candidate
+
+    @field_validator("alert_tone", mode="before")
+    @classmethod
+    def _normalize_alert_tone(cls, value: object) -> str:
+        candidate = str(value).strip().upper() if value is not None else "EXPRESSIVE"
+        allowed = {"EXPRESSIVE", "NEUTRAL"}
+        if candidate not in allowed:
+            raise ValueError(f"ALERT_TONE must be one of: {', '.join(sorted(allowed))}")
         return candidate
 
     @property

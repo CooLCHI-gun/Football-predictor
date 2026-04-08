@@ -7,6 +7,7 @@ import pandas as pd
 
 from src.adapters.hkjc_naming import resolve_market_label, resolve_match_display
 from src.alerts.telegram_client import TelegramClient
+from src.config.settings import get_settings
 
 
 _POLICY_LABEL_MAP: dict[str, str] = {
@@ -60,6 +61,8 @@ def send_bet_alert(bet: BetRecord, client: TelegramClient) -> str:
 
 
 def build_bet_alert_message(bet: BetRecord) -> str:
+    settings = get_settings()
+    alert_tone = str(settings.alert_tone).strip().upper()
     kickoff_hkt = _to_hkt_text(bet.kickoff_time_utc)
     home_team_name = _normalize_text_field(bet.home_team_name)
     away_team_name = _normalize_text_field(bet.away_team_name)
@@ -90,6 +93,8 @@ def build_bet_alert_message(bet: BetRecord) -> str:
     )
     policy_label = _format_policy_label(bet.policy)
     source_label = _format_source_label(bet.source_label)
+    signal_tone = _format_signal_tone(edge=bet.edge, confidence_score=bet.confidence_score)
+    confidence_label = _format_confidence_label(bet.confidence_score)
     side_debug_lines = ""
     if bet.flip_hkjc_side_enabled and bet.original_predicted_side:
         original_side_label = _format_recommended_side(bet.original_predicted_side)
@@ -98,15 +103,39 @@ def build_bet_alert_message(bet: BetRecord) -> str:
             f"\n🧠 模型方向: {original_side_label}"
             f"\n🔁 生效方向: {effective_side_label}"
         )
+    if alert_tone == "NEUTRAL":
+        return (
+            f"⚽ 第{bet.match_number or '?'}場 - {match_display.competition} {kickoff_hkt}\n"
+            f"📍 {match_display.home_team} 對 {match_display.away_team}\n"
+            f"🧾 盤口: {market_side_label} {handicap_text} | 賠率: {effective_odds:.2f}\n"
+            "📌 建議操作\n"
+            f"1️⃣ {recommended_side} {handicap_text}\n"
+            f"💰 注碼政策: {policy_label}\n"
+            "📊 模型觀點\n"
+            f"- 模型勝率: {bet.predicted_win_probability:.2%}\n"
+            f"- 隱含機率: {bet.implied_probability:.2%}\n"
+            f"- Edge: {bet.edge:.2%}\n"
+            f"- 信心: {bet.confidence_score:.2%}（{confidence_label}）\n"
+            f"📈 EV: {bet.expected_value:.4f}\n"
+            f"🧪 來源: {source_label}\n"
+            f"{side_debug_lines}\n"
+            "⚠️ 僅供研究參考，不構成投注建議"
+        )
+
     return (
         f"⚽ 第{bet.match_number or '?'}場 - {match_display.competition} {kickoff_hkt}\n"
+        f"{signal_tone}\n"
+        "━━━━━━━━━━━━\n"
         f"📍 {match_display.home_team} 對 {match_display.away_team}\n"
         f"🧾 盤口: {market_side_label} {handicap_text} | 賠率: {effective_odds:.2f}\n"
-        f"📊 模型勝率: {bet.predicted_win_probability:.2%} | 隱含機率: {bet.implied_probability:.2%}\n"
-        f"🎯 Edge: {bet.edge:.2%} | 信心: {bet.confidence_score:.2%}\n"
-        "⭐ 讓球推薦\n"
+        "📌 建議操作\n"
         f"1️⃣ {recommended_side} {handicap_text}\n"
         f"💰 注碼政策: {policy_label}\n"
+        "📊 模型觀點\n"
+        f"- 模型勝率: {bet.predicted_win_probability:.2%}\n"
+        f"- 隱含機率: {bet.implied_probability:.2%}\n"
+        f"- Edge: {bet.edge:.2%}\n"
+        f"- 信心: {bet.confidence_score:.2%}（{confidence_label}）\n"
         f"📈 EV: {bet.expected_value:.4f}\n"
         f"🧪 來源: {source_label}\n"
         f"{side_debug_lines}\n"
@@ -151,3 +180,19 @@ def _normalize_text_field(value: str) -> str:
     if text.lower() in {"", "nan", "none", "null", "na", "n/a"}:
         return ""
     return text
+
+
+def _format_signal_tone(edge: float, confidence_score: float) -> str:
+    if edge >= 0.20 and confidence_score >= 0.50:
+        return "🔥 強勢訊號"
+    if edge >= 0.12 and confidence_score >= 0.35:
+        return "✅ 正向訊號"
+    return "🟡 觀察訊號"
+
+
+def _format_confidence_label(confidence_score: float) -> str:
+    if confidence_score >= 0.65:
+        return "高"
+    if confidence_score >= 0.45:
+        return "中"
+    return "保守"

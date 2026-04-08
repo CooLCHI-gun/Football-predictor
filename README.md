@@ -436,6 +436,51 @@ Telegram 訊息正確性
 - 比賽/球隊顯示優先使用中文欄位，無值時安全回退映射，避免隊名錯置或占位字串。
 - 訊息內容維持繁體中文格式。
 
+Telegram 報告可讀性（避免純文字「好樣衰」）
+- 已改為分段版型：`訊號標題 -> 建議操作 -> 模型觀點 -> 風險提示`，減少一大段資訊堆疊。
+- 已加入訊號語氣標籤（例如 `🔥 強勢訊號`、`✅ 正向訊號`、`🟡 觀察訊號`），方便快速判讀優先次序。
+- 核心數值（模型勝率 / 隱含機率 / Edge / 信心 / EV）仍完整保留，避免只「好睇」但失去研究可用性。
+
+報告語氣一鍵切換（`ALERT_TONE`）
+- `ALERT_TONE=EXPRESSIVE`：高情緒版（會顯示 `🔥/✅/🟡` 訊號標籤與分隔線）。
+- `ALERT_TONE=NEUTRAL`：專業版（保留相同數據內容，但移除情緒標籤，版型更克制）。
+
+PowerShell 即時切換
+
+```powershell
+# 高情緒版
+$env:ALERT_TONE = "EXPRESSIVE"
+
+# 專業版
+$env:ALERT_TONE = "NEUTRAL"
+```
+
+訊息樣例（Telegram）
+
+```text
+⚽ 第1場 - 歐洲協會聯賽 2026-04-10 03:00 HKT
+🔥 強勢訊號
+━━━━━━━━━━━━
+📍 水晶宮 對 費倫天拿
+🧾 盤口: 讓球客 -0.75 | 賠率: 1.91
+📌 建議操作
+1️⃣ 客 -0.75
+💰 注碼政策: 分數凱利
+📊 模型觀點
+- 模型勝率: 75.33%
+- 隱含機率: 49.20%
+- Edge: 26.13%
+- 信心: 50.66%（中）
+📈 EV: 43.8808
+🧪 來源: 香港賽馬會（模擬）
+⚠️ 僅供研究參考，不構成投注建議
+```
+
+同樣會唔會定時自動出？會。
+- 若使用 `.github/workflows/scheduled-live.yml`，排程為 `*/5 * * * *`（每 5 分鐘 one-shot 一次）。
+- 每次排程 run 都會依門檻篩選候選賽事：有候選就發 Telegram（或 dry-run 預覽），無候選就不發 bet alert。
+- 產物會持續寫入 `artifacts/live/`（例如 `live_candidates.csv`、`live_alert_log.csv`），方便追蹤與審計。
+
 新增 workflow 失敗自動通知
 - `ci`、`scheduled-backtest`、`scheduled-optimize`、`scheduled-live`、`pipeline-one-shot` 失敗時會自動送 Telegram 通知。
 - 通知內容包含 workflow 名稱、branch、觸發者與 run URL，便於快速點回失敗頁面。

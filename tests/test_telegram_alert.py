@@ -2,6 +2,7 @@ import pytest
 
 from src.alerts.notifier import BetRecord, build_bet_alert_message, send_bet_alert
 from src.alerts.telegram_client import TelegramClient, validate_telegram_configuration
+from src.config.settings import get_settings
 
 
 def test_telegram_client_dry_run_returns_message() -> None:
@@ -92,3 +93,58 @@ def test_build_bet_alert_message_uses_traditional_chinese_debug_labels() -> None
 
     assert "模型方向" in message
     assert "生效方向" in message
+
+
+def test_build_bet_alert_message_uses_expressive_tone_by_default(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("ALERT_TONE", raising=False)
+    get_settings.cache_clear()
+
+    bet = BetRecord(
+        provider_match_id="x4",
+        kickoff_time_utc="2026-01-01T12:00:00+00:00",
+        home_team_name="A",
+        away_team_name="B",
+        handicap_line=-0.75,
+        model_name="xgboost",
+        model_approach="direct_cover",
+        predicted_side="away",
+        predicted_win_probability=0.75,
+        implied_probability=0.49,
+        edge=0.26,
+        stake_size=100.0,
+        confidence_score=0.51,
+    )
+
+    message = build_bet_alert_message(bet)
+
+    assert "強勢訊號" in message
+    assert "━━━━━━━━━━━━" in message
+    get_settings.cache_clear()
+
+
+def test_build_bet_alert_message_supports_neutral_tone(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("ALERT_TONE", "neutral")
+    get_settings.cache_clear()
+
+    bet = BetRecord(
+        provider_match_id="x5",
+        kickoff_time_utc="2026-01-01T12:00:00+00:00",
+        home_team_name="A",
+        away_team_name="B",
+        handicap_line=-0.75,
+        model_name="xgboost",
+        model_approach="direct_cover",
+        predicted_side="away",
+        predicted_win_probability=0.75,
+        implied_probability=0.49,
+        edge=0.26,
+        stake_size=100.0,
+        confidence_score=0.51,
+    )
+
+    message = build_bet_alert_message(bet)
+
+    assert "強勢訊號" not in message
+    assert "━━━━━━━━━━━━" not in message
+    assert "📊 模型觀點" in message
+    get_settings.cache_clear()
