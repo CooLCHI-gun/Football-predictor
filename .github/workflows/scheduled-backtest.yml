@@ -68,6 +68,17 @@ jobs:
             --run-id "$RUN_ID" \
             --force
 
+      - name: Notify Telegram backtest summary
+        if: success()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python .github/scripts/send_telegram_report.py \
+            --mode backtest \
+            --run-id "$RUN_ID" \
+            --summary-path "artifacts/backtest/$RUN_ID/summary.csv"
+
       - name: Notify Telegram on failure
         if: failure()
         env:

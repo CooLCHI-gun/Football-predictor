@@ -102,6 +102,18 @@ jobs:
             --use-prediction-cache \
             --force
 
+      - name: Notify Telegram optimizer summary
+        if: success()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python .github/scripts/send_telegram_report.py \
+            --mode optimize \
+            --run-id "$EFFECTIVE_RUN_ID" \
+            --best-params-path "artifacts/optimizer/$EFFECTIVE_RUN_ID/best_params.json" \
+            --params-results-path "artifacts/optimizer/$EFFECTIVE_RUN_ID/params_results.csv"
+
       - name: Notify Telegram on failure
         if: failure()
         env:

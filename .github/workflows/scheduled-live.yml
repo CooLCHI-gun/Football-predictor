@@ -188,13 +188,27 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_DRY_RUN_SECRET: ${{ secrets.TELEGRAM_DRY_RUN }}
         run: |
           LIVE_FLAG="--dry-run"
           export TELEGRAM_DRY_RUN="true"
+
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.live_mode }}" = "live" ]; then
             LIVE_FLAG="--live"
             export TELEGRAM_DRY_RUN="false"
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ -n "${TELEGRAM_DRY_RUN_SECRET}" ]; then
+              export TELEGRAM_DRY_RUN="${TELEGRAM_DRY_RUN_SECRET}"
+            elif [ -n "${TELEGRAM_BOT_TOKEN}" ] && [ -n "${TELEGRAM_CHAT_ID}" ]; then
+              export TELEGRAM_DRY_RUN="false"
+            fi
+
+            if [ "${TELEGRAM_DRY_RUN}" = "false" ]; then
+              LIVE_FLAG="--live"
+            fi
           fi
+
+          echo "scheduled-live mode: TELEGRAM_DRY_RUN=${TELEGRAM_DRY_RUN} LIVE_FLAG=${LIVE_FLAG}"
 
           python -m src.main live-run-once \
             --provider "$LIVE_PROVIDER" \
@@ -211,13 +225,27 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_DRY_RUN_SECRET: ${{ secrets.TELEGRAM_DRY_RUN }}
         run: |
           LIVE_FLAG="--dry-run"
           export TELEGRAM_DRY_RUN="true"
+
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.live_mode }}" = "live" ]; then
             LIVE_FLAG="--live"
             export TELEGRAM_DRY_RUN="false"
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ -n "${TELEGRAM_DRY_RUN_SECRET}" ]; then
+              export TELEGRAM_DRY_RUN="${TELEGRAM_DRY_RUN_SECRET}"
+            elif [ -n "${TELEGRAM_BOT_TOKEN}" ] && [ -n "${TELEGRAM_CHAT_ID}" ]; then
+              export TELEGRAM_DRY_RUN="false"
+            fi
+
+            if [ "${TELEGRAM_DRY_RUN}" = "false" ]; then
+              LIVE_FLAG="--live"
+            fi
           fi
+
+          echo "scheduled-live fallback mode: TELEGRAM_DRY_RUN=${TELEGRAM_DRY_RUN} LIVE_FLAG=${LIVE_FLAG}"
 
           python -m src.main live-run-once \
             --provider "$LIVE_PROVIDER" \

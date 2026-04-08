@@ -347,6 +347,49 @@ env:
 
 ## 5.1 GitHub Actions（取代 Railway）
 
+### 一次部署後全自動（你要的模式）
+
+目標
+- 你只需完成一次 GitHub Actions + Secrets 設定，之後按排程自動跑：
+  - 每日 backtest
+  - 每日 optimize
+  - 每 5 分鐘 live one-shot
+  - 每日 pipeline one-shot（train + backtest + optimize + live）
+
+一次性設定步驟
+1. GitHub Repository 啟用 Actions，確認 default branch 為你正式部署分支。
+2. 在 Settings -> Secrets and variables -> Actions 建立 Secrets：
+   - `TELEGRAM_BOT_TOKEN`
+   - `TELEGRAM_CHAT_ID`
+   - `TELEGRAM_DRY_RUN`（建議正式設 `false`；若設 `true` 只會 dry-run）
+3. 到 bot 對話先送一次 `/start`，再執行 `telegram-debug` 驗證 chat id。
+4. 手動各跑一次 workflow_dispatch 驗證成功：
+   - `Scheduled Backtest`
+   - `Scheduled Optimize`
+   - `Scheduled Live One-Shot`
+   - `Pipeline One-Shot Daily`
+5. 驗證後就不需再手動觸發，schedule 會自動執行。
+
+模式規則（部署後）
+- `scheduled-live` / `pipeline-one-shot`：
+  - `workflow_dispatch`：跟你 UI 選 dry/live。
+  - `schedule`：
+    - 有 `TELEGRAM_DRY_RUN` Secret：用該值。
+    - 無 `TELEGRAM_DRY_RUN` 但 token/chat_id 存在：自動 live。
+    - Telegram secrets 不齊：保持 dry-run。
+
+成功通知（新增）
+- `scheduled-backtest`：成功後送回測摘要（summary.csv 指標）。
+- `scheduled-optimize`：成功後送最佳參數摘要（best_params.json + params_results.csv）。
+- `pipeline-one-shot`：成功後送三段摘要（backtest + optimize + live）。
+- 所有 workflow 失敗時仍會送 fail 通知（含 run URL）。
+
+避免重複排程（建議）
+- 若你想「全任務只跑一次」：
+  - 方案 A：保留 `scheduled-backtest` + `scheduled-optimize` + `scheduled-live`，停用 `pipeline-one-shot` 排程。
+  - 方案 B：保留 `pipeline-one-shot` + `scheduled-live`，停用 `scheduled-backtest` / `scheduled-optimize`。
+- 建議你選一個方案，避免每天重複跑 backtest/optimize。
+
 本專案已提供五個工作流程（拆分後較易除錯）：
 - `.github/workflows/ci.yml`：push / pull request 觸發，執行核心 smoke 與回測測試。
 - `.github/workflows/scheduled-backtest.yml`：每日 backtest（可手動觸發）。
@@ -398,6 +441,18 @@ Telegram 訊息正確性
 - 通知內容包含 workflow 名稱、branch、觸發者與 run URL，便於快速點回失敗頁面。
 - 若未設定 `TELEGRAM_BOT_TOKEN` 或 `TELEGRAM_CHAT_ID`，通知步驟會自動略過，不影響原流程。
 
+新增 backtest / optimizer 成功摘要通知
+- `scheduled-backtest` 成功後會送出 summary.csv 重點（bets、win_rate、roi、max_drawdown）。
+- `scheduled-optimize` 成功後會送出 best_params.json 重點（edge/confidence/max_alerts/policy、roi、win_rate、max_drawdown）。
+- 若未設定 `TELEGRAM_BOT_TOKEN` 或 `TELEGRAM_CHAT_ID`，成功摘要通知會自動略過。
+
+scheduled-live dry/live 模式說明（重要）
+- `workflow_dispatch`：沿用你在 UI 選擇的 `dry` 或 `live`。
+- `schedule`：
+  - 若設有 `TELEGRAM_DRY_RUN` Secret，會以該值為準（`true`/`false`）。
+  - 若未設 `TELEGRAM_DRY_RUN` 但已設好 `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID`，會自動以 live 模式運行。
+  - 若 Telegram secrets 未設定，維持 dry-run。
+
 建議做法
 - 把 daily 與 live 任務改由 GitHub Actions 排程，不再依賴 Railway 常駐程序。
 - 先用 `workflow_dispatch` 手動跑通，再啟用 schedule。
@@ -408,13 +463,21 @@ Telegram 訊息正確性
 排程說明（UTC）
 - `30 17 * * *`：01:30 HKT backtest
 - `30 19 * * *`：03:30 HKT optimize
-- `*/5 * * * *`：每 5 分鐘一次 live one-shot（dry-run）
+- `*/5 * * * *`：每 5 分鐘一次 live one-shot（schedule 會按上面 dry/live 模式規則自動決定）
 
 備註
 - GitHub Actions 是「排程觸發一次就跑完退出」模型，不是 24 小時常駐單進程。
 - 若要做到 24 小時監測效果，做法是提高 cron 頻率（例如每 5 或 15 分鐘）+ one-shot job。
 - GitHub Actions 最短排程粒度是 5 分鐘，且可能有排程延遲，不保證秒級準時。
 - 若要真實送出 Telegram，請把 `TELEGRAM_DRY_RUN` 設為 `false` 並確認金鑰配置。
+
+Telegram 收不到訊息排查（快速）
+1. 先到 Actions run log 搜 `scheduled-live mode: TELEGRAM_DRY_RUN=... LIVE_FLAG=...`。
+2. 若 `TELEGRAM_DRY_RUN=true`，請把 `TELEGRAM_DRY_RUN` Secret 改為 `false`，或在 workflow_dispatch 選 `live`。
+3. 確認 bot 先收到你在 Telegram 的 `/start`，再以 `python -m src.main telegram-debug --send-test-message` 驗證 chat id。
+4. backtest/optimizer 只在 workflow 成功後發摘要；若 workflow fail，會走 failure 通知。
+5. 若 CSV 有新賽事但仍無 alert，檢查 live run 產物：`artifacts/live/live_candidates.csv` 是否為 0 筆；0 筆代表門檻過濾後無候選，不會送 bet alert。
+6. pipeline 成功通知會連發 3 則（backtest/optimize/live）；若只收到 fail 訊息，表示前序 step 已失敗。
 
 ---
 

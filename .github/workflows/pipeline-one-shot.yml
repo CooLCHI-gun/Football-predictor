@@ -157,13 +157,27 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_DRY_RUN_SECRET: ${{ secrets.TELEGRAM_DRY_RUN }}
         run: |
           LIVE_FLAG="--dry-run"
           export TELEGRAM_DRY_RUN="true"
+
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.live_mode }}" = "live" ]; then
             LIVE_FLAG="--live"
             export TELEGRAM_DRY_RUN="false"
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ -n "${TELEGRAM_DRY_RUN_SECRET}" ]; then
+              export TELEGRAM_DRY_RUN="${TELEGRAM_DRY_RUN_SECRET}"
+            elif [ -n "${TELEGRAM_BOT_TOKEN}" ] && [ -n "${TELEGRAM_CHAT_ID}" ]; then
+              export TELEGRAM_DRY_RUN="false"
+            fi
+
+            if [ "${TELEGRAM_DRY_RUN}" = "false" ]; then
+              LIVE_FLAG="--live"
+            fi
           fi
+
+          echo "pipeline mode: TELEGRAM_DRY_RUN=${TELEGRAM_DRY_RUN} LIVE_FLAG=${LIVE_FLAG}"
 
           python -m src.main live-run-once \
             --provider hkjc \
@@ -174,6 +188,40 @@ jobs:
             --max-alerts 1 \
             --output-dir artifacts/live \
             --force
+
+      - name: Notify Telegram pipeline backtest summary
+        if: success()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python .github/scripts/send_telegram_report.py \
+            --mode backtest \
+            --run-id gha_pipeline_backtest \
+            --summary-path artifacts/backtest/gha_pipeline_backtest/summary.csv
+
+      - name: Notify Telegram pipeline optimizer summary
+        if: success()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python .github/scripts/send_telegram_report.py \
+            --mode optimize \
+            --run-id gha_pipeline_optimize \
+            --best-params-path artifacts/optimizer/gha_pipeline_optimize/best_params.json \
+            --params-results-path artifacts/optimizer/gha_pipeline_optimize/params_results.csv
+
+      - name: Notify Telegram pipeline live summary
+        if: success()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python .github/scripts/send_telegram_report.py \
+            --mode live \
+            --run-id gha_pipeline_live \
+            --live-status-path artifacts/live/live_status.json
 
       - name: Notify Telegram on failure
         if: failure()

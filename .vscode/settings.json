@@ -36,7 +36,13 @@
     "/^git add \\.gitignore config/data_retention_policy\\.yml$/": {
       "approve": true,
       "matchCommandLine": true
-    }
+    },
+    "/^python \\.github/scripts/send_telegram_report\\.py --help$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    ".github/workflows/scheduled-backtest.yml": true,
+    ".github/scripts/send_telegram_report.py": true
   },
   "python.analysis.autoImportCompletions": true
 }
