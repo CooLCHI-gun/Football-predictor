@@ -74,7 +74,7 @@ def test_live_run_once_creates_phase6_artifacts(tmp_path: Path, monkeypatch) -> 
     alert_log = pd.read_csv(output_dir / "live_alert_log.csv")
     assert "alert_message" in alert_log.columns
     preview_text = (output_dir / "live_alert_preview.txt").read_text(encoding="utf-8")
-    assert "⚽" in preview_text
+    assert "賽事提示" in preview_text
 
 
 def test_live_loop_runs_for_max_cycles(tmp_path: Path, monkeypatch) -> None:
