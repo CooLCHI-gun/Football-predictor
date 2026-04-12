@@ -367,16 +367,16 @@ env:
    - `Scheduled Backtest`
    - `Scheduled Optimize`
    - `Scheduled Live One-Shot`
-   - `Pipeline One-Shot Daily`
 5. 驗證後就不需再手動觸發，schedule 會自動執行。
 
 模式規則（部署後）
-- `scheduled-live` / `pipeline-one-shot`：
+- `scheduled-live`：
   - `workflow_dispatch`：跟你 UI 選 dry/live。
   - `schedule`：
     - 有 `TELEGRAM_DRY_RUN` Secret：用該值。
     - 無 `TELEGRAM_DRY_RUN` 但 token/chat_id 存在：自動 live。
     - Telegram secrets 不齊：保持 dry-run。
+- `pipeline-one-shot`（手動觸發）：跟你 UI 選 dry/live。
 
 成功通知（新增）
 - `scheduled-backtest`：成功後送回測摘要（summary.csv 指標）。
@@ -384,12 +384,9 @@ env:
 - `pipeline-one-shot`：成功後送三段摘要（backtest + optimize + live）。
 - 所有 workflow 失敗時仍會送 fail 通知（含 run URL）。
 
-避免重複排程（建議）
-- 目前預設採用：**方案 A**（即已停用 `pipeline-one-shot` 的排程，只保留手動觸發）。
-- 若你想「全任務只跑一次」：
-  - 方案 A：保留 `scheduled-backtest` + `scheduled-optimize` + `scheduled-live`，停用 `pipeline-one-shot` 排程。
-  - 方案 B：保留 `pipeline-one-shot` + `scheduled-live`，停用 `scheduled-backtest` / `scheduled-optimize`。
-- 建議你選一個方案，避免每天重複跑 backtest/optimize。
+避免重複排程
+- 已選定：**`scheduled-backtest` + `scheduled-optimize` + `scheduled-live`** 各自獨立排程。
+- `pipeline-one-shot` 只保留手動觸發（`workflow_dispatch`），不設 cron，避免與上述三個 workflow 重複跑 backtest/optimize。
 
 本專案已提供六個工作流程（拆分後較易除錯）：
 - `.github/workflows/ci.yml`：push / pull request 觸發，執行核心 smoke 與回測測試。
