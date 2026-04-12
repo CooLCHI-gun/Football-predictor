@@ -37,19 +37,30 @@ def _pct(value: Any) -> str:
     return f"{_to_float(value) * 100:.2f}%"
 
 
+def _safe_text(value: Any) -> str:
+    text = str(value or "").strip()
+    if text.lower() in {"", "nan", "none", "null", "na", "n/a"}:
+        return "N/A"
+    return text
+
+
 def _format_backtest_message(*, run_id: str, summary_path: Path) -> str:
     summary = _read_first_csv_row(summary_path)
-    warning = (summary.get("data_source_warning") or "").strip()
+    raw_warning = str(summary.get("data_source_warning") or "").strip()
+    warning = "" if raw_warning.lower() in {"", "nan", "none", "null", "na", "n/a"} else raw_warning
     lines = [
-        f"[BACKTEST OK] {run_id}",
-        f"bets={_to_int(summary.get('total_bets_placed'))}",
-        f"win_rate={_pct(summary.get('win_rate'))}",
-        f"roi={_pct(summary.get('roi'))}",
-        f"max_drawdown={_pct(summary.get('max_drawdown'))}",
-        f"summary={summary_path}",
+        "📘 回測摘要通知",
+        f"🆔 Run ID：{run_id}",
+        "━━━━━━━━━━━━",
+        f"🎯 下注數：{_to_int(summary.get('total_bets_placed'))}",
+        f"✅ 勝率：{_pct(summary.get('win_rate'))}",
+        f"💹 ROI：{_pct(summary.get('roi'))}",
+        f"📉 最大回撤：{_pct(summary.get('max_drawdown'))}",
+        f"📂 摘要檔：{summary_path}",
     ]
     if warning:
-        lines.append(f"warning={warning}")
+        lines.append(f"⚠️ 資料警示：{warning}")
+    lines.append("⚠️ 僅供研究參考・不構成投注建議")
     return "\n".join(lines)
 
 
@@ -61,19 +72,21 @@ def _format_optimize_message(*, run_id: str, best_params_path: Path, params_resu
             row_count = max(sum(1 for _ in handle) - 1, 0)
 
     lines = [
-        f"[OPTIMIZER OK] {run_id}",
-        f"runs={row_count}",
-        (
-            "best="
-            f"edge={_to_float(best_payload.get('min_edge_threshold')):.4f},"
-            f"conf={_to_float(best_payload.get('min_confidence_threshold')):.4f},"
-            f"max_alerts={_to_int(best_payload.get('max_alerts'))},"
-            f"policy={best_payload.get('policy', '')}"
-        ),
-        f"roi={_pct(best_payload.get('roi'))}",
-        f"win_rate={_pct(best_payload.get('win_rate'))}",
-        f"max_drawdown={_pct(best_payload.get('max_drawdown'))}",
-        f"best={best_params_path}",
+        "🧪 優化摘要通知",
+        f"🆔 Run ID：{run_id}",
+        "━━━━━━━━━━━━",
+        f"🔁 測試組合數：{row_count}",
+        "🏆 最佳參數",
+        f"• Edge 門檻：{_to_float(best_payload.get('min_edge_threshold')):.4f}",
+        f"• 信心門檻：{_to_float(best_payload.get('min_confidence_threshold')):.4f}",
+        f"• 最大提示數：{_to_int(best_payload.get('max_alerts'))}",
+        f"• 策略：{_safe_text(best_payload.get('policy'))}",
+        "📊 最佳結果",
+        f"• ROI：{_pct(best_payload.get('roi'))}",
+        f"• 勝率：{_pct(best_payload.get('win_rate'))}",
+        f"• 最大回撤：{_pct(best_payload.get('max_drawdown'))}",
+        f"📂 最佳參數檔：{best_params_path}",
+        "⚠️ 僅供研究參考・不構成投注建議",
     ]
     return "\n".join(lines)
 
@@ -89,13 +102,39 @@ def _format_live_message(*, run_id: str, status_path: Path) -> str:
     alerts_sent = _to_int(rows.get("alerts_sent"))
 
     lines = [
-        f"[LIVE OK] {run_id}",
-        f"provider={provider}",
-        f"alerts_mode={alerts_mode}",
-        f"candidate_rows={candidate_rows}",
-        f"alerts_sent={alerts_sent}",
-        f"last_success_utc={last_success}",
-        f"status={status_path}",
+        "⚽ Live 監測摘要",
+        f"🆔 Run ID：{run_id}",
+        "━━━━━━━━━━━━",
+        f"📡 Provider：{_safe_text(provider)}",
+        f"📬 發送模式：{_safe_text(alerts_mode)}",
+        f"🧾 候選賽事：{candidate_rows}",
+        f"📨 已發提示：{alerts_sent}",
+        f"🕒 最後成功時間（UTC）：{_safe_text(last_success)}",
+        f"📂 狀態檔：{status_path}",
+        "⚠️ 僅供研究參考・不構成投注建議",
+    ]
+    return "\n".join(lines)
+
+
+def _format_failure_message(
+    *,
+    run_id: str,
+    workflow_name: str,
+    repository: str,
+    branch: str,
+    actor: str,
+    run_url: str,
+) -> str:
+    lines = [
+        "🚨 Workflow 執行失敗",
+        f"🆔 Run ID：{run_id}",
+        "━━━━━━━━━━━━",
+        f"🛠️ Workflow：{_safe_text(workflow_name)}",
+        f"📦 Repo：{_safe_text(repository)}",
+        f"🌿 Branch：{_safe_text(branch)}",
+        f"👤 Actor：{_safe_text(actor)}",
+        f"🔗 Run URL：{_safe_text(run_url)}",
+        "請盡快檢查錯誤日誌。",
     ]
     return "\n".join(lines)
 
@@ -118,12 +157,17 @@ def _send_telegram_message(*, bot_token: str, chat_id: str, message: str) -> Non
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Send concise backtest/optimizer/live reports to Telegram.")
-    parser.add_argument("--mode", choices=["backtest", "optimize", "live"], required=True)
+    parser.add_argument("--mode", choices=["backtest", "optimize", "live", "failure"], required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--summary-path")
     parser.add_argument("--best-params-path")
     parser.add_argument("--params-results-path")
     parser.add_argument("--live-status-path")
+    parser.add_argument("--workflow-name")
+    parser.add_argument("--repository")
+    parser.add_argument("--branch")
+    parser.add_argument("--actor")
+    parser.add_argument("--run-url")
     args = parser.parse_args()
 
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
@@ -155,13 +199,30 @@ def main() -> int:
                 best_params_path=best_params_path,
                 params_results_path=params_results_path,
             )
-        else:
+        elif args.mode == "live":
             if not args.live_status_path:
                 raise ValueError("--live-status-path is required for mode=live")
             live_status_path = Path(args.live_status_path)
             if not live_status_path.exists():
                 raise FileNotFoundError(f"live status file not found: {live_status_path}")
             message = _format_live_message(run_id=args.run_id, status_path=live_status_path)
+        else:
+            workflow_name = args.workflow_name or os.environ.get("GITHUB_WORKFLOW", "")
+            repository = args.repository or os.environ.get("GITHUB_REPOSITORY", "")
+            branch = args.branch or os.environ.get("GITHUB_REF_NAME", "")
+            actor = args.actor or os.environ.get("GITHUB_ACTOR", "")
+            run_url = args.run_url or (
+                f"{os.environ.get('GITHUB_SERVER_URL', '')}/{os.environ.get('GITHUB_REPOSITORY', '')}"
+                f"/actions/runs/{os.environ.get('GITHUB_RUN_ID', '')}"
+            )
+            message = _format_failure_message(
+                run_id=args.run_id,
+                workflow_name=workflow_name,
+                repository=repository,
+                branch=branch,
+                actor=actor,
+                run_url=run_url,
+            )
 
         _send_telegram_message(bot_token=bot_token, chat_id=chat_id, message=message)
     except Exception as exc:  # pragma: no cover - workflow helper script

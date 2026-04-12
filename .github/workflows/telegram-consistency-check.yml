@@ -1,0 +1,37 @@
+name: Telegram Consistency Check
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '40 16 * * *' # 00:40 HKT daily
+
+concurrency:
+  group: telegram-consistency-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Telegram consistency checks
+        run: |
+          python .github/scripts/check_telegram_consistency.py
+
+      - name: Notify Telegram on failure
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python .github/scripts/send_telegram_report.py \
+            --mode failure \
+            --run-id "${GITHUB_RUN_ID}"

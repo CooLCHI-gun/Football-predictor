@@ -390,10 +390,11 @@ class LiveRunner:
 
     @staticmethod
     def _build_match_key(row: pd.Series) -> str:
+        provider_match_id = str(row.get("provider_match_id", "")).strip().lower()
         kickoff = str(row.get("kickoff_time_utc", "")).strip().lower()
         home = str(row.get("home_team_name", "")).strip().lower()
         away = str(row.get("away_team_name", "")).strip().lower()
-        return f"{kickoff}|{home}|{away}"
+        return f"{provider_match_id}|{kickoff}|{home}|{away}"
 
     @staticmethod
     def _build_alert_day(row: pd.Series) -> str:

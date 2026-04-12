@@ -24,7 +24,7 @@ on:
       max_alerts:
         description: Max alerts
         required: false
-        default: '1'
+        default: '20'
         type: string
       live_mode:
         description: dry or live
@@ -50,7 +50,7 @@ jobs:
       LIVE_PROVIDER: ${{ github.event_name == 'workflow_dispatch' && inputs.provider || 'hkjc' }}
       LIVE_EDGE_THRESHOLD: ${{ github.event_name == 'workflow_dispatch' && inputs.edge_threshold || '0.02' }}
       LIVE_CONFIDENCE_THRESHOLD: ${{ github.event_name == 'workflow_dispatch' && inputs.confidence_threshold || '0.10' }}
-      LIVE_MAX_ALERTS: ${{ github.event_name == 'workflow_dispatch' && inputs.max_alerts || '1' }}
+      LIVE_MAX_ALERTS: ${{ github.event_name == 'workflow_dispatch' && inputs.max_alerts || '20' }}
       MODEL_WEIGHT_XGBOOST: '0.70'
       MODEL_WEIGHT_LIGHTGBM: '0.30'
       MODEL_NAME: xgboost
@@ -128,7 +128,7 @@ jobs:
 
           edge = float(os.environ.get("LIVE_EDGE_THRESHOLD", "0.02"))
           confidence = float(os.environ.get("LIVE_CONFIDENCE_THRESHOLD", "0.10"))
-          max_alerts = int(float(os.environ.get("LIVE_MAX_ALERTS", "1")))
+          max_alerts = int(float(os.environ.get("LIVE_MAX_ALERTS", "20")))
 
           if best_path.exists():
               try:
@@ -141,7 +141,7 @@ jobs:
 
           edge = max(0.01, min(0.03, edge))
           confidence = max(0.10, min(0.60, confidence))
-          max_alerts = max(1, min(3, max_alerts))
+          max_alerts = max(1, min(20, max_alerts))
 
           env_path = Path(os.environ["GITHUB_ENV"])
           with env_path.open("a", encoding="utf-8") as handle:
@@ -263,25 +263,9 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          if [ -z "${TELEGRAM_BOT_TOKEN}" ] || [ -z "${TELEGRAM_CHAT_ID}" ]; then
-            echo "telegram secrets not configured; skip failure notification"
-            exit 0
-          fi
-
-          RUN_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-          MSG=$(cat <<EOF
-          [GHA FAIL] ${GITHUB_WORKFLOW}
-          Repo: ${GITHUB_REPOSITORY}
-          Branch: ${GITHUB_REF_NAME}
-          Actor: ${GITHUB_ACTOR}
-          Run: ${RUN_URL}
-          EOF
-          )
-
-          curl -sS --fail -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d "chat_id=${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=${MSG}" \
-            -d "disable_web_page_preview=true"
+          python .github/scripts/send_telegram_report.py \
+            --mode failure \
+            --run-id "${GITHUB_RUN_ID}"
 
       - name: Save model cache
         if: always()

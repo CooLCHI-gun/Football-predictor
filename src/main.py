@@ -634,8 +634,61 @@ def alert(
         "--flip-hkjc-side/--no-flip-hkjc-side",
         help="HKJC-only side flip switch. CLI overrides FLIP_HKJC_SIDE when explicitly set.",
     ),
+    schedule_noon: bool = typer.Option(
+        False,
+        "--schedule-noon/--no-schedule-noon",
+        help="Wait until local noon (12:00) before sending alerts.",
+    ),
+    timezone_name: str = typer.Option("Asia/Hong_Kong", help="IANA timezone name for noon schedule."),
+    repeat_daily: bool = typer.Option(
+        False,
+        "--repeat-daily/--run-once",
+        help="Repeat noon schedule every day in same process.",
+    ),
+    skip_wait: bool = typer.Option(False, help="Skip waiting and send immediately (for tests/debug)."),
 ) -> None:
-    """Send Telegram dry-run/live alerts from prediction CSV using configured thresholds."""
+    """Send Telegram dry-run/live alerts from prediction CSV using configured thresholds.
+
+    Use --schedule-noon to hold until 12:00 HKT before sending (daily digest mode).
+    Use --repeat-daily to keep the process alive and repeat each day at noon.
+    Live feed loop should use live-loop with --interval-seconds 300 (5 minutes).
+    """
+    if schedule_noon:
+        try:
+            tz = ZoneInfo(timezone_name)
+        except ZoneInfoNotFoundError as exc:
+            raise typer.BadParameter(f"Invalid timezone: {timezone_name}") from exc
+
+        while True:
+            _wait_until_local_time(12, 0, tz, label="alert-noon", skip_wait=skip_wait)
+            try:
+                typer.echo(
+                    send_telegram_alert(
+                        predictions_path=predictions_path,
+                        edge_threshold=edge_threshold,
+                        confidence_threshold=confidence_threshold,
+                        max_alerts=max_alerts,
+                        flip_hkjc_side=flip_hkjc_side,
+                    )
+                )
+            except ValueError as exc:
+                typer.echo(str(exc))
+                raise typer.Exit(code=1)
+
+            if not repeat_daily:
+                break
+
+            next_noon = (datetime.now(tz) + timedelta(days=1)).replace(
+                hour=12, minute=0, second=0, microsecond=0
+            )
+            typer.echo(f"[alert-noon] next daily cycle at {next_noon.strftime('%Y-%m-%d %H:%M %Z')}")
+            while True:
+                remaining = int((next_noon - datetime.now(tz)).total_seconds())
+                if remaining <= 0:
+                    break
+                time.sleep(min(remaining, 60))
+        return
+
     try:
         typer.echo(
             send_telegram_alert(
@@ -868,7 +921,7 @@ def live_run_once(
 def live_loop(
     provider: str = typer.Option("hkjc", help="Live provider name (hkjc, mock, or csv)."),
     model_path: Path = typer.Option(Path("artifacts/model_bundle.pkl"), help="Trained model bundle path."),
-    interval_seconds: int = typer.Option(60, help="Polling interval seconds between cycles."),
+    interval_seconds: int = typer.Option(300, help="Polling interval seconds between cycles (default: 300 = 5 minutes)."),
     poll_timeout: int = typer.Option(15, help="Polling timeout seconds for provider fetch."),
     edge_threshold: float | None = typer.Option(None, help="Override edge threshold for live candidate filtering."),
     confidence_threshold: float | None = typer.Option(None, help="Override confidence threshold for live candidate filtering."),

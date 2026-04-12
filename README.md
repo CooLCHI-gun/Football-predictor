@@ -385,22 +385,24 @@ env:
 - 所有 workflow 失敗時仍會送 fail 通知（含 run URL）。
 
 避免重複排程（建議）
+- 目前預設採用：**方案 A**（即已停用 `pipeline-one-shot` 的排程，只保留手動觸發）。
 - 若你想「全任務只跑一次」：
   - 方案 A：保留 `scheduled-backtest` + `scheduled-optimize` + `scheduled-live`，停用 `pipeline-one-shot` 排程。
   - 方案 B：保留 `pipeline-one-shot` + `scheduled-live`，停用 `scheduled-backtest` / `scheduled-optimize`。
 - 建議你選一個方案，避免每天重複跑 backtest/optimize。
 
-本專案已提供五個工作流程（拆分後較易除錯）：
+本專案已提供六個工作流程（拆分後較易除錯）：
 - `.github/workflows/ci.yml`：push / pull request 觸發，執行核心 smoke 與回測測試。
 - `.github/workflows/scheduled-backtest.yml`：每日 backtest（可手動觸發）。
 - `.github/workflows/scheduled-optimize.yml`：每日 optimizer（可手動觸發）。
 - `.github/workflows/scheduled-live.yml`：每 5 分鐘 live one-shot（可手動觸發，支援 dry/live）。
-- `.github/workflows/pipeline-one-shot.yml`：一條龍 one-shot（train xgboost + train lightgbm + backtest + optimize + live），每日一次（00:30 HKT）。
+- `.github/workflows/pipeline-one-shot.yml`：一條龍 one-shot（train xgboost + train lightgbm + backtest + optimize + live），目前為手動觸發（`workflow_dispatch`）。
+- `.github/workflows/telegram-consistency-check.yml`：每日 Telegram 一致性檢查（可手動觸發；檢查 report 字段與 failure 模板 drift）。
 
 Actions 頁面快速分辨（避免揀錯）
 - 要每 5 分鐘監測 live：請揀 `Scheduled Live One-Shot`（workflow 檔：`.github/workflows/scheduled-live.yml`）。
 - 要每日完整一條龍流程：請揀 `Pipeline One-Shot Daily`（workflow 檔：`.github/workflows/pipeline-one-shot.yml`）。
-- 若只見到每日一次 run，多數是你開了 `Pipeline One-Shot Daily`；呢個屬正常行為。
+- 目前 `Pipeline One-Shot Daily` 預設無 cron 排程；如需每日一條龍，請再自行啟用 schedule。
 - 先在左側 workflow 名稱確認，再入去看 run 詳情，可減少誤判排程頻率。
 
 新增資料閘門
@@ -441,14 +443,51 @@ Telegram 報告可讀性（避免純文字「好樣衰」）
 - 已加入訊號語氣標籤（例如 `🔥 強勢訊號`、`✅ 正向訊號`、`🟡 觀察訊號`），方便快速判讀優先次序。
 - 核心數值（模型勝率 / 隱含機率 / Edge / 信心 / EV）仍完整保留，避免只「好睇」但失去研究可用性。
 
+Telegram 發送排程規則
+- **非 live（每日提示）**：每日中午 12:00 HKT 出一次（`--schedule-noon`）。
+- **Live 監測**：每 5 分鐘一次（`live-loop --interval-seconds 300` 或 GitHub Actions `*/5 * * * *`）。
+
+每日中午 12:00 自動出（本機）
+
+```powershell
+# 單次（等到 12:00 才發送）
+$env:TELEGRAM_DRY_RUN = "true"
+python -m src.main alert `
+  --predictions-path artifacts\predictions_full.csv `
+  --schedule-noon
+
+# 持續每日循環（每天 12:00 自動發）
+$env:TELEGRAM_DRY_RUN = "false"
+python -m src.main alert `
+  --predictions-path artifacts\predictions_full.csv `
+  --schedule-noon `
+  --repeat-daily
+
+# 即刻測試（跳過等待）
+python -m src.main alert `
+  --predictions-path artifacts\predictions_full.csv `
+  --schedule-noon `
+  --skip-wait
+```
+
+Live 監測（每 5 分鐘）
+
+```powershell
+python -m src.main live-loop `
+  --provider hkjc `
+  --model-path artifacts\model_bundle.pkl `
+  --interval-seconds 300 `
+  --dry-run
+```
+
 報告語氣一鍵切換（`ALERT_TONE`）
-- `ALERT_TONE=EXPRESSIVE`：高情緒版（會顯示 `🔥/✅/🟡` 訊號標籤與分隔線）。
-- `ALERT_TONE=NEUTRAL`：專業版（保留相同數據內容，但移除情緒標籤，版型更克制）。
+- `ALERT_TONE=EXPRESSIVE`：高情緒版（預設）。顯示 `🔥/✅/🟡` 訊號標籤、分隔線與逐項 emoji。
+- `ALERT_TONE=NEUTRAL`：專業版。保留相同數據，移除情緒標籤，版型較克制。
 
 PowerShell 即時切換
 
 ```powershell
-# 高情緒版
+# 高情緒版（預設）
 $env:ALERT_TONE = "EXPRESSIVE"
 
 # 專業版
@@ -457,23 +496,49 @@ $env:ALERT_TONE = "NEUTRAL"
 
 訊息樣例（Telegram）
 
+EXPRESSIVE 版（預設）：
 ```text
-⚽ 第1場 - 歐洲協會聯賽 2026-04-10 03:00 HKT
-🔥 強勢訊號
+🏆 賽事提示｜第1場・歐洲協會聯賽
+🕐 開賽：2026-04-10 03:00 HKT
 ━━━━━━━━━━━━
-📍 水晶宮 對 費倫天拿
-🧾 盤口: 讓球客 -0.75 | 賠率: 1.91
+🔥 強勢訊號
+⚔️ 水晶宮 對 費倫天拿
+💹 盤口：讓球客 -0.75｜賠率 1.91
+━━━━━━━━━━━━
 📌 建議操作
-1️⃣ 客 -0.75
-💰 注碼政策: 分數凱利
+🎯 選邊：客 -0.75
+💰 注碼策略：分數凱利
+━━━━━━━━━━━━
+📊 模型分析
+🔹 模型勝率：75.33%
+🔸 市場隱含：49.20%
+📐 優勢（Edge）：+26.13%
+🎖️ 信心指數：50.66%（中）
+💎 期望值（EV）：43.8808
+🏷️ 資料來源：香港賽馬會（模擬）
+━━━━━━━━━━━━
+⚠️ 僅供研究參考・不構成投注建議
+```
+
+NEUTRAL 版（設 `ALERT_TONE=NEUTRAL`）：
+```text
+📋 賽事研究提示｜第1場
+🏟️ 歐洲協會聯賽｜🕐 2026-04-10 03:00 HKT
+📍 水晶宮 對 費倫天拿
+💹 盤口：讓球客 -0.75｜賠率 1.91
+
+🎯 建議操作
+• 選邊：客 -0.75
+• 注碼策略：分數凱利
+
 📊 模型觀點
-- 模型勝率: 75.33%
-- 隱含機率: 49.20%
-- Edge: 26.13%
-- 信心: 50.66%（中）
-📈 EV: 43.8808
-🧪 來源: 香港賽馬會（模擬）
-⚠️ 僅供研究參考，不構成投注建議
+• 模型勝率：75.33%
+• 市場隱含：49.20%
+• 優勢（Edge）：+26.13%
+• 信心指數：50.66%（中）
+• 期望值（EV）：43.8808
+🏷️ 資料來源：香港賽馬會（模擬）
+⚠️ 僅供研究參考・不構成投注建議
 ```
 
 同樣會唔會定時自動出？會。
@@ -509,6 +574,7 @@ scheduled-live dry/live 模式說明（重要）
 - `30 17 * * *`：01:30 HKT backtest
 - `30 19 * * *`：03:30 HKT optimize
 - `*/5 * * * *`：每 5 分鐘一次 live one-shot（schedule 會按上面 dry/live 模式規則自動決定）
+- `40 16 * * *`：00:40 HKT Telegram 一致性檢查（report/failure template drift guard）
 
 備註
 - GitHub Actions 是「排程觸發一次就跑完退出」模型，不是 24 小時常駐單進程。
@@ -591,7 +657,7 @@ python -m src.main predict-full `
 2) 輸出每日推薦（Telegram dry-run / live）
 
 ```powershell
-# dry-run（建議先用）
+# dry-run（建議先用）—— 即時發送（不等 12 點）
 $env:TELEGRAM_DRY_RUN = "true"
 python -m src.main alert `
   --predictions-path artifacts\predictions_full.csv `
@@ -601,13 +667,15 @@ python -m src.main alert `
 ```
 
 ```powershell
-# live 發送（確認 token/chat id 後）
+# 每日中午 12:00 自動發送（正式模式）
 $env:TELEGRAM_DRY_RUN = "false"
 python -m src.main alert `
   --predictions-path artifacts\predictions_full.csv `
   --edge-threshold 0.02 `
   --confidence-threshold 0.56 `
-  --max-alerts 3
+  --max-alerts 3 `
+  --schedule-noon `
+  --repeat-daily
 ```
 
 ### C. 常見錯誤（`daily-maintenance` 退出碼 1）

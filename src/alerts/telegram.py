@@ -179,12 +179,11 @@ def _clean_token(value: object) -> str:
 
 def _build_match_key(row: pd.Series) -> str:
     provider_match_id = _clean_token(row.get("provider_match_id"))
-    if provider_match_id:
-        return provider_match_id
     kickoff = _clean_token(row.get("kickoff_time_utc"))
     home = _clean_token(row.get("home_team_name"))
     away = _clean_token(row.get("away_team_name"))
-    return f"{kickoff}|{home}|{away}"
+    # Use composite key to reduce accidental collisions while keeping same-match dedup stable.
+    return f"{provider_match_id}|{kickoff}|{home}|{away}"
 
 
 def _read_sent_match_keys(log_path: Path) -> set[str]:
