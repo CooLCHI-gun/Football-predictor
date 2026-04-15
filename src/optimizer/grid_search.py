@@ -222,7 +222,6 @@ def optimize_strategy(
             roi_std=roi_std,
             win_rate_std=win_rate_std,
             worst_window_roi=worst_window_roi,
-            worst_window_win_rate=worst_window_win_rate,
             weights=weights,
         )
 
@@ -490,7 +489,6 @@ def compute_objective_score(
     roi_std: float | None = None,
     win_rate_std: float | None = None,
     worst_window_roi: float | None = None,
-    worst_window_win_rate: float | None = None,
     weights: ObjectiveWeights,
 ) -> float:
     min_window_bets = total_bets_placed if min_window_bets is None else min_window_bets
