@@ -252,6 +252,8 @@ def optimize_strategy(
 
         eligible_for_best = _as_int(row.get("min_window_bets"), 0) >= weights.hard_min_bets
         if eligible_for_best and weights.mode == "BALANCED_GUARDED":
+            # Guardrails: require mean ROI above threshold; worst-window ROI is handled via stability penalty, not here.
+            # balanced_min_window_bets adds a per-window bets floor alongside the global hard_min_bets gate.
             if max_drawdown <= weights.balanced_drawdown_cap and min_window_bets >= weights.balanced_min_window_bets and roi > weights.balanced_min_roi:
                 if best_guarded_row is None or _as_float(row.get("score"), -1e9) > _as_float(best_guarded_row.get("score"), -1e9):
                     best_guarded_row = row
@@ -514,11 +516,9 @@ def compute_objective_score(
             risk_of_ruin_estimate=risk_of_ruin_estimate,
             clv_score=clv_score,
             total_bets_placed=total_bets_placed,
-            min_window_bets=min_window_bets,
             roi_std=roi_std,
             win_rate_std=win_rate_std,
             worst_window_roi=worst_window_roi,
-            worst_window_win_rate=worst_window_win_rate,
             weights=weights,
         )
 
@@ -584,11 +584,9 @@ def compute_objective_score_balanced_guarded(
     risk_of_ruin_estimate: float | None,
     clv_score: float | None,
     total_bets_placed: int,
-    min_window_bets: int,
     roi_std: float | None,
     win_rate_std: float | None,
     worst_window_roi: float | None,
-    worst_window_win_rate: float | None,
     weights: ObjectiveWeights,
 ) -> float:
     low_bet_penalty = max(
