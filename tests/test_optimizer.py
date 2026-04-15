@@ -181,6 +181,8 @@ def test_optimizer_balanced_guarded_prefers_stable_positive_roi_profile(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
+    # RED: currently fails with pydantic.ValidationError because 'BALANCED_GUARDED' is not yet allowed in settings.
+    # After Task 2, this test should fail on missing result fields until Task 3 implements them.
     feature_path = tmp_path / "features_balanced.csv"
     output_dir = tmp_path / "optimizer"
     pd.DataFrame({"row_id": list(range(240))}).to_csv(feature_path, index=False)
@@ -205,8 +207,11 @@ def test_optimizer_balanced_guarded_prefers_stable_positive_roi_profile(
         **_: object,
     ) -> SimpleNamespace:
         edge = float(strategy_overrides["min_edge_threshold"])
-        token = input_path.name.removeprefix("outer_window_").removesuffix(".csv")
-        window_idx = max(0, int(token) - 1) if input_path.name.startswith("outer_window_") else 0
+        file_name = input_path.name
+        window_idx = 0
+        if file_name.startswith("outer_window_") and file_name.endswith(".csv"):
+            token = file_name.removeprefix("outer_window_").removesuffix(".csv")
+            window_idx = max(0, int(token) - 1)
         summary = {
             **window_profiles[edge][window_idx],
             "risk_of_ruin_estimate": 0.05,
@@ -254,6 +259,8 @@ def test_optimizer_balanced_guarded_marks_fallback_winner_when_all_runs_fail(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
+    # RED: currently fails with pydantic.ValidationError because 'BALANCED_GUARDED' is not yet allowed in settings.
+    # After Task 2, this test should fail on missing result fields until Task 3 implements them.
     feature_path = tmp_path / "features_fallback.csv"
     output_dir = tmp_path / "optimizer"
     pd.DataFrame({"row_id": list(range(180))}).to_csv(feature_path, index=False)
