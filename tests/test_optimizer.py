@@ -44,6 +44,7 @@ def test_optimizer_writes_results_files(tmp_path: Path) -> None:
         "total_bets_placed",
         "score",
         "worst_window_roi",
+        "worst_window_win_rate",
         "roi_std",
         "win_rate_std",
     }.issubset(result_df.columns)
