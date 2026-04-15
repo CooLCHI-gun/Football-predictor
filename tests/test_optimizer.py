@@ -260,6 +260,8 @@ def test_optimizer_balanced_guarded_prefers_stable_positive_roi_profile(
     assert float(best_payload["min_edge_threshold"]) == 0.02
     assert float(best_payload["worst_window_roi"]) > 0.0
     assert float(best_payload["roi_std"]) < 0.01
+    assert best_payload["selection_reason"] == "guardrail_best_score"
+    assert best_payload["passed_guardrails"] is True
 
 
 def test_optimizer_balanced_guarded_marks_fallback_winner_when_all_runs_fail(
@@ -315,3 +317,79 @@ def test_optimizer_balanced_guarded_marks_fallback_winner_when_all_runs_fail(
     best_payload = json.loads((output_dir / "best_params.json").read_text(encoding="utf-8"))
     assert best_payload["selection_reason"] == "fallback_best_score"
     assert best_payload["passed_guardrails"] is False
+
+
+def test_optimizer_balanced_guarded_prefers_guardrail_passing_candidate(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    feature_path = tmp_path / "features_guardrail_override.csv"
+    output_dir = tmp_path / "optimizer"
+    pd.DataFrame({"row_id": list(range(240))}).to_csv(feature_path, index=False)
+
+    window_profiles = {
+        0.01: [
+            {"roi": 0.10, "win_rate": 0.66, "max_drawdown": 0.20, "total_bets_placed": 130},
+            {"roi": 0.09, "win_rate": 0.65, "max_drawdown": 0.21, "total_bets_placed": 128},
+            {"roi": 0.11, "win_rate": 0.67, "max_drawdown": 0.19, "total_bets_placed": 129},
+        ],
+        0.02: [
+            {"roi": 0.06, "win_rate": 0.58, "max_drawdown": 0.08, "total_bets_placed": 120},
+            {"roi": 0.05, "win_rate": 0.57, "max_drawdown": 0.07, "total_bets_placed": 122},
+            {"roi": 0.055, "win_rate": 0.59, "max_drawdown": 0.09, "total_bets_placed": 121},
+        ],
+    }
+
+    def _fake_run_backtest_with_result(
+        *,
+        input_path: Path,
+        strategy_overrides: dict[str, object],
+        **_: object,
+    ) -> SimpleNamespace:
+        edge = float(strategy_overrides["min_edge_threshold"])
+        file_name = input_path.name
+        window_idx = 0
+        if file_name.startswith("outer_window_") and file_name.endswith(".csv"):
+            token = file_name.removeprefix("outer_window_").removesuffix(".csv")
+            window_idx = max(0, int(token) - 1)
+        summary = {
+            **window_profiles[edge][window_idx],
+            "risk_of_ruin_estimate": 0.05,
+            "avg_clv_pct": 0.0,
+            "median_clv_pct": 0.0,
+            "pct_positive_clv": 0.0,
+            "prediction_cache_hits": 0,
+            "prediction_cache_misses": 1,
+        }
+        return SimpleNamespace(summary=summary)
+
+    monkeypatch.setattr("src.optimizer.grid_search.run_backtest_with_result", _fake_run_backtest_with_result)
+    monkeypatch.setenv("OPTIMIZER_MODE", "BALANCED_GUARDED")
+    monkeypatch.setenv("OPTIMIZER_HARD_MIN_BETS", "100")
+    monkeypatch.setenv("OPTIMIZER_BALANCED_MIN_WINDOW_BETS", "100")
+    monkeypatch.setenv("OPTIMIZER_BALANCED_DRAWDOWN_CAP", "0.12")
+    monkeypatch.setenv("OPTIMIZER_BALANCED_MIN_ROI", "0.0")
+    get_settings.cache_clear()
+
+    try:
+        optimize_strategy(
+            input_path=feature_path,
+            output_dir=output_dir,
+            edge_grid=[0.01, 0.02],
+            confidence_grid=[0.55],
+            policy_grid=["flat"],
+            kelly_grid=[0.15],
+            max_alerts_grid=[1],
+            max_stake_grid=[0.01],
+            daily_exposure_grid=[0.03],
+            outer_rolling_windows=3,
+            outer_min_window_matches=60,
+            max_runs=2,
+        )
+    finally:
+        get_settings.cache_clear()
+
+    best_payload = json.loads((output_dir / "best_params.json").read_text(encoding="utf-8"))
+    assert float(best_payload["min_edge_threshold"]) == 0.02
+    assert best_payload["selection_reason"] == "guardrail_best_score"
+    assert best_payload["passed_guardrails"] is True
