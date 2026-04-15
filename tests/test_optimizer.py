@@ -38,7 +38,15 @@ def test_optimizer_writes_results_files(tmp_path: Path) -> None:
 
     result_df = pd.read_csv(results_path)
     assert not result_df.empty
-    assert {"roi", "max_drawdown", "total_bets_placed", "score"}.issubset(result_df.columns)
+    assert {
+        "roi",
+        "max_drawdown",
+        "total_bets_placed",
+        "score",
+        "worst_window_roi",
+        "roi_std",
+        "win_rate_std",
+    }.issubset(result_df.columns)
 
 
 def test_optimizer_dry_run_reports_run_count(tmp_path: Path) -> None:
