@@ -74,6 +74,12 @@ class AppSettings(BaseSettings):
     optimizer_hard_min_bets: int = Field(default=120, alias="OPTIMIZER_HARD_MIN_BETS")
     optimizer_winrate_min_win_rate: float = Field(default=0.53, alias="OPTIMIZER_WINRATE_MIN_WIN_RATE")
     optimizer_winrate_drawdown_cap: float = Field(default=0.12, alias="OPTIMIZER_WINRATE_DRAWDOWN_CAP")
+    optimizer_balanced_drawdown_cap: float = Field(default=0.12, alias="OPTIMIZER_BALANCED_DRAWDOWN_CAP")
+    optimizer_balanced_min_window_bets: int = Field(default=100, alias="OPTIMIZER_BALANCED_MIN_WINDOW_BETS")
+    optimizer_balanced_min_roi: float = Field(default=0.0, alias="OPTIMIZER_BALANCED_MIN_ROI")
+    optimizer_balanced_lambda_roi_std: float = Field(default=0.35, alias="OPTIMIZER_BALANCED_LAMBDA_ROI_STD")
+    optimizer_balanced_lambda_win_rate_std: float = Field(default=0.25, alias="OPTIMIZER_BALANCED_LAMBDA_WIN_RATE_STD")
+    optimizer_balanced_lambda_worst_window_roi: float = Field(default=0.30, alias="OPTIMIZER_BALANCED_LAMBDA_WORST_WINDOW_ROI")
     optimizer_outer_rolling_windows: int = Field(default=3, alias="OPTIMIZER_OUTER_ROLLING_WINDOWS")
     optimizer_outer_min_window_matches: int = Field(default=180, alias="OPTIMIZER_OUTER_MIN_WINDOW_MATCHES")
 
@@ -105,7 +111,7 @@ class AppSettings(BaseSettings):
     @classmethod
     def _normalize_optimizer_mode(cls, value: object) -> str:
         candidate = str(value).strip().upper() if value is not None else "BALANCED"
-        allowed = {"BALANCED", "WINRATE_GUARDED"}
+        allowed = {"BALANCED", "BALANCED_GUARDED", "WINRATE_GUARDED"}
         if candidate not in allowed:
             raise ValueError(f"OPTIMIZER_MODE must be one of: {', '.join(sorted(allowed))}")
         return candidate
