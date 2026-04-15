@@ -42,6 +42,12 @@ class ObjectiveWeights:
     winrate_min_win_rate: float = 0.53
     winrate_drawdown_cap: float = 0.12
     hard_min_bets: int = 120
+    balanced_drawdown_cap: float = 0.12
+    balanced_min_window_bets: int = 100
+    balanced_min_roi: float = 0.0
+    balanced_lambda_roi_std: float = 0.35
+    balanced_lambda_win_rate_std: float = 0.25
+    balanced_lambda_worst_window_roi: float = 0.30
 
 
 @dataclass(frozen=True)
@@ -124,10 +130,19 @@ def optimize_strategy(
         winrate_min_win_rate=float(getattr(settings, "optimizer_winrate_min_win_rate", 0.53)),
         winrate_drawdown_cap=float(getattr(settings, "optimizer_winrate_drawdown_cap", 0.12)),
         hard_min_bets=int(getattr(settings, "optimizer_hard_min_bets", 120)),
+        balanced_drawdown_cap=float(getattr(settings, "optimizer_balanced_drawdown_cap", 0.12)),
+        balanced_min_window_bets=int(getattr(settings, "optimizer_balanced_min_window_bets", 100)),
+        balanced_min_roi=float(getattr(settings, "optimizer_balanced_min_roi", 0.0)),
+        balanced_lambda_roi_std=float(getattr(settings, "optimizer_balanced_lambda_roi_std", 0.35)),
+        balanced_lambda_win_rate_std=float(getattr(settings, "optimizer_balanced_lambda_win_rate_std", 0.25)),
+        balanced_lambda_worst_window_roi=float(
+            getattr(settings, "optimizer_balanced_lambda_worst_window_roi", 0.30)
+        ),
     )
 
     rows: list[dict[str, object]] = []
     best_row: dict[str, object] | None = None
+    best_guarded_row: dict[str, object] | None = None
     cache_hits = 0
     cache_misses = 0
 
@@ -182,6 +197,10 @@ def optimize_strategy(
         total_bets = _as_int(summary.get("total_bets_placed"), 0)
         win_rate = _as_float(summary.get("win_rate"), 0.0)
         min_window_bets = _as_int(summary.get("min_window_bets"), total_bets)
+        worst_window_roi = _as_float(summary.get("worst_window_roi"), roi)
+        worst_window_win_rate = _as_float(summary.get("worst_window_win_rate"), win_rate)
+        roi_std = _as_float(summary.get("roi_std"), 0.0)
+        win_rate_std = _as_float(summary.get("win_rate_std"), 0.0)
         risk_of_ruin_estimate = _as_optional_float(summary.get("risk_of_ruin_estimate"))
         avg_clv_pct = _as_optional_float(summary.get("avg_clv_pct"))
         median_clv_pct = _as_optional_float(summary.get("median_clv_pct"))
@@ -200,6 +219,9 @@ def optimize_strategy(
             clv_score=clv_score,
             total_bets_placed=total_bets,
             min_window_bets=min_window_bets,
+            roi_std=roi_std,
+            win_rate_std=win_rate_std,
+            worst_window_roi=worst_window_roi,
             weights=weights,
         )
 
@@ -211,6 +233,10 @@ def optimize_strategy(
             "total_bets_placed": total_bets,
             "min_window_bets": min_window_bets,
             "win_rate": win_rate,
+            "worst_window_roi": worst_window_roi,
+            "worst_window_win_rate": worst_window_win_rate,
+            "roi_std": roi_std,
+            "win_rate_std": win_rate_std,
             "avg_clv_pct": avg_clv_pct,
             "median_clv_pct": median_clv_pct,
             "pct_positive_clv": pct_positive_clv,
@@ -224,6 +250,13 @@ def optimize_strategy(
         rows.append(row)
 
         eligible_for_best = _as_int(row.get("min_window_bets"), 0) >= weights.hard_min_bets
+        if eligible_for_best and weights.mode == "BALANCED_GUARDED":
+            # Guardrails: require mean ROI above threshold; worst-window ROI is handled via stability penalty, not here.
+            # balanced_min_window_bets adds a per-window bets floor alongside the global hard_min_bets gate.
+            if max_drawdown <= weights.balanced_drawdown_cap and min_window_bets >= weights.balanced_min_window_bets and roi > weights.balanced_min_roi:
+                if best_guarded_row is None or _as_float(row.get("score"), -1e9) > _as_float(best_guarded_row.get("score"), -1e9):
+                    best_guarded_row = row
+
         if best_row is None and eligible_for_best:
             best_row = row
             continue
@@ -237,6 +270,18 @@ def optimize_strategy(
     if best_row is None and rows:
         best_row = max(rows, key=lambda item: _as_float(item.get("score"), -1e9))
 
+    # For BALANCED_GUARDED, prefer the best guardrail-passing row when available.
+    selection_reason: str | None = None
+    passed_guardrails: bool | None = None
+    if best_row is not None and weights.mode == "BALANCED_GUARDED":
+        if best_guarded_row is not None:
+            best_row = best_guarded_row
+            selection_reason = "guardrail_best_score"
+            passed_guardrails = True
+        else:
+            selection_reason = "fallback_best_score"
+            passed_guardrails = False
+
     results_df = pd.DataFrame(rows).sort_values("score", ascending=False)
     params_results_path = output_dir / "params_results.csv"
     best_params_path = output_dir / "best_params.json"
@@ -245,7 +290,10 @@ def optimize_strategy(
     if best_row is None:
         best_payload: dict[str, object] = {"note": "No valid parameter combinations were executed."}
     else:
-        best_payload = best_row
+        best_payload = dict(best_row)
+        if selection_reason is not None:
+            best_payload["selection_reason"] = selection_reason
+            best_payload["passed_guardrails"] = passed_guardrails
     best_params_path.write_text(json.dumps(best_payload, indent=2), encoding="utf-8")
 
     LOGGER.info("Optimization completed. runs=%s best_score=%s", len(rows), _as_float(best_payload.get("score"), 0.0))
@@ -283,10 +331,21 @@ def _evaluate_param_set_with_outer_rolling(
             strategy_overrides=strategy_overrides,
             bankroll_overrides=bankroll_overrides,
         )
+        total_bets = _as_int(result.summary.get("total_bets_placed"), 0)
+        roi = _as_float(result.summary.get("roi"), 0.0)
+        win_rate = _as_float(result.summary.get("win_rate"), 0.0)
+        max_drawdown = _as_float(result.summary.get("max_drawdown"), 0.0)
         return {
             **result.summary,
+            "roi": roi,
+            "win_rate": win_rate,
+            "max_drawdown": max_drawdown,
             "outer_rolling_windows": 1,
-            "min_window_bets": _as_int(result.summary.get("total_bets_placed"), 0),
+            "min_window_bets": total_bets,
+            "worst_window_roi": roi,
+            "worst_window_win_rate": win_rate,
+            "roi_std": 0.0,
+            "win_rate_std": 0.0,
         }
 
     frame = pd.read_csv(input_path)
@@ -301,10 +360,21 @@ def _evaluate_param_set_with_outer_rolling(
             strategy_overrides=strategy_overrides,
             bankroll_overrides=bankroll_overrides,
         )
+        total_bets = _as_int(result.summary.get("total_bets_placed"), 0)
+        roi = _as_float(result.summary.get("roi"), 0.0)
+        win_rate = _as_float(result.summary.get("win_rate"), 0.0)
+        max_drawdown = _as_float(result.summary.get("max_drawdown"), 0.0)
         return {
             **result.summary,
+            "roi": roi,
+            "win_rate": win_rate,
+            "max_drawdown": max_drawdown,
             "outer_rolling_windows": 1,
-            "min_window_bets": _as_int(result.summary.get("total_bets_placed"), 0),
+            "min_window_bets": total_bets,
+            "worst_window_roi": roi,
+            "worst_window_win_rate": win_rate,
+            "roi_std": 0.0,
+            "win_rate_std": 0.0,
         }
 
     window_size = max(outer_min_window_matches, total_rows // outer_rolling_windows)
@@ -345,10 +415,21 @@ def _evaluate_param_set_with_outer_rolling(
             strategy_overrides=strategy_overrides,
             bankroll_overrides=bankroll_overrides,
         )
+        total_bets = _as_int(result.summary.get("total_bets_placed"), 0)
+        roi = _as_float(result.summary.get("roi"), 0.0)
+        win_rate = _as_float(result.summary.get("win_rate"), 0.0)
+        max_drawdown = _as_float(result.summary.get("max_drawdown"), 0.0)
         return {
             **result.summary,
+            "roi": roi,
+            "win_rate": win_rate,
+            "max_drawdown": max_drawdown,
             "outer_rolling_windows": 1,
-            "min_window_bets": _as_int(result.summary.get("total_bets_placed"), 0),
+            "min_window_bets": total_bets,
+            "worst_window_roi": roi,
+            "worst_window_win_rate": win_rate,
+            "roi_std": 0.0,
+            "win_rate_std": 0.0,
         }
 
     roi_values = [_as_float(item.get("roi"), 0.0) for item in summaries]
@@ -382,6 +463,10 @@ def _evaluate_param_set_with_outer_rolling(
         "max_drawdown": max(drawdown_values) if drawdown_values else 0.0,
         "total_bets_placed": int(round(statistics.fmean(bets_values))) if bets_values else 0,
         "min_window_bets": min(bets_values) if bets_values else 0,
+        "worst_window_roi": min(roi_values) if roi_values else 0.0,
+        "worst_window_win_rate": min(win_rate_values) if win_rate_values else 0.0,
+        "roi_std": statistics.pstdev(roi_values) if len(roi_values) > 1 else 0.0,
+        "win_rate_std": statistics.pstdev(win_rate_values) if len(win_rate_values) > 1 else 0.0,
         "risk_of_ruin_estimate": max(ror_values) if ror_values else None,
         "avg_clv_pct": statistics.fmean(clv_avg_values) if clv_avg_values else None,
         "median_clv_pct": statistics.fmean(clv_median_values) if clv_median_values else None,
@@ -401,6 +486,9 @@ def compute_objective_score(
     clv_score: float | None,
     total_bets_placed: int,
     min_window_bets: int | None = None,
+    roi_std: float | None = None,
+    win_rate_std: float | None = None,
+    worst_window_roi: float | None = None,
     weights: ObjectiveWeights,
 ) -> float:
     min_window_bets = total_bets_placed if min_window_bets is None else min_window_bets
@@ -415,6 +503,20 @@ def compute_objective_score(
             risk_of_ruin_estimate=risk_of_ruin_estimate,
             clv_score=clv_score,
             total_bets_placed=total_bets_placed,
+            weights=weights,
+        )
+
+    if weights.mode == "BALANCED_GUARDED":
+        return compute_objective_score_balanced_guarded(
+            roi=roi,
+            win_rate=win_rate,
+            max_drawdown=max_drawdown,
+            risk_of_ruin_estimate=risk_of_ruin_estimate,
+            clv_score=clv_score,
+            total_bets_placed=total_bets_placed,
+            roi_std=roi_std,
+            win_rate_std=win_rate_std,
+            worst_window_roi=worst_window_roi,
             weights=weights,
         )
 
@@ -470,6 +572,50 @@ def compute_objective_score_winrate_guarded(
         - (0.80 * risk_penalty)
         - (0.20 * low_bet_penalty)
     )
+
+
+def compute_objective_score_balanced_guarded(
+    *,
+    roi: float,
+    win_rate: float,
+    max_drawdown: float,
+    risk_of_ruin_estimate: float | None,
+    clv_score: float | None,
+    total_bets_placed: int,
+    roi_std: float | None,
+    win_rate_std: float | None,
+    worst_window_roi: float | None,
+    weights: ObjectiveWeights,
+) -> float:
+    low_bet_penalty = max(
+        0.0,
+        (weights.min_bets_target - total_bets_placed) / max(1, weights.min_bets_target),
+    )
+    risk_penalty = risk_of_ruin_estimate if risk_of_ruin_estimate is not None else 1.0
+    clv_term = clv_score if clv_score is not None else 0.0
+    placed_bets_term = min(1.0, total_bets_placed / max(1, weights.target_placed_bets))
+    roi_std_value = roi_std if roi_std is not None else 0.0
+    win_rate_std_value = win_rate_std if win_rate_std is not None else 0.0
+    worst_window_roi_value = worst_window_roi if worst_window_roi is not None else roi
+
+    base_score = (
+        roi
+        + (weights.mu_win_rate * win_rate)
+        + (weights.mu_placed_bets * placed_bets_term)
+        - (weights.lambda_drawdown * max_drawdown)
+        - (weights.lambda_ror * risk_penalty)
+        + (weights.mu_clv * clv_term)
+        - (weights.lambda_low_bets * low_bet_penalty)
+    )
+
+    stability_penalty = (
+        weights.balanced_lambda_roi_std * roi_std_value
+        + weights.balanced_lambda_win_rate_std * win_rate_std_value
+        + weights.balanced_lambda_worst_window_roi
+        * max(0.0, weights.balanced_min_roi - worst_window_roi_value)
+    )
+
+    return base_score - stability_penalty
 
 
 def _as_float(value: Any, default: float) -> float:
