@@ -85,7 +85,7 @@ class TelegramClient:
             source=source,
         )
 
-    def send_message(self, text: str, parse_mode: str = "Markdown") -> str:
+    def send_message(self, text: str, parse_mode: str = "HTML") -> str:
         if self.dry_run:
             LOGGER.info("[TELEGRAM_DRY_RUN] message_prepared chars=%d", len(text))
             return f"DRY_RUN: {text}"
