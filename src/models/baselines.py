@@ -33,6 +33,15 @@ except ImportError:  # pragma: no cover - optional dependency
 
 from src.strategy.settlement import settle_handicap_bet
 
+# Interaction features (computed upstream by features/pipeline.py)
+INTERACTION_FEATURES = [
+    "interact_form_x_elo",
+    "interact_form_x_hdc",
+    "interact_elo_x_hdc",
+    "interact_h2h_x_form_home",
+    "interact_hdc_x_market_move",
+]
+
 
 LOGGER = logging.getLogger(__name__)
 
@@ -88,7 +97,7 @@ BASE_FEATURE_COLUMNS = [
     "missing_away_history_flag",
     "missing_home_ft_goals_flag",
     "missing_away_ft_goals_flag",
-]
+] + INTERACTION_FEATURES
 
 MARKET_FEATURE_COLUMNS = [
     "handicap_open_line",
@@ -173,6 +182,20 @@ def train_model_bundle(
     training_df = prepare_training_frame(df=df, approach=approach)
     feature_columns = get_feature_columns(include_market_features=include_market_features)
     feature_frame = build_feature_frame(training_df, feature_columns)
+
+    # Time decay weights: recent matches matter more
+    sample_weight = None
+    if "kickoff_time_utc" in training_df.columns:
+        import datetime
+        now = pd.Timestamp.now(tz="UTC") if hasattr(pd.Timestamp, "now") else pd.Timestamp.utcnow()
+        if training_df["kickoff_time_utc"].dtype.kind in ("O", "M"):
+            kickoff_series = pd.to_datetime(training_df["kickoff_time_utc"], utc=True, errors="coerce")
+            days_ago = (now - kickoff_series).dt.days.astype(float)
+            # Weight: exp(-days/90), clipped to [0.2, 1.0]
+            sample_weight = np.clip(np.exp(-days_ago / 90.0), 0.2, 1.0).values
+            sample_weight = np.nan_to_num(sample_weight, nan=1.0)
+            LOGGER.info("Time decay weights applied: mean=%.3f min=%.3f max=%.3f",
+                        float(sample_weight.mean()), float(sample_weight.min()), float(sample_weight.max()))
 
     if approach == "direct_cover":
         target = training_df["target_direct_cover"].astype(int).to_numpy()
@@ -416,6 +439,7 @@ def _train_direct_cover_model(
     X: pd.DataFrame,
     y: np.ndarray,
     include_market_features: bool,
+    sample_weight: np.ndarray | None = None,
 ) -> tuple[ModelBundle, np.ndarray]:
     if len(np.unique(y)) < 2:
         probabilities = np.full(shape=len(X), fill_value=float(np.mean(y)) if len(y) else 0.5, dtype=float)
@@ -449,7 +473,10 @@ def _train_direct_cover_model(
 
     if model_name == "logistic_regression":
         estimator, calibration_method = _build_logistic_estimator(y=y)
-        estimator.fit(X, y)
+        if sample_weight is not None:
+            estimator.fit(X, y, classifier__sample_weight=sample_weight)
+        else:
+            estimator.fit(X, y)
         probabilities = estimator.predict_proba(X)[:, 1]
         return (
             ModelBundle(
@@ -471,7 +498,10 @@ def _train_direct_cover_model(
                 ("classifier", HistGradientBoostingClassifier(random_state=42)),
             ]
         )
-        estimator.fit(X, y)
+        if sample_weight is not None:
+            estimator.fit(X, y, classifier__sample_weight=sample_weight)
+        else:
+            estimator.fit(X, y)
         probabilities = estimator.predict_proba(X)[:, 1]
         return (
             ModelBundle(
@@ -507,7 +537,10 @@ def _train_direct_cover_model(
                 ),
             ]
         )
-        estimator.fit(X, y)
+        if sample_weight is not None:
+            estimator.fit(X, y, classifier__sample_weight=sample_weight)
+        else:
+            estimator.fit(X, y)
         probabilities = estimator.predict_proba(X)[:, 1]
         return (
             ModelBundle(
@@ -542,7 +575,10 @@ def _train_direct_cover_model(
                 ),
             ]
         )
-        estimator.fit(X, y)
+        if sample_weight is not None:
+            estimator.fit(X, y, classifier__sample_weight=sample_weight)
+        else:
+            estimator.fit(X, y)
         probabilities = estimator.predict_proba(X)[:, 1]
         return (
             ModelBundle(
@@ -553,6 +589,42 @@ def _train_direct_cover_model(
                 estimator=estimator,
                 calibration_method="none",
                 fallback_note="Using LightGBM classifier as high-capacity tree model for direct_cover.",
+            ),
+            np.asarray(probabilities, dtype=float),
+        )
+
+    if model_name == "ensemble":
+        """Train 3-model ensemble (LR + HGB + XGB), average probabilities."""
+        import copy
+        ensemble_probs = []
+        sub_models = []
+        
+        for sub_name in ("logistic_regression", "gradient_boosting", "xgboost"):
+            try:
+                sub_bundle, sub_probs = _train_direct_cover_model(
+                    model_name=sub_name, X=X, y=y,
+                    include_market_features=include_market_features,
+                    sample_weight=sample_weight,
+                )
+                sub_models.append(sub_bundle.estimator)
+                ensemble_probs.append(sub_probs)
+                LOGGER.info("Ensemble sub-model %s trained (mean_prob=%.3f)", sub_name, float(np.mean(sub_probs)))
+            except Exception as exc:
+                LOGGER.warning("Ensemble sub-model %s failed: %s", sub_name, exc)
+        
+        if not ensemble_probs:
+            raise ValueError("All ensemble sub-models failed to train.")
+        
+        probabilities = np.mean(ensemble_probs, axis=0)
+        return (
+            ModelBundle(
+                model_name="ensemble",
+                approach="direct_cover",
+                include_market_features=include_market_features,
+                feature_columns=[],
+                estimator=sub_models,
+                calibration_method="none",
+                fallback_note=f"Ensemble of {len(ensemble_probs)} models (weighted average).",
             ),
             np.asarray(probabilities, dtype=float),
         )
@@ -791,3 +863,27 @@ def _line_components(handicap_line: float) -> list[float]:
 def _normal_cdf(value: float, std_dev: float) -> float:
     denominator = max(std_dev, 1e-6) * math.sqrt(2.0)
     return 0.5 * (1.0 + math.erf(value / denominator))
+
+# ── Temperature Scaling (post-hoc calibration) ──
+
+def _temperature_scale(logits: np.ndarray, temperature: float) -> np.ndarray:
+    """Apply temperature scaling to logits (inverse logit -> scale -> sigmoid)."""
+    # Clamp to avoid log(0)
+    probs = np.clip(logits, 1e-7, 1 - 1e-7)
+    logits = np.log(probs / (1.0 - probs))  # inverse sigmoid
+    scaled = logits / max(temperature, 1e-6)
+    return 1.0 / (1.0 + np.exp(-scaled))
+
+def calibrate_temperature(probs: np.ndarray, y_true: np.ndarray,
+                          n_bins: int = 10) -> tuple[float, dict]:
+    """Search best temperature that minimizes NLL on validation set."""
+    from sklearn.metrics import log_loss
+    best_temp = 1.0
+    best_nll = float("inf")
+    for temp in [t / 10.0 for t in range(2, 51)]:  # 0.2 to 5.0
+        scaled = _temperature_scale(probs, temp)
+        nll = log_loss(y_true, scaled, labels=[0, 1])
+        if nll < best_nll:
+            best_nll = nll
+            best_temp = temp
+    return best_temp, {"best_temperature": best_temp, "best_nll": round(best_nll, 4)}

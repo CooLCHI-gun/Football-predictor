@@ -39,7 +39,7 @@ class AppSettings(BaseSettings):
     skip_missing_data: bool = Field(default=True, alias="SKIP_MISSING_DATA")
     flat_stake: float = Field(default=100.0, alias="FLAT_STAKE")
 
-    model_name: str = Field(default="logistic_regression", alias="MODEL_NAME")
+    model_name: str = Field(default="gradient_boosting", alias="MODEL_NAME")
     model_approach: str = Field(default="direct_cover", alias="MODEL_APPROACH")
     include_market_features: bool = Field(default=True, alias="INCLUDE_MARKET_FEATURES")
     min_train_matches: int = Field(default=12, alias="MIN_TRAIN_MATCHES")
