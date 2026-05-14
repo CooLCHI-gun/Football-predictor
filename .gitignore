@@ -32,3 +32,14 @@ data/processed/*
 *.db
 *.sqlite3
 .vscode/*.log
+
+# IDE
+.vscode/
+
+# Probe scripts (archived)
+scripts/archive/
+
+# Secrets
+.env
+*.pem
+*.key

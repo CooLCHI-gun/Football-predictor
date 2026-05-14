@@ -1,0 +1,21 @@
+🏆 賽事提示｜第{match_number}場・{competition_zh}
+🕐 開賽：{kickoff_hkt}
+━━━━━━━━━━━━
+{signal_tone}
+⚔️ {home_display} 對 {away_display}
+💹 盤口：{market_side_label} {handicap_text}｜賠率 {odds}
+━━━━━━━━━━━━
+📌 建議操作
+🎯 選邊：{recommended_side} {handicap_text}
+💰 注碼策略：{policy_label}
+━━━━━━━━━━━━
+📊 模型分析
+🔹 模型勝率：{model_prob:.1%}
+🔸 市場隱含：{implied_prob:.1%}
+📐 優勢（Edge）：{edge_sign}
+🎖️ 信心指數：{confidence_score:.1%}（{confidence_label}）
+💎 期望值（EV）：{expected_value}
+🏷️ 資料來源：{source_label}
+{side_debug_lines}
+━━━━━━━━━━━━
+⚠️ 僅供研究參考・不構成投注建議

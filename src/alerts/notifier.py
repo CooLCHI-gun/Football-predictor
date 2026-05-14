@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import timezone
+import os
 
 import pandas as pd
 
@@ -78,18 +79,13 @@ def build_bet_alert_message(bet: BetRecord) -> str:
     recommended_side = _format_recommended_side(bet.predicted_side)
     handicap_text = _format_handicap_line(bet.handicap_line)
     match_display = resolve_match_display(
-        home_team_name,
-        away_team_name,
-        competition_name,
+        home_team_name, away_team_name, competition_name,
         lang="zh-HK",
-        home_team_zh=home_team_name_zh,
-        away_team_zh=away_team_name_zh,
+        home_team_zh=home_team_name_zh, away_team_zh=away_team_name_zh,
         competition_zh=competition_name_zh,
     )
     market_side_label = resolve_market_label(
-        market_id=bet.market_id,
-        predicted_side=bet.predicted_side,
-        lang="zh-HK",
+        market_id=bet.market_id, predicted_side=bet.predicted_side, lang="zh-HK",
     )
     policy_label = _format_policy_label(bet.policy)
     source_label = _format_source_label(bet.source_label)
@@ -100,55 +96,42 @@ def build_bet_alert_message(bet: BetRecord) -> str:
         original_side_label = _format_recommended_side(bet.original_predicted_side)
         effective_side_label = _format_recommended_side(bet.predicted_side)
         side_debug_lines = (
-            f"\n🧠 模型方向: {original_side_label}"
-            f"\n🔁 生效方向: {effective_side_label}"
+            f"\n🧠 模型方向: {original_side_label}\n"
+            f"🔁 生效方向: {effective_side_label}"
         )
     edge_sign = f"+{bet.edge:.2%}" if bet.edge >= 0 else f"{bet.edge:.2%}"
 
-    if alert_tone == "NEUTRAL":
-        return (
-            f"📋 賽事研究提示｜第{bet.match_number or '?'}場\n"
-            f"🏟️ {match_display.competition}｜🕐 {kickoff_hkt}\n"
-            f"📍 {match_display.home_team} 對 {match_display.away_team}\n"
-            f"💹 盤口：{market_side_label} {handicap_text}｜賠率 {effective_odds:.2f}\n"
-            "\n"
-            "🎯 建議操作\n"
-            f"• 選邊：{recommended_side} {handicap_text}\n"
-            f"• 注碼策略：{policy_label}\n"
-            "\n"
-            "📊 模型觀點\n"
-            f"• 模型勝率：{bet.predicted_win_probability:.2%}\n"
-            f"• 市場隱含：{bet.implied_probability:.2%}\n"
-            f"• 優勢（Edge）：{edge_sign}\n"
-            f"• 信心指數：{bet.confidence_score:.2%}（{confidence_label}）\n"
-            f"• 期望值（EV）：{bet.expected_value:.4f}\n"
-            f"🏷️ 資料來源：{source_label}\n"
-            f"{side_debug_lines}\n"
-            "⚠️ 僅供研究參考・不構成投注建議"
-        )
+    tone_key = "neutral" if alert_tone == "NEUTRAL" else "expressive"
+    tpl_name = f"bet_alert_{tone_key}.txt"
+    tpl_path = os.path.join(os.path.dirname(__file__), "templates", tpl_name)
 
-    return (
-        f"🏆 賽事提示｜第{bet.match_number or '?'}場・{match_display.competition}\n"
-        f"🕐 開賽：{kickoff_hkt}\n"
-        "━━━━━━━━━━━━\n"
-        f"{signal_tone}\n"
-        f"⚔️ {match_display.home_team} 對 {match_display.away_team}\n"
-        f"💹 盤口：{market_side_label} {handicap_text}｜賠率 {effective_odds:.2f}\n"
-        "━━━━━━━━━━━━\n"
-        "📌 建議操作\n"
-        f"🎯 選邊：{recommended_side} {handicap_text}\n"
-        f"💰 注碼策略：{policy_label}\n"
-        "━━━━━━━━━━━━\n"
-        "📊 模型分析\n"
-        f"🔹 模型勝率：{bet.predicted_win_probability:.2%}\n"
-        f"🔸 市場隱含：{bet.implied_probability:.2%}\n"
-        f"📐 優勢（Edge）：{edge_sign}\n"
-        f"🎖️ 信心指數：{bet.confidence_score:.2%}（{confidence_label}）\n"
-        f"💎 期望值（EV）：{bet.expected_value:.4f}\n"
-        f"🏷️ 資料來源：{source_label}\n"
-        f"{side_debug_lines}\n"
-        "━━━━━━━━━━━━\n"
-        "⚠️ 僅供研究參考・不構成投注建議"
+    try:
+        with open(tpl_path, encoding="utf-8") as f:
+            tpl = f.read()
+    except FileNotFoundError:
+        # Fallback to inline message
+        return f"[{bet.match_number}] {match_display.home_team} vs {match_display.away_team} — edge={bet.edge:.2%}"
+
+    return tpl.format(
+        match_number=bet.match_number or "?",
+        competition_zh=competition_name_zh or competition_name,
+        kickoff_hkt=kickoff_hkt,
+        home_display=match_display.home_team,
+        away_display=match_display.away_team,
+        market_side_label=market_side_label,
+        handicap_text=handicap_text,
+        odds=f"{effective_odds:.2f}",
+        recommended_side=recommended_side,
+        policy_label=policy_label,
+        model_prob=bet.predicted_win_probability,
+        implied_prob=bet.implied_probability,
+        edge_sign=edge_sign,
+        confidence_score=bet.confidence_score,
+        confidence_label=confidence_label,
+        expected_value=f"{bet.expected_value:.4f}",
+        source_label=source_label,
+        side_debug_lines=side_debug_lines,
+        signal_tone=signal_tone,
     )
 
 
