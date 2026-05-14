@@ -37,7 +37,6 @@ data/processed/*
 .vscode/
 
 # Probe scripts (archived)
-scripts/archive/
 
 # Secrets
 .env
