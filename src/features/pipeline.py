@@ -14,6 +14,15 @@ from src.features.external_injury import default_injury_data_source
 from src.features.hk_market_compare import add_hk_vs_consensus_features
 from src.strategy.settlement import settle_handicap_bet
 
+# helper
+def _to_float(value):
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
 REQUIRED_COLUMNS = {
     "kickoff_time_utc",
     "competition",
@@ -482,6 +491,26 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:
 
         feature_row.update(_odds_and_line_features(row))
         feature_row.update(_results_detail_proxy_features(row))
+
+        # ── Interaction features ──
+        h_points_5 = home_form_points_last5 if home_form_points_last5 is not None else None
+        a_points_5 = away_form_points_last5 if away_form_points_last5 is not None else None
+        h_elo = home_elo_pre if home_elo_pre is not None else None
+        a_elo = away_elo_pre if away_elo_pre is not None else None
+        hdc_close = row.get("handicap_close_line")
+        hdc_open = row.get("handicap_open_line")
+
+        if h_points_5 is not None and a_points_5 is not None and h_elo is not None and a_elo is not None:
+            feature_row["interact_form_x_elo"] = float((h_points_5 - a_points_5) * (h_elo - a_elo) / 100.0)
+            if hdc_close is not None:
+                feature_row["interact_form_x_hdc"] = float((h_points_5 - a_points_5) * float(hdc_close) / 10.0)
+            if h_elo is not None and a_elo is not None and hdc_close is not None:
+                feature_row["interact_elo_x_hdc"] = float((h_elo - a_elo) * float(hdc_close) / 100.0)
+            if getattr(h2h_stats, 'hdc_cover_rate_home_recent', None) is not None:
+                feature_row["interact_h2h_x_form_home"] = float(h2h_stats.hdc_cover_rate_home_recent * h_points_5 / 15.0)
+            if hdc_open is not None and hdc_close is not None and h_elo is not None and a_elo is not None:
+                feature_row["interact_hdc_x_market_move"] = float((float(hdc_close) - float(hdc_open)) * (h_elo - a_elo) / 50.0)
+
         rows.append(feature_row)
 
         home_goals = int(row["ft_home_goals"]) if not pd.isna(row["ft_home_goals"]) else 0
