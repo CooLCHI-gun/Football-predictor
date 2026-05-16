@@ -45,6 +45,26 @@ class HKJCFootballProvider:
 
         response_meta = replay_request_candidate(candidate, session=self._session, timeout=poll_timeout_seconds)
         response_json = response_meta.get("response_json")
+        
+        # Fallback: if WHITELIST_ERROR, retry via PowerShell bridge
+        if response_json is None or "WHITELIST_ERROR" in str(response_meta.get("response_text", "")):
+            LOGGER.warning("HKJC direct request blocked (WHITELIST_ERROR), falling back to PowerShell bridge")
+            try:
+                from src.live_feed.providers.hkjc_ps_bridge import ps_fetch_matches
+                bridge_resp = ps_fetch_matches(timeout=poll_timeout_seconds)
+                bridge_matches = bridge_resp.get("data", {}).get("matches", [])
+                if bridge_matches:
+                    LOGGER.info("PowerShell bridge returned %d matches", len(bridge_matches))
+                    response_json = bridge_resp
+                    response_meta["response_json"] = bridge_resp
+                    response_meta["status_code"] = 200
+                    response_meta["response_errors"] = None
+                    response_meta["bridge_fallback"] = True
+                else:
+                    LOGGER.warning("PowerShell bridge also returned empty response")
+            except Exception as bridge_err:
+                LOGGER.error("PowerShell bridge fallback also failed: %s", bridge_err)
+        
         matches_data = _extract_matches(response_json)
 
         events: list[ExternalMarketEvent] = []

@@ -28,120 +28,124 @@ _OPERATION_MARKERS: dict[str, str] = {
 # Exact frontend GraphQL documents extracted from the April 2026 JCBW main bundle.
 # These are kept as stable fallbacks when bundle discovery is unavailable.
 FRONTEND_MATCH_LIST_QUERY = """
-query matchList($startIndex: Int, $endIndex: Int,$startDate: String, $endDate: String, $matchIds: [String], $tournIds: [String], $fbOddsTypes: [FBOddsType]!, $fbOddsTypesM: [FBOddsType]!, $inplayOnly: Boolean, $featuredMatchesOnly: Boolean, $frontEndIds: [String], $earlySettlementOnly: Boolean, $showAllMatch: Boolean) {
-  matches(startIndex: $startIndex,endIndex: $endIndex, startDate: $startDate, endDate: $endDate, matchIds: $matchIds, tournIds: $tournIds, fbOddsTypes: $fbOddsTypesM, inplayOnly: $inplayOnly, featuredMatchesOnly: $featuredMatchesOnly, frontEndIds: $frontEndIds, earlySettlementOnly: $earlySettlementOnly, showAllMatch: $showAllMatch) {
-    id
-    frontEndId
-    matchDate
-    kickOffTime
-    status
-    updateAt
-    sequence
-    esIndicatorEnabled
-    homeTeam {
-      id
-      name_en
-      name_ch
-    }
-    awayTeam {
-      id
-      name_en
-      name_ch
-    }
-    tournament {
-      id
-      frontEndId
-      nameProfileId
-      isInteractiveServiceAvailable
-      code
-      name_en
-      name_ch
-    }
-    isInteractiveServiceAvailable
-    inplayDelay
-    venue {
-      code
-      name_en
-      name_ch
-    }
-    tvChannels {
-      code
-      name_en
-      name_ch
-    }
-    featureStartTime
-    featureMatchSequence
-    poolInfo {
-      normalPools
-      inplayPools
-      sellingPools
-      ntsInfo
-      entInfo
-      definedPools
-      ngsInfo {
-        str
-        name_en
-        name_ch
-        instNo
-      }
-      agsInfo {
-        str
-        name_en
-        name_ch
-      }
-    }
-    runningResult {
-      homeScore
-      awayScore
-      corner
-      homeCorner
-      awayCorner
-    }
-    runningResultExtra {
-      homeScore
-      awayScore
-      corner
-      homeCorner
-      awayCorner
-    }
-    adminOperation {
-      remark {
-        typ
-      }
-    }
-    foPools(fbOddsTypes: $fbOddsTypes) {
-      id
-      status
-      oddsType
-      instNo
-      inplay
-      name_ch
-      name_en
-      updateAt
-      expectedSuspendDateTime
-      lines {
-        lineId
-        status
-        condition
-        main
-        combinations {
-          combId
-          str
+      query matchList($startIndex: Int, $endIndex: Int,$startDate: String, $endDate: String, $matchIds: [String], $tournIds: [String], $fbOddsTypes: [FBOddsType]!, $fbOddsTypesM: [FBOddsType]!, $inplayOnly: Boolean, $featuredMatchesOnly: Boolean, $frontEndIds: [String], $earlySettlementOnly: Boolean, $showAllMatch: Boolean) {
+        matches(startIndex: $startIndex,endIndex: $endIndex, startDate: $startDate, endDate: $endDate, matchIds: $matchIds, tournIds: $tournIds, fbOddsTypes: $fbOddsTypesM, inplayOnly: $inplayOnly, featuredMatchesOnly: $featuredMatchesOnly, frontEndIds: $frontEndIds, earlySettlementOnly: $earlySettlementOnly, showAllMatch: $showAllMatch) {
+          id
+          frontEndId
+          matchDate
+          kickOffTime
           status
-          offerEarlySettlement
-          currentOdds
-          selections {
-            selId
-            str
+          updateAt
+          sequence
+          esIndicatorEnabled
+          homeTeam {
+            id
+            name_en
+            name_ch
+          }
+          awayTeam {
+            id
+            name_en
+            name_ch
+          }
+          tournament {
+            id
+            frontEndId
+            nameProfileId
+            isInteractiveServiceAvailable
+            code
+            name_en
+            name_ch
+          }
+          isInteractiveServiceAvailable
+          inplayDelay
+          venue {
+            code
+            name_en
+            name_ch
+          }
+          tvChannels {
+            code
+            name_en
+            name_ch
+          }
+          liveEvents {
+            id
+            code
+          }
+          featureStartTime
+          featureMatchSequence
+          poolInfo {
+            normalPools
+            inplayPools
+            sellingPools
+            ntsInfo
+            entInfo
+            definedPools
+            ngsInfo {
+              str
+              name_en
+              name_ch
+              instNo
+            }
+            agsInfo {
+              str
+              name_en
+              name_ch
+            }
+          }
+          runningResult {
+            homeScore
+            awayScore
+            corner
+            homeCorner
+            awayCorner
+          }
+          runningResultExtra {
+            homeScore
+            awayScore
+            corner
+            homeCorner
+            awayCorner
+          }
+          adminOperation {
+            remark {
+              typ
+            }
+          }
+          foPools(fbOddsTypes: $fbOddsTypes) {
+            id
+            status
+            oddsType
+            instNo
+            inplay
             name_ch
             name_en
+            updateAt
+            expectedSuspendDateTime
+            lines {
+              lineId
+              status
+              condition
+              main
+              combinations {
+                combId
+                str
+                status
+                offerEarlySettlement
+                currentOdds
+                selections {
+                  selId
+                  str
+                  name_ch
+                  name_en
+                }
+              }
+            }
           }
         }
       }
-    }
-  }
-}
-""".strip()
+      """.strip()
 
 FRONTEND_MATCH_RESULTS_QUERY = """
 query matchResults($startDate: String, $endDate: String, $startIndex: Int,$endIndex: Int,$teamId: String) {

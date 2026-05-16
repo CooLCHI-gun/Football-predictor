@@ -33,7 +33,7 @@ class AppSettings(BaseSettings):
     )
 
     min_edge_threshold: float = Field(default=0.02, alias="MIN_EDGE_THRESHOLD")
-    min_confidence_threshold: float = Field(default=0.56, alias="MIN_CONFIDENCE_THRESHOLD")
+    min_confidence_threshold: float = Field(default=0.03, alias="MIN_CONFIDENCE_THRESHOLD")
     max_concurrent_bets: int = Field(default=5, alias="MAX_CONCURRENT_BETS")
     max_daily_exposure: float = Field(default=0.05, alias="MAX_DAILY_EXPOSURE")
     skip_missing_data: bool = Field(default=True, alias="SKIP_MISSING_DATA")

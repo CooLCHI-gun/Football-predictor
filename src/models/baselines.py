@@ -471,6 +471,7 @@ def _train_direct_cover_model(
             probabilities,
         )
 
+    class_counts = np.bincount(y.astype(int))
     if model_name == "logistic_regression":
         estimator, calibration_method = _build_logistic_estimator(y=y)
         if sample_weight is not None:
@@ -492,17 +493,23 @@ def _train_direct_cover_model(
         )
 
     if model_name == "gradient_boosting":
-        estimator = Pipeline(
-            steps=[
-                ("imputer", SimpleImputer(strategy="median")),
-                ("classifier", HistGradientBoostingClassifier(random_state=42)),
-            ]
+        estimator = HistGradientBoostingClassifier(
+            random_state=42,
+            class_weight="balanced",
         )
         if sample_weight is not None:
             estimator.fit(X, y, classifier__sample_weight=sample_weight)
         else:
             estimator.fit(X, y)
         probabilities = estimator.predict_proba(X)[:, 1]
+        # Wrap with calibration when enough positive-class samples exist
+        if len(class_counts) >= 2 and int(class_counts.min()) >= 5 and len(y) >= 20:
+            cal_estimator = _wrap_calibrated_estimator(estimator, X, y, method="sigmoid")
+            # Use the full-data fit as the primary estimator; calibration wrapper for probability
+            probabilities = cal_estimator.predict_proba(X)[:, 1]
+            fallback_note = "HistGradientBoosting with balanced class_weight + sigmoid calibration."
+        else:
+            fallback_note = "HistGradientBoosting with balanced class_weight (calibration skipped: insufficient data)."
         return (
             ModelBundle(
                 model_name="gradient_boosting",
@@ -510,8 +517,8 @@ def _train_direct_cover_model(
                 include_market_features=include_market_features,
                 feature_columns=[],
                 estimator=estimator,
-                calibration_method="none",
-                fallback_note="Using scikit-learn HistGradientBoostingClassifier as the Phase 3 tree-based baseline.",
+                calibration_method="sigmoid" if (len(class_counts) >= 2 and int(class_counts.min()) >= 5 and len(y) >= 20) else "none",
+                fallback_note=fallback_note,
             ),
             np.asarray(probabilities, dtype=float),
         )
@@ -519,29 +526,36 @@ def _train_direct_cover_model(
     if model_name == "xgboost":
         if XGBClassifier is None:
             raise ValueError("xgboost is not installed. Install package 'xgboost' to use model_name=xgboost.")
-        estimator = Pipeline(
-            steps=[
-                ("imputer", SimpleImputer(strategy="median")),
-                (
-                    "classifier",
-                    XGBClassifier(
-                        random_state=42,
-                        n_estimators=300,
-                        max_depth=4,
-                        learning_rate=0.05,
-                        subsample=0.9,
-                        colsample_bytree=0.9,
-                        objective="binary:logistic",
-                        eval_metric="logloss",
-                    ),
-                ),
-            ]
+        # Compute scale_pos_weight from class distribution
+        neg_count = int(class_counts[0]) if len(class_counts) > 0 else 1
+        pos_count = int(class_counts[1]) if len(class_counts) > 1 else 1
+        scale_pos_weight = max(neg_count / max(pos_count, 1), 0.5)
+        estimator = XGBClassifier(
+            random_state=42,
+            n_estimators=300,
+            max_depth=4,
+            learning_rate=0.05,
+            subsample=0.9,
+            colsample_bytree=0.9,
+            scale_pos_weight=scale_pos_weight,
+            objective="binary:logistic",
+            eval_metric="logloss",
+            # Let XGBoost handle NaN natively — no SimpleImputer needed
         )
         if sample_weight is not None:
             estimator.fit(X, y, classifier__sample_weight=sample_weight)
         else:
             estimator.fit(X, y)
         probabilities = estimator.predict_proba(X)[:, 1]
+        # Wrap with calibration when enough data
+        if len(class_counts) >= 2 and int(class_counts.min()) >= 5 and len(y) >= 20:
+            cal_estimator = _wrap_calibrated_estimator(estimator, X, y, method="sigmoid")
+            probabilities = cal_estimator.predict_proba(X)[:, 1]
+            calibration_method = "sigmoid"
+            fallback_note = f"XGBoost with scale_pos_weight={scale_pos_weight:.2f} + sigmoid calibration (NaN handled natively)."
+        else:
+            calibration_method = "none"
+            fallback_note = f"XGBoost with scale_pos_weight={scale_pos_weight:.2f} (calibration skipped, NaN handled natively)."
         return (
             ModelBundle(
                 model_name="xgboost",
@@ -549,8 +563,8 @@ def _train_direct_cover_model(
                 include_market_features=include_market_features,
                 feature_columns=[],
                 estimator=estimator,
-                calibration_method="none",
-                fallback_note="Using XGBoost classifier as high-capacity tree model for direct_cover.",
+                calibration_method=calibration_method,
+                fallback_note=fallback_note,
             ),
             np.asarray(probabilities, dtype=float),
         )
@@ -558,28 +572,30 @@ def _train_direct_cover_model(
     if model_name == "lightgbm":
         if LGBMClassifier is None:
             raise ValueError("lightgbm is not installed. Install package 'lightgbm' to use model_name=lightgbm.")
-        estimator = Pipeline(
-            steps=[
-                ("imputer", SimpleImputer(strategy="median")),
-                (
-                    "classifier",
-                    LGBMClassifier(
-                        random_state=42,
-                        n_estimators=300,
-                        max_depth=-1,
-                        learning_rate=0.05,
-                        subsample=0.9,
-                        colsample_bytree=0.9,
-                        verbose=-1,
-                    ),
-                ),
-            ]
+        estimator = LGBMClassifier(
+            random_state=42,
+            n_estimators=300,
+            max_depth=-1,
+            learning_rate=0.05,
+            subsample=0.9,
+            colsample_bytree=0.9,
+            class_weight="balanced",
+            verbose=-1,
         )
         if sample_weight is not None:
             estimator.fit(X, y, classifier__sample_weight=sample_weight)
         else:
             estimator.fit(X, y)
         probabilities = estimator.predict_proba(X)[:, 1]
+        # Wrap with calibration when enough data
+        if len(class_counts) >= 2 and int(class_counts.min()) >= 5 and len(y) >= 20:
+            cal_estimator = _wrap_calibrated_estimator(estimator, X, y, method="sigmoid")
+            probabilities = cal_estimator.predict_proba(X)[:, 1]
+            calibration_method = "sigmoid"
+            fallback_note = "LightGBM with class_weight=balanced + sigmoid calibration (NaN handled natively)."
+        else:
+            calibration_method = "none"
+            fallback_note = "LightGBM with class_weight=balanced (calibration skipped: insufficient data, NaN handled natively)."
         return (
             ModelBundle(
                 model_name="lightgbm",
@@ -587,8 +603,8 @@ def _train_direct_cover_model(
                 include_market_features=include_market_features,
                 feature_columns=[],
                 estimator=estimator,
-                calibration_method="none",
-                fallback_note="Using LightGBM classifier as high-capacity tree model for direct_cover.",
+                calibration_method=calibration_method,
+                fallback_note=fallback_note,
             ),
             np.asarray(probabilities, dtype=float),
         )
@@ -771,24 +787,38 @@ def _build_logistic_estimator(y: np.ndarray) -> tuple[Pipeline | CalibratedClass
                     remainder="drop",
                 ),
             ),
-            ("classifier", LogisticRegression(max_iter=1000, random_state=42)),
+            ("classifier", LogisticRegression(max_iter=1000, random_state=42, class_weight="balanced")),
         ]
     )
 
-    class_counts = np.bincount(y)
+    class_counts = np.bincount(y.astype(int))
     if len(class_counts) >= 2 and int(class_counts.min()) >= 3 and len(y) >= 12:
         return CalibratedClassifierCV(estimator=base_pipeline, method="sigmoid", cv=3), "sigmoid"
     return base_pipeline, "none"
 
 
+def _wrap_calibrated_estimator(
+    estimator: Any, X: pd.DataFrame, y: np.ndarray, method: str = "sigmoid"
+) -> CalibratedClassifierCV:
+    """Wrap a fitted estimator with Platt scaling (sigmoid) calibration.
+
+    Uses 3-fold cross-validation on the training data. The base estimator
+    is passed as-is; CalibratedClassifierCV refits it on each CV fold to
+    produce well-calibrated probabilities without a separate hold-out set.
+    """
+    return CalibratedClassifierCV(estimator=estimator, method=method, cv=3).fit(X, y)
+
+
 def _direct_cover_target(row: pd.Series) -> float | None:
     line = row.get("handicap_close_line")
-    odds = row.get("odds_home_close")
-    if pd.isna(line) or pd.isna(odds):
-        return None
     target_side = str(row.get("target_handicap_side", "home")).strip().lower()
     if target_side not in {"home", "away"}:
         target_side = "home"
+    # Use side-specific odds — away-side bets must use odds_away_close
+    odds_col = "odds_home_close" if target_side == "home" else "odds_away_close"
+    odds = row.get(odds_col)
+    if pd.isna(line) or pd.isna(odds):
+        return None
     result = settle_handicap_bet(
         home_goals=int(row["ft_home_goals"]),
         away_goals=int(row["ft_away_goals"]),
