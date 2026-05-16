@@ -50,6 +50,16 @@ jobs:
             --mode failure \
             --run-id "${GITHUB_RUN_ID}"
 
+      - name: Notify Telegram on success
+        if: success()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python .github/scripts/send_telegram_report.py \
+            --mode success \
+            --run-id "${GITHUB_RUN_ID}"
+
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4

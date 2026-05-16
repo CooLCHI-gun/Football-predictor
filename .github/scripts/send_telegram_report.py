@@ -139,6 +139,26 @@ def _format_failure_message(
     return "\n".join(lines)
 
 
+def _format_success_message(
+    *,
+    run_id: str,
+    workflow_name: str,
+    repository: str,
+    branch: str,
+    run_url: str,
+) -> str:
+    lines = [
+        "✅ CI 執行成功",
+        f"🆔 Run ID：{run_id}",
+        "━━━━━━━━━━━━",
+        f"🛠️ Workflow：{_safe_text(workflow_name)}",
+        f"📦 Repo：{_safe_text(repository)}",
+        f"🌿 Branch：{_safe_text(branch)}",
+        f"🔗 {_safe_text(run_url)}",
+    ]
+    return "\n".join(lines)
+
+
 def _send_telegram_message(*, bot_token: str, chat_id: str, message: str) -> None:
     payload = parse.urlencode(
         {
@@ -157,7 +177,7 @@ def _send_telegram_message(*, bot_token: str, chat_id: str, message: str) -> Non
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Send concise backtest/optimizer/live reports to Telegram.")
-    parser.add_argument("--mode", choices=["backtest", "optimize", "live", "failure"], required=True)
+    parser.add_argument("--mode", choices=["backtest", "optimize", "live", "failure", "success"], required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--summary-path")
     parser.add_argument("--best-params-path")
@@ -206,6 +226,21 @@ def main() -> int:
             if not live_status_path.exists():
                 raise FileNotFoundError(f"live status file not found: {live_status_path}")
             message = _format_live_message(run_id=args.run_id, status_path=live_status_path)
+        elif args.mode == "success":
+            workflow_name = args.workflow_name or os.environ.get("GITHUB_WORKFLOW", "")
+            repository = args.repository or os.environ.get("GITHUB_REPOSITORY", "")
+            branch = args.branch or os.environ.get("GITHUB_REF_NAME", "")
+            run_url = args.run_url or (
+                f"{os.environ.get('GITHUB_SERVER_URL', '')}/{os.environ.get('GITHUB_REPOSITORY', '')}"
+                f"/actions/runs/{os.environ.get('GITHUB_RUN_ID', '')}"
+            )
+            message = _format_success_message(
+                run_id=args.run_id,
+                workflow_name=workflow_name,
+                repository=repository,
+                branch=branch,
+                run_url=run_url,
+            )
         else:
             workflow_name = args.workflow_name or os.environ.get("GITHUB_WORKFLOW", "")
             repository = args.repository or os.environ.get("GITHUB_REPOSITORY", "")
