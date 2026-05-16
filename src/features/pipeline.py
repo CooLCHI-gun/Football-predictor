@@ -493,10 +493,10 @@ def compute_features(df: pd.DataFrame) -> pd.DataFrame:
         feature_row.update(_results_detail_proxy_features(row))
 
         # ── Interaction features ──
-        h_points_5 = home_form_points_last5 if home_form_points_last5 is not None else None
-        a_points_5 = away_form_points_last5 if away_form_points_last5 is not None else None
-        h_elo = home_elo_pre if home_elo_pre is not None else None
-        a_elo = away_elo_pre if away_elo_pre is not None else None
+        h_points_5 = row.get("home_form_points_last5")
+        a_points_5 = row.get("away_form_points_last5")
+        h_elo = row.get("elo_home_pre")
+        a_elo = row.get("elo_away_pre")
         hdc_close = row.get("handicap_close_line")
         hdc_open = row.get("handicap_open_line")
 
