@@ -85,7 +85,7 @@ jobs:
             --run-id "${RUN_ID}_logistic" \
             --force
 
-      - name: Send Telegram report
+      - name: Send Telegram report (backtest)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -106,6 +106,17 @@ jobs:
               --run-id "${RUN_ID}_logistic" \
               --summary-path "$LR_SUMMARY"
           fi
+
+      - name: Predict upcoming matches & send Telegram alerts
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          EDGE_THRESHOLD: "0.02"
+          CONFIDENCE_THRESHOLD: "0.05"
+          MAX_ALERTS: "5"
+        run: |
+          python .github/scripts/odds_predict.py
 
       - name: Upload trained models
         if: always()
