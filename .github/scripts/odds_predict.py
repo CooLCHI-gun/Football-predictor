@@ -22,6 +22,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.models.baselines import load_model_bundle, get_feature_columns, build_feature_frame
+from src.adapters.hkjc_naming import _TEAM_ZH_MAP
 
 
 # ─── Config ───────────────────────────────────────────────────
@@ -45,13 +46,13 @@ SOCCER_LEAGUES = [
 ]
 
 LEAGUE_LABELS = {
-    "soccer_epl": "英超",
-    "soccer_spain_la_liga": "西甲",
-    "soccer_italy_serie_a": "意甲",
-    "soccer_germany_bundesliga2": "德乙",
-    "soccer_france_ligue_one": "法甲",
-    "soccer_uefa_champs_league": "歐聯",
-    "soccer_usa_mls": "美職聯",
+    "soccer_epl": "英格蘭超級聯賽",
+    "soccer_spain_la_liga": "西班牙甲組聯賽",
+    "soccer_italy_serie_a": "意大利甲組聯賽",
+    "soccer_germany_bundesliga2": "德國甲組聯賽",
+    "soccer_france_ligue_one": "法國甲組聯賽",
+    "soccer_uefa_champs_league": "盃賽",
+    "soccer_usa_mls": "美國職業聯賽",
 }
 
 
@@ -215,8 +216,10 @@ def predict_matches(
 
 def format_alert(match: dict[str, Any]) -> str:
     """Format a single prediction as Telegram message (Traditional Chinese)."""
-    home = match.get("home_team_name", "?")
-    away = match.get("away_team_name", "?")
+    home_en = match.get("home_team_name", "?")
+    away_en = match.get("away_team_name", "?")
+    home = _TEAM_ZH_MAP.get(home_en, home_en)
+    away = _TEAM_ZH_MAP.get(away_en, away_en)
     league = match.get("competition", "?")
     side = "主隊" if match.get("predicted_side") == "home" else "客隊"
     prob = match.get("model_probability", 0)
