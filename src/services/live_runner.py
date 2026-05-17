@@ -299,8 +299,9 @@ class LiveRunner:
             source="live-runner",
         )
 
-        alert_log_path = self._config.output_dir / "live_alert_log.csv"
-        sent_match_keys_path = self._config.output_dir / "live_sent_match_keys.csv"
+        mode_suffix = "dryrun" if self._config.dry_run else "live"
+        alert_log_path = self._config.output_dir / f"live_alert_log_{mode_suffix}.csv"
+        sent_match_keys_path = self._config.output_dir / f"live_sent_match_keys_{mode_suffix}.csv"
         ranked_candidates = candidates_df.copy()
         ranked_candidates["_match_key"] = ranked_candidates.apply(self._build_match_key, axis=1)
         ranked_candidates = ranked_candidates.sort_values(["edge", "confidence_score"], ascending=False)

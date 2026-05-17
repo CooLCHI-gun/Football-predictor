@@ -72,7 +72,8 @@ def send_telegram_alert(
     filtered["edge"] = filtered["model_probability"].astype(float) - filtered["implied_probability"].astype(float)
     filtered = filtered[filtered["edge"] >= edge_threshold]
 
-    alert_log_path = Path("artifacts/live/live_alert_log.csv")
+    mode_suffix = "dryrun" if settings.telegram_dry_run else "live"
+    alert_log_path = Path(f"artifacts/live/live_alert_log_{mode_suffix}.csv")
     filtered["match_key"] = filtered.apply(_build_match_key, axis=1)
     filtered["alert_day"] = filtered["kickoff_time_utc"].dt.date.astype(str)
     filtered["dedup_key"] = filtered["alert_day"] + "|" + filtered["match_key"]
