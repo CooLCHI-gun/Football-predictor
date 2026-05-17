@@ -1,0 +1,137 @@
+name: Daily Model Training
+
+on:
+  schedule:
+    - cron: '0 17 * * *'   # 01:00 HKT (17:00 UTC)
+  workflow_dispatch:         # manual trigger
+
+concurrency:
+  group: daily-train-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      RUN_ID: daily_train_${{ github.run_id }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Download fresh football-data.co.uk data
+        run: |
+          python -m src.main download-real-data \
+            --force
+
+      - name: Build full features
+        run: |
+          python -m src.main build-features-full \
+            --input-path data/raw/real/historical_matches_real_non_hkjc.csv \
+            --output-path data/processed/features_phase3_full.csv \
+            --force
+
+      - name: Validate training data
+        run: |
+          python .github/scripts/validate_training_data.py \
+            --input-path data/processed/features_phase3_full.csv \
+            --min-real-rows 300 \
+            --strict-after-min-real || echo "Validation warning (non-fatal)"
+
+      - name: Train model (rule_based)
+        run: |
+          python -m src.main train \
+            --input-path data/processed/features_phase3_full.csv \
+            --model-name rule_based \
+            --model-output-path artifacts/model_bundle_rule_based.pkl \
+            --report-output-path artifacts/train_report_rule_based.json \
+            --force
+
+      - name: Train model (logistic_regression)
+        run: |
+          python -m src.main train \
+            --input-path data/processed/features_phase3_full.csv \
+            --model-name logistic_regression \
+            --model-output-path artifacts/model_bundle_logistic.pkl \
+            --report-output-path artifacts/train_report_logistic.json \
+            --force
+
+      - name: Backtest (rule_based)
+        run: |
+          python -m src.main backtest \
+            --input-csv-path data/processed/features_phase3_full.csv \
+            --output-dir artifacts/backtest \
+            --model-name rule_based \
+            --run-id "${RUN_ID}_rule_based" \
+            --force
+
+      - name: Backtest (logistic_regression)
+        run: |
+          python -m src.main backtest \
+            --input-csv-path data/processed/features_phase3_full.csv \
+            --output-dir artifacts/backtest \
+            --model-name logistic_regression \
+            --run-id "${RUN_ID}_logistic" \
+            --force
+
+      - name: Send Telegram report
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          # rule_based backtest summary
+          RB_SUMMARY=$(ls artifacts/backtest/${RUN_ID}_rule_based/summary.csv 2>/dev/null || echo "")
+          if [ -n "$RB_SUMMARY" ]; then
+            python .github/scripts/send_telegram_report.py \
+              --mode backtest \
+              --run-id "${RUN_ID}_rule_based" \
+              --summary-path "$RB_SUMMARY"
+          fi
+          # logistic_regression backtest summary
+          LR_SUMMARY=$(ls artifacts/backtest/${RUN_ID}_logistic/summary.csv 2>/dev/null || echo "")
+          if [ -n "$LR_SUMMARY" ]; then
+            python .github/scripts/send_telegram_report.py \
+              --mode backtest \
+              --run-id "${RUN_ID}_logistic" \
+              --summary-path "$LR_SUMMARY"
+          fi
+
+      - name: Upload trained models
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trained-models-${{ github.run_id }}
+          retention-days: 30
+          path: |
+            artifacts/model_bundle_rule_based.pkl
+            artifacts/model_bundle_logistic.pkl
+            artifacts/train_report_rule_based.json
+            artifacts/train_report_logistic.json
+            artifacts/backtest/**
+          if-no-files-found: ignore
+
+      - name: Notify Telegram on failure
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python .github/scripts/send_telegram_report.py \
+            --mode failure \
+            --run-id "${GITHUB_RUN_ID}" \
+            --workflow-name "${{ github.workflow }}" \
+            --repository "${{ github.repository }}" \
+            --branch "${{ github.ref_name }}" \
+            --actor "${{ github.actor }}" \
+            --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
