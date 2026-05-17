@@ -244,7 +244,12 @@ def main() -> int:
         return 1
 
     # Find latest trained model
-    model_path = Path("artifacts/model_bundle_rule_based.pkl")
+    # Use logistic_regression model (rule_based has empty feature_columns and
+    # can't handle the Odds API input which lacks team history features).
+    # Logistic model uses sklearn pipeline with imputers for NaN features.
+    model_path = Path("artifacts/model_bundle_logistic.pkl")
+    if not model_path.exists():
+        model_path = Path("artifacts/model_bundle_rule_based.pkl")
     if not model_path.exists():
         model_path = Path("artifacts/model_bundle.pkl")
     if not model_path.exists():
