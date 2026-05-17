@@ -45,13 +45,13 @@ SOCCER_LEAGUES = [
 ]
 
 LEAGUE_LABELS = {
-    "soccer_epl": "EPL",
-    "soccer_spain_la_liga": "La Liga",
-    "soccer_italy_serie_a": "Serie A",
-    "soccer_germany_bundesliga2": "Bundesliga 2",
-    "soccer_france_ligue_one": "Ligue 1",
-    "soccer_uefa_champs_league": "UCL",
-    "soccer_usa_mls": "MLS",
+    "soccer_epl": "英超",
+    "soccer_spain_la_liga": "西甲",
+    "soccer_italy_serie_a": "意甲",
+    "soccer_germany_bundesliga2": "德乙",
+    "soccer_france_ligue_one": "法甲",
+    "soccer_uefa_champs_league": "歐聯",
+    "soccer_usa_mls": "美職聯",
 }
 
 
@@ -230,11 +230,11 @@ def format_alert(match: dict[str, Any]) -> str:
     conf_label = "強勢" if conf >= 0.5 else "正向" if conf >= 0.3 else "觀察"
 
     return (
-        f"⚽ {home} vs {away}（{league}）\n"
-        f"🕐 {kickoff}\n"
-        f"📊 讓球：{handicap:+.2f}  |  賠率：{odds:.2f}\n"
+        f"⚽ {home} 對 {away}（{league}）\n"
+        f"🕐 {kickoff} HKT\n"
+        f"📊 讓球：{handicap:+.2f} ｜ 賠率：{odds:.2f}\n"
         f"🎯 推薦：{side}（信心：{conf_label} {conf:.0%}）\n"
-        f"💹 邊際：{edge_pct}  |  預測：{prob:.1%}"
+        f"💹 值博率：{edge_pct} ｜ 預測概率：{prob:.1%}"
     )
 
 
