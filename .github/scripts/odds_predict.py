@@ -214,11 +214,11 @@ def predict_matches(
 
 
 def format_alert(match: dict[str, Any]) -> str:
-    """Format a single prediction as Telegram message."""
+    """Format a single prediction as Telegram message (Traditional Chinese)."""
     home = match.get("home_team_name", "?")
     away = match.get("away_team_name", "?")
     league = match.get("competition", "?")
-    side = "主" if match.get("predicted_side") == "home" else "客"
+    side = "主隊" if match.get("predicted_side") == "home" else "客隊"
     prob = match.get("model_probability", 0)
     edge = match.get("edge", 0)
     conf = match.get("confidence_score", 0)
@@ -230,11 +230,11 @@ def format_alert(match: dict[str, Any]) -> str:
     conf_label = "強勢" if conf >= 0.5 else "正向" if conf >= 0.3 else "觀察"
 
     return (
-        f"⚽ {home} vs {away} ({league})\n"
-        f"🕐 {kickoff} HKT\n"
-        f"📊 讓球: {handicap:+.2f} | 賠率: {odds:.2f}\n"
-        f"🎯 推薦: {side} (信心: {conf_label} {conf:.0%})\n"
-        f"💹 Edge: {edge_pct}  | 預測: {prob:.1%}"
+        f"⚽ {home} vs {away}（{league}）\n"
+        f"🕐 {kickoff}\n"
+        f"📊 讓球：{handicap:+.2f}  |  賠率：{odds:.2f}\n"
+        f"🎯 推薦：{side}（信心：{conf_label} {conf:.0%}）\n"
+        f"💹 邊際：{edge_pct}  |  預測：{prob:.1%}"
     )
 
 
@@ -297,7 +297,7 @@ def main() -> int:
         result_df = pd.DataFrame(all_candidates)
         result_df.to_csv(output_dir / f"today_candidates_{datetime.now().strftime('%Y%m%d')}.csv", index=False)
         print(f"\n✅ Total alerts sent: {len(all_candidates)}")
-        send_telegram(f"📊 每日預測完成：{len(all_candidates)} 個推薦")
+        send_telegram(f"📊 每日預測完成：{len(all_candidates)} 個推薦已發送")
     else:
         print("\n❌ No candidates found")
         send_telegram("📊 每日預測完成：今日無推薦（邊際不足）")
